@@ -547,61 +547,374 @@
   .deny-access-button:hover {
     background-color: #cc0000;
   }
-    /*============================================================================================= View All Exams */
-    .view-all-exams-container {
+/*============================================================================================= View All Exams */
+.view-all-exams-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4fc;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  .view-all-exams-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: #333;
+  }
+  
+  .view-all-exams-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2em;
+  }
+  
+  .exam-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    width: 100%;
+    max-width: 700px;
+  }
+  
+  .exam-card {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .exam-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .exam-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0 0 10px;
+  }
+  
+  .exam-card p {
+    font-size: 1rem;
+    color: #666;
+  }
+/* ============================================================================================= */
+      /* ============================================================================================= Login */
+      .login-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        min-height: 100vh;
         background-color: #f0f4fc;
         padding: 20px;
-        min-height: 100vh;
       }
       
-      .view-all-exams-container h1 {
+      .login-container h1 {
         font-size: 2.5rem;
         font-weight: bold;
-        margin-bottom: 1em;
         color: #333;
+        margin-bottom: 1em;
       }
       
-      .view-all-exams-container p {
-        font-size: 1rem;
-        color: #555;
-        margin-bottom: 2em;
-      }
-      
-      .exam-list {
+      .login-form {
         display: flex;
         flex-direction: column;
-        gap: 1.5em;
+        align-items: center;
         width: 100%;
-        max-width: 700px;
+        max-width: 400px;
       }
       
-      .exam-card {
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-      }
-      
-      .exam-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      }
-      
-      .exam-card h2 {
-        font-size: 1.5rem;
-        color: #333;
-        margin: 0 0 10px;
-      }
-      
-      .exam-card p {
+      .login-input {
+        width: 100%;
+        padding: 10px;
+        margin: 0.5em 0;
         font-size: 1rem;
-        color: #666;
+        border: 1px solid #ccc;
+        border-radius: 5px;
       }
       
+      .login-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 1em;
+      }
+      
+      .login-button:hover {
+        background-color: #0056d2;
+      }
+      
+      .register-message {
+        margin-top: 1.5em;
+        font-size: 0.9rem;
+        color: #555;
+      }
+      
+      .register-link {
+        color: #0056d2;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+      .register-link:hover {
+        text-decoration: underline;
+      }
+
+/* ============================================================================================= register */  
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4fc;
+    padding: 20px;
+  }
   
+  .register-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1em;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .register-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .role-selection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .role-selection label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em;
+  }
+  
+  .register-button:hover {
+    background-color: #0056d2;
+  }
+  
+  .login-message {
+    margin-top: 1.5em;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .login-link {
+    color: #0056d2;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .login-link:hover {
+    text-decoration: underline;
+  }
+/* ============================================================================================= join a course */
+.join-course-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4fc;
+    padding: 20px;
+  }
+  
+  .join-course-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1em;
+  }
+  
+  .join-course-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .join-course-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .join-course-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em;
+  }
+  
+  .join-course-button:hover {
+    background-color: #0056d2;
+  }
+/* ============================================================================================= Take an exam*/
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4fc;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: #333;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5em;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1em;
+  }
+  
+  .submit-button {
+    background-color: #000;
+    color: #fff;
+    font-size: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056d2;
+  }
+/* ============================================================================================= view grades & feedback */ 
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4fc;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1em;
+    color: #333;
+  }
+  
+  .exams-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .exam-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    color: #333;
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .exam-button:hover {
+    background-color: #e0e7ff;
+  }
+  
+  .exam-name {
+    font-weight: bold;
+  }
+  
+  .exam-grade {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+
