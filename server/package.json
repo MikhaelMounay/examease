@@ -8,7 +8,7 @@
         "db:generate": "npx drizzle-kit generate",
         "db:migrate": "npx drizzle-kit migrate",
         "db:studio": "npx drizzle-kit studio --port 4000",
-        "dev": "npm run db:generate && npm run db:migrate && node --loader=ts-node/esm --env-file=.env --watch src/index.ts",
+        "dev": "node --loader=ts-node/esm --env-file=.env --watch src/index.ts",
         "build": "npx tsc",
         "start": "node --env-file=.env dist/index.js"
     },
