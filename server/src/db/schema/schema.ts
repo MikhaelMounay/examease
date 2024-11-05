@@ -1,5 +1,12 @@
 import { boolean, char, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
+// Define timestamps for all tables
+const timestamps = {
+    updatedAt: timestamp(),
+    createdAt: timestamp().defaultNow().notNull(),
+    deletedAt: timestamp(),
+};
+
 // Define the role enum
 export const roleEnum = pgEnum("role", ["admin", "instructor", "student"]);
 
@@ -14,9 +21,7 @@ export const usersTable = pgTable("users", {
     department: text(),
     classStanding: text(),
     major: text(),
-    updatedAt: timestamp(),
-    createdAt: timestamp().defaultNow().notNull(),
-    deletedAt: timestamp(),
+    ...timestamps,
 });
 
 // Define the courses table schema
@@ -27,5 +32,5 @@ export const coursesTable = pgTable("courses", {
     title: text().notNull(),
     numStudents: integer().default(0),
     instructorId: integer().references(() => usersTable.id),
-    createdAt: timestamp().defaultNow(),
+    ...timestamps,
 });
