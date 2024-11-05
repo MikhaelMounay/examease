@@ -7,16 +7,18 @@ const timestamps = {
     deletedAt: timestamp(),
 };
 
-// Define the role enum
-export const roleEnum = pgEnum("role", ["admin", "instructor", "student"]);
+// #region User schema
 
-// Define the users table schema
+// Define the role enum
+export const roleEnum = pgEnum("role", ["ADMIN", "INSTRUCTOR", "STUDENT"]);
+
+// Define the `users` table schema and infer Typescript types
 export const usersTable = pgTable("users", {
-    id: serial().primaryKey(),
+    id: serial().primaryKey().notNull(),
     aucId: text().unique().notNull(),
     name: text().notNull(),
     email: text().unique().notNull(),
-    hashedPassword: char({ length: 64 }).notNull(),
+    password: char({ length: 60 }).notNull(),
     role: roleEnum().notNull(),
     department: text(),
     classStanding: text(),
@@ -24,9 +26,18 @@ export const usersTable = pgTable("users", {
     ...timestamps,
 });
 
-// Define the courses table schema
+export type User = typeof usersTable.$inferSelect;
+export type NewUser = typeof usersTable.$inferInsert;
+export type UserWithoutPassword = Omit<User, "password">;
+export type UserWithToken = UserWithoutPassword & { token: string };
+
+// #endregion
+
+// #region Course schema
+
+// Define the `courses` table schema and infer Typescript types
 export const coursesTable = pgTable("courses", {
-    courseId: serial().primaryKey(),
+    courseId: serial().primaryKey().notNull(),
     openForEnrollment: boolean().notNull(),
     enrollmentKey: text().unique(),
     title: text().notNull(),
@@ -34,3 +45,8 @@ export const coursesTable = pgTable("courses", {
     instructorId: integer().references(() => usersTable.id),
     ...timestamps,
 });
+
+export type Course = typeof coursesTable.$inferSelect;
+export type NewCourse = typeof coursesTable.$inferInsert;
+
+// #endregion
