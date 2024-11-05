@@ -1,9 +1,88 @@
 {
-  "id": "5e94a925-0805-4ac1-a1d4-0348393350a0",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "6116fa45-fb82-4eb9-ba10-cb09a15c365d",
+  "prevId": "5e94a925-0805-4ac1-a1d4-0348393350a0",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.courses": {
+      "name": "courses",
+      "schema": "",
+      "columns": {
+        "courseId": {
+          "name": "courseId",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "openForEnrollment": {
+          "name": "openForEnrollment",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enrollmentKey": {
+          "name": "enrollmentKey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numStudents": {
+          "name": "numStudents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "instructorId": {
+          "name": "instructorId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "courses_instructorId_users_id_fk": {
+          "name": "courses_instructorId_users_id_fk",
+          "tableFrom": "courses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "instructorId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "courses_enrollmentKey_unique": {
+          "name": "courses_enrollmentKey_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "enrollmentKey"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.users": {
       "name": "users",
       "schema": "",
