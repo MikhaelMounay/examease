@@ -7,6 +7,7 @@ import CourseView from "../pages/CourseView";
 import MakeExamView from "../pages/MakeExamView";
 import ManageStudentsView from "../pages/ManageStudentsView";
 import MonitorLiveExams from "../pages/MonitorExamView";
+import ViewAllExams from "../pages/AllExamsView";
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 <Route path = "/make-exam" element = {<MakeExamView/>} />
 <Route path = "/manage-students" element = {<ManageStudentsView/>} />
 <Route path = "/monitor-exams" element = {<MonitorLiveExams/>} />
+<Route path = "/view-exams" element = {<ViewAllExams/>} />
 </Route>
 ));
 

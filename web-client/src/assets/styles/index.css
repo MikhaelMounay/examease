@@ -315,16 +315,16 @@
     font-weight: 500;
   }
   
-  .actions-grid {
+  .actions-grid1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1 rem;
+    gap: 20px;
     width: 100%;
     max-width: 700px;
     margin-top: 20px;
   }
   
-  .action-button {
+  .action-button1{
     background-color: #000;
     color: #fff;
     font-size: 1rem !important;
@@ -341,13 +341,13 @@
     text-align: center;
   }
   
-  .action-button:hover {
+  .action-button1:hover {
     background-color: #0056d2;
     transform: translateY(-3px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   }
   
-  .action-button:active {
+  .action-button1:active {
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -547,4 +547,61 @@
   .deny-access-button:hover {
     background-color: #cc0000;
   }
+    /*============================================================================================= View All Exams */
+    .view-all-exams-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #f0f4fc;
+        padding: 20px;
+        min-height: 100vh;
+      }
+      
+      .view-all-exams-container h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1em;
+        color: #333;
+      }
+      
+      .view-all-exams-container p {
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 2em;
+      }
+      
+      .exam-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
+        width: 100%;
+        max-width: 700px;
+      }
+      
+      .exam-card {
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      
+      .exam-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .exam-card h2 {
+        font-size: 1.5rem;
+        color: #333;
+        margin: 0 0 10px;
+      }
+      
+      .exam-card p {
+        font-size: 1rem;
+        color: #666;
+      }
+      
   
