@@ -8,18 +8,14 @@ type AuthContextData = {
     userData?: UserWithoutPassword | null;
     token?: string | null;
     isAuthenticated: boolean;
-};
-
-const AuthContext = createContext<{
-    user: AuthContextData;
     login: (email: string, password: string) => Promise<unknown>;
     logout: () => void;
-}>({
-    user: {
-        userData: null,
-        token: null,
-        isAuthenticated: false,
-    },
+};
+
+const AuthContext = createContext<AuthContextData>({
+    userData: null,
+    token: null,
+    isAuthenticated: true,
     login: async () => {},
     logout: () => {},
 });
@@ -27,15 +23,14 @@ export const AuthData = () => useContext(AuthContext);
 
 const AuthWrapper: React.FC = function () {
     // States
-    const [user, setUser] = useState<AuthContextData>({
-        userData: null,
-        token: null,
-        isAuthenticated: false,
-    });
+    const [userData, setUserData] = useState<UserWithoutPassword | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
     useEffect(() => {
         const token = localStorage.getItem("user_token");
         if (!token) {
+            setIsAuthenticated(false);
             return;
         }
 
@@ -47,15 +42,16 @@ const AuthWrapper: React.FC = function () {
             .then((response) => response.json())
             .then((data) => {
                 if (token && data) {
-                    setUser({
-                        userData: JSON.parse(data),
-                        token: token,
-                        isAuthenticated: true,
-                    });
+                    setUserData(data);
+                    setToken(token);
+                    setIsAuthenticated(true);
+                } else {
+                    setIsAuthenticated(false);
                 }
             })
             .catch((err) => {
                 console.log("Error: ", err);
+                setIsAuthenticated(false);
             });
     }, []);
 
@@ -64,16 +60,18 @@ const AuthWrapper: React.FC = function () {
         return new Promise((resolve, reject) => {
             try {
                 fetch(import.meta.env.VITE_API_URL + "/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     body: JSON.stringify({ email, password }),
                 })
                     .then((response) => response.json())
                     .then((data) => {
                         const { token, ...userWithoutPassword } = data;
-                        setUser({
-                            userData: userWithoutPassword,
-                            token: token,
-                            isAuthenticated: true,
-                        });
+                        setUserData(userWithoutPassword);
+                        setToken(token);
+                        setIsAuthenticated(true);
                         localStorage.setItem("user_token", token);
                         resolve(data);
                     });
@@ -85,14 +83,16 @@ const AuthWrapper: React.FC = function () {
     }
 
     function logout() {
-        setUser({ userData: null, token: null, isAuthenticated: false });
+        setUserData(null);
+        setToken(null);
+        setIsAuthenticated(false);
         localStorage.removeItem("user_token");
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
-            {user.isAuthenticated && <MainLayout />}
-            {!user.isAuthenticated && <LoginLayout />}
+        <AuthContext.Provider value={{ userData, token, isAuthenticated, login, logout }}>
+            {isAuthenticated && <MainLayout />}
+            {!isAuthenticated && <LoginLayout />}
         </AuthContext.Provider>
     );
 };

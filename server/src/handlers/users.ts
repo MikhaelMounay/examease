@@ -42,6 +42,9 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         // Find the user by email
         const [user] = await db.select().from(usersTable).where(eq(usersTable.email, req.body.email)).limit(1);
 
+        console.log("Email: ", req.body.email);
+        console.log("User: ", user);
+
         if (!user) {
             res.status(401).json({ message: "Invalid email or password." });
             return;

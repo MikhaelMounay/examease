@@ -19,21 +19,23 @@ import { ProtectedRoute } from "../components/auth/ProtectedRoute";
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
-            <Route index element={<ProtectedRoute Component={HomeView} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="courses" element={<ProtectedRoute Component={CoursesView} />} />
-            <Route path="create-course" element={<ProtectedRoute Component={NewCourseView} />} />
-            <Route path="/home" element={<ProtectedRoute Component={HomeView} />} />
-            <Route path="/course" element={<ProtectedRoute Component={CourseView} />} />
-            <Route path="/make-exam" element={<ProtectedRoute Component={MakeExamView} />} />
-            <Route path="/manage-students" element={<ProtectedRoute Component={ManageStudentsView} />} />
-            <Route path="/monitor-exams" element={<ProtectedRoute Component={MonitorLiveExams} />} />
-            <Route path="/view-exams" element={<ProtectedRoute Component={ViewAllExams} />} />
-            <Route path="/student-home" element={<ProtectedRoute Component={StudentHomeView} />} />
-            <Route path="/join-course" element={<ProtectedRoute Component={JoinCoursePage} />} />
-            <Route path="/take-exam" element={<ProtectedRoute Component={TakeExamPage} />} />
-            <Route path="/view-grades" element={<ProtectedRoute Component={ViewGradesPage} />} />
+            <Route path="/" element={<ProtectedRoute />}>
+                <Route index element={<HomeView />} />
+                <Route path="courses" element={<CoursesView />} />
+                <Route path="create-course" element={<NewCourseView />} />
+                <Route path="/home" element={<HomeView />} />
+                <Route path="/course" element={<CourseView />} />
+                <Route path="/make-exam" element={<MakeExamView />} />
+                <Route path="/manage-students" element={<ManageStudentsView />} />
+                <Route path="/monitor-exams" element={<MonitorLiveExams />} />
+                <Route path="/view-exams" element={<ViewAllExams />} />
+                <Route path="/student-home" element={<StudentHomeView />} />
+                <Route path="/join-course" element={<JoinCoursePage />} />
+                <Route path="/take-exam" element={<TakeExamPage />} />
+                <Route path="/view-grades" element={<ViewGradesPage />} />
+            </Route>
         </Route>
     )
 );

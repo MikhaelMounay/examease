@@ -29,6 +29,13 @@
       "when": 1730818494742,
       "tag": "0003_salty_amphibian",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1730880845984,
+      "tag": "0004_sleepy_shinko_yamashiro",
+      "breakpoints": true
     }
   ]
 }

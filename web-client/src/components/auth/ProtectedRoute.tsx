@@ -1,12 +1,17 @@
-import { Navigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { AuthData } from "../../contexts/AuthWrapper";
+import { useEffect } from "react";
 
-export const ProtectedRoute = ({ Component }: { Component: React.FC }) => {
-    const { user } = AuthData();
+export const ProtectedRoute = () => {
+    const { isAuthenticated } = AuthData();
+    const navigate = useNavigate();
 
-    if (!user.isAuthenticated) {
-        return <Navigate to="/login" />;
-    }
+    useEffect(() => {
+        console.log("ProtectedRoute isAuthenticated: ", isAuthenticated);
+        if (!isAuthenticated) {
+            navigate("/login");
+        }
+    }, [navigate, isAuthenticated]);
 
-    return <Component />;
+    return <Outlet />;
 };

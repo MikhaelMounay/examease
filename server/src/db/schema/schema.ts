@@ -1,4 +1,4 @@
-import { boolean, char, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 // Define timestamps for all tables
 const timestamps = {
@@ -18,7 +18,7 @@ export const usersTable = pgTable("users", {
     aucId: text().unique().notNull(),
     name: text().notNull(),
     email: text().unique().notNull(),
-    password: char({ length: 60 }).notNull(),
+    password: text().notNull(),
     role: roleEnum().notNull(),
     department: text(),
     classStanding: text(),
