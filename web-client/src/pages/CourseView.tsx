@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import RegisterPage from './RegisterView';
+import { AuthData } from '../contexts/AuthWrapper';
 
 const CourseView: React.FC = () => {
   const navigate = useNavigate();
-  const Role = 'student'; // Update the role of the user
+  const { userData } = AuthData();
   const student_functions = () => (
     <div className="actions-grid1">
         <button 
@@ -54,7 +54,7 @@ const CourseView: React.FC = () => {
       <h1>Course Name: Introduction to programming </h1> {/* Update the course title */}
       <h2>Select an action for this course</h2>
       <div>
-      {Role === 'teacher' ? teacher_functions() : student_functions()}
+      {userData?.role === "INSTRUCTOR" ? teacher_functions() : student_functions()}
     </div>
       
     </div> 

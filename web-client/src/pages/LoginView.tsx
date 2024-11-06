@@ -5,11 +5,11 @@ import { useMutation } from "@tanstack/react-query";
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-
     const { login } = AuthData();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const loginMutation = useMutation({
         mutationFn: async (data: { email: string; password: string }) => {
@@ -18,16 +18,25 @@ const LoginPage: React.FC = () => {
         onSuccess: () => {
             navigate("/home");
         },
-        onError: (error) => {
-            console.error(error);
+        onError: () => {
+            setErrorMessage("Invalid login credentials, please try again.");
         },
     });
 
+    const validateEmail = (email: string) => {
+        return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email);
+    };
+
     const handleLogin = () => {
-        if (email && password) {
-            loginMutation.mutate({ email, password });
+        if (!email || !password) {
+            setErrorMessage("Email and password are required.");
+        } else if (!validateEmail(email)) {
+            setErrorMessage("Please enter a valid email address.");
+        } else if (password.length < 6) {
+            setErrorMessage("Password should be at least 6 characters long.");
         } else {
-            console.error("Email and password are required"); // TODO: Show error message
+            setErrorMessage("");
+            loginMutation.mutate({ email, password });
         }
     };
 
@@ -53,6 +62,11 @@ const LoginPage: React.FC = () => {
                     Login
                 </button>
             </div>
+
+            {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+            )}
+
             <p className="register-message">
                 New to the app?{" "}
                 <span className="register-link" onClick={() => navigate("/register")}>
