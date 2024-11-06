@@ -36,19 +36,23 @@ const RegisterPage: React.FC = () => {
         if (name && email && password && confirmPassword && aucId && role) {
             if (!validateEmail(email)) {
                 setErrorMessage("Please enter a valid email address.");
+                return;
             } else if (password.length < 6) {
                 setErrorMessage("Password should be at least 6 characters long.");
-            }
-             else if (password !== confirmPassword) {
+                return;
+            } else if (password !== confirmPassword) {
                 setErrorMessage("Passwords don't match");
+                return;
             }
         }
-        else if (!name || !email || !password || !confirmPassword || !aucId || !role) {
-            setErrorMessage("All fields are required");  }
-        else {
-            setErrorMessage("");
-            registerMutation.mutate({ name, email, password, aucId, role });
+
+        if (!name || !email || !password || !confirmPassword || !aucId || !role) {
+            setErrorMessage("All fields are required");
+            return;
         }
+
+        setErrorMessage("");
+        registerMutation.mutate({ name, email, password, aucId, role });
     };
     return (
         <div className="register-container">
@@ -114,9 +118,7 @@ const RegisterPage: React.FC = () => {
                 <button onClick={handleRegister} className="register-button">
                     Register
                 </button>
-                {errorMessage && (
-                <div className="error-message">{errorMessage}</div>
-            )}
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
             </div>
             <p className="login-message">
                 Already have an account?{" "}
