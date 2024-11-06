@@ -28,18 +28,27 @@ const RegisterPage: React.FC = () => {
             setErrorMessage("Invalid login credentials, please try again.");
         },
     });
+    const validateEmail = (email: string) => {
+        return /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email);
+    };
 
     const handleRegister = () => {
         if (name && email && password && confirmPassword && aucId && role) {
-            if (password === confirmPassword) {
-                registerMutation.mutate({ name, email, password, aucId, role });
-            } else {
-                setErrorMessage("Passwords don't match");
+            if (!validateEmail(email)) {
+                setErrorMessage("Please enter a valid email address.");
+            } else if (password.length < 6) {
+                setErrorMessage("Password should be at least 6 characters long.");
             }
-        } else {
+             else if (password !== confirmPassword) {
+                setErrorMessage("Passwords don't match");
+            } else if (!name || !email || !password || !confirmPassword || !aucId || !role) {
             setErrorMessage("All fields are required"); 
         }
-    };
+        else {
+            setErrorMessage("");
+            registerMutation.mutate({ name, email, password, aucId, role });
+        }
+    }};
     return (
         <div className="register-container">
             <h1>Register</h1>

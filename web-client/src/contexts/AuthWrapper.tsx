@@ -76,6 +76,10 @@ const AuthWrapper: React.FC = function () {
                         setIsAuthenticated(true);
                         localStorage.setItem("user_token", token);
                         resolve(data);
+                    }).catch(err => {
+                        console.log("Error: ", err);
+                        setIsAuthenticated(false);
+                        reject(err);
                     });
             } catch (err) {
                 console.log("Error: ", err);
