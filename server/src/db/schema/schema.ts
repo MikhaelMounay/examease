@@ -37,7 +37,7 @@ export type UserWithToken = UserWithoutPassword & { token: string };
 
 // Define the `courses` table schema and infer Typescript types
 export const coursesTable = pgTable("courses", {
-    courseId: serial().primaryKey().notNull(),
+    id: serial().primaryKey().notNull(),
     openForEnrollment: boolean().notNull(),
     enrollmentKey: text().unique(),
     title: text().notNull(),
