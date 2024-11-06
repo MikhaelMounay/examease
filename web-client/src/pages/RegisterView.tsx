@@ -9,6 +9,7 @@ const RegisterPage: React.FC = () => {
     const { register } = AuthData();
 
     // States
+    const [errorMessage, setErrorMessage] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,8 +24,8 @@ const RegisterPage: React.FC = () => {
         onSuccess: () => {
             navigate("/home");
         },
-        onError: (error) => {
-            console.error(error);
+        onError: () => {
+            setErrorMessage("Invalid login credentials, please try again.");
         },
     });
 
@@ -33,10 +34,10 @@ const RegisterPage: React.FC = () => {
             if (password === confirmPassword) {
                 registerMutation.mutate({ name, email, password, aucId, role });
             } else {
-                console.error("Passwords do not match"); // TODO: Show error message
+                setErrorMessage("Passwords don't match");
             }
         } else {
-            console.error("All fields are required"); // TODO: Show error message
+            setErrorMessage("All fields are required"); 
         }
     };
     return (
@@ -103,6 +104,9 @@ const RegisterPage: React.FC = () => {
                 <button onClick={handleRegister} className="register-button">
                     Register
                 </button>
+                {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+            )}
             </div>
             <p className="login-message">
                 Already have an account?{" "}

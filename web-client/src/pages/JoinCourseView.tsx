@@ -21,7 +21,7 @@ const JoinCoursePage: React.FC = () => {
           value={enrollmentKey}
           onChange={(e) => setEnrollmentKey(e.target.value)}
         />
-        <button onClick={handleSubmit} className="join-course-button">Submit</button>
+        <button onClick={handleSubmit} className="join-course-button">Enroll</button>
       </div>
     </div>
   );
