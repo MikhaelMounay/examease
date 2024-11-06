@@ -1,15 +1,11 @@
-import { useState } from "react";
-import MainLayout from "./layouts/MainLayout";
-import LoginLayout from "./layouts/LoginLayout";
-import CoursesView from "./pages/CoursesView";
+import AuthWrapper from "./contexts/AuthWrapper";
 
 const App: React.FC = function () {
-    const [authenticated] = useState(true);
-
     return (
         <>
-            {authenticated && <MainLayout/>}
-            {!authenticated && <LoginLayout />}
+            {/* {authenticated && <MainLayout/>}
+            {!authenticated && <LoginLayout />} */}
+            <AuthWrapper />
         </>
     );
 };
