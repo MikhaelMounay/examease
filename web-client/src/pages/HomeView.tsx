@@ -12,9 +12,11 @@ const HomeView: React.FC = function () {
                 <Link to="/courses" className="card blue">
                     Enter a Course{" "}
                 </Link>
-                <Link to="/create-course" className="card black">
-                    Create a New Course{" "}
-                </Link>
+                {userData?.role === "INSTRUCTOR" && (
+                    <Link to="/create-course" className="card black">
+                        Create a New Course{" "}
+                    </Link>
+                )}
             </div>
         </div>
     );

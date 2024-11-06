@@ -1,10 +1,12 @@
+type Role = "ADMIN" | "INSTRUCTOR" | "STUDENT";
+
 interface User {
     id: number;
     aucId: string;
     name: string;
     email: string;
     password: string;
-    role: "ADMIN" | "INSTRUCTOR" | "STUDENT";
+    role: Role;
     department: string | null;
     classStanding: string | null;
     major: string | null;
@@ -14,7 +16,7 @@ interface User {
 }
 
 interface UserWithoutPassword {
-    role: "ADMIN" | "INSTRUCTOR" | "STUDENT";
+    role: Role;
     id: number;
     aucId: string;
     name: string;
@@ -29,4 +31,15 @@ interface UserWithoutPassword {
 
 type UserWithToken = UserWithoutPassword & { token: string };
 
-export type { User, UserWithoutPassword, UserWithToken };
+interface NewUser {
+    role: Role;
+    aucId: string;
+    name: string;
+    email: string;
+    password: string;
+    department?: string | null;
+    classStanding?: string | null;
+    major?: string | null;
+}
+
+export type { Role, User, UserWithoutPassword, UserWithToken, NewUser };
