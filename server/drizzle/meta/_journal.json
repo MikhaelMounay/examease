@@ -36,6 +36,13 @@
       "when": 1730880845984,
       "tag": "0004_sleepy_shinko_yamashiro",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1730890655467,
+      "tag": "0005_sad_annihilus",
+      "breakpoints": true
     }
   ]
 }
