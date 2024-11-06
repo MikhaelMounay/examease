@@ -41,14 +41,15 @@ const RegisterPage: React.FC = () => {
             }
              else if (password !== confirmPassword) {
                 setErrorMessage("Passwords don't match");
-            } else if (!name || !email || !password || !confirmPassword || !aucId || !role) {
-            setErrorMessage("All fields are required"); 
+            }
         }
+        else if (!name || !email || !password || !confirmPassword || !aucId || !role) {
+            setErrorMessage("All fields are required");  }
         else {
             setErrorMessage("");
             registerMutation.mutate({ name, email, password, aucId, role });
         }
-    }};
+    };
     return (
         <div className="register-container">
             <h1>Register</h1>
