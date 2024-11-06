@@ -30,7 +30,7 @@ const AuthWrapper: React.FC = function () {
     const [user, setUser] = useState<AuthContextData>({
         userData: null,
         token: null,
-        isAuthenticated: true,
+        isAuthenticated: false,
     });
 
     useEffect(() => {

@@ -1,7 +1,7 @@
-const LoginLayout: React.FC = function () {
-  return (
-    <div>LoginLayout</div>
-  )
-}
+import { Outlet } from "react-router-dom";
 
-export default LoginLayout
+const LoginLayout: React.FC = function () {
+    return <Outlet />;
+};
+
+export default LoginLayout;
