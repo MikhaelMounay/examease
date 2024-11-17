@@ -2,6 +2,7 @@ import { Router } from "express";
 
 // import { authenticate } from "../middleware/auth.js";
 import { createCourse, deleteCourse, getCourseById, getCourses, updateCourse } from "../handlers/courses.js";
+import { authenticate } from "../middleware/auth.js";
 
 const coursesRouter = Router();
 
@@ -10,7 +11,7 @@ const coursesRouter = Router();
 
 coursesRouter.get("/", getCourses);
 coursesRouter.get("/:id", getCourseById);
-coursesRouter.post("/", createCourse);
+coursesRouter.post("/", authenticate, createCourse);
 coursesRouter.put("/:id", updateCourse);
 coursesRouter.delete("/:id", deleteCourse);
 

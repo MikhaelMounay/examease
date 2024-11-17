@@ -37,6 +37,9 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const createCourse = async (req: Request, res: Response) => {
     const { title, openForEnrollment, numStudents, instructorId } = req.body;
 
+    // @ts-ignore
+    console.log(req.user)
+
     // Generate a random enrollment key
     let enrollmentKey = "";
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
