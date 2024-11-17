@@ -12,7 +12,7 @@ const coursesRouter = Router();
 coursesRouter.get("/", getCourses);
 coursesRouter.get("/:id", getCourseById);
 coursesRouter.post("/", authenticate, createCourse);
-coursesRouter.put("/:id", updateCourse);
-coursesRouter.delete("/:id", deleteCourse);
+coursesRouter.put("/:id",authenticate, updateCourse);
+coursesRouter.delete("/:id",authenticate, deleteCourse);
 
 export default coursesRouter;
