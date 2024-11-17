@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthData } from "../contexts/AuthWrapper";
 import { useMutation } from "@tanstack/react-query";
+import { Course } from "../types/course";
 
 const CreateCourse: React.FC = () => {
-    const { userData } = AuthData();
+    const { userData, token } = AuthData();
     const navigator = useNavigate();
 
     const [courseName, setCourseName] = useState<string>("");
@@ -16,22 +17,22 @@ const CreateCourse: React.FC = () => {
         mutationFn: async (data: {
             title: string;
             openForEnrollment: boolean;
-            numStudents: number;
-            instructorId: number;
         }) => {
             const response = await fetch(import.meta.env.VITE_API_URL + "/courses", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Token ${token}`
                 },
                 body: JSON.stringify(data),
             });
-            return response.json();
+            return response.json() as Promise<Course>;
         },
         onSuccess: () => {
             console.log("Course created successfully");
-            setShowSuccessModal(true); // Make sure this triggers modal
-            navigator("/courses"); // Optional: Navigate to another page after success
+            setShowSuccessModal(true);
+            showSuccessModal;
+            // Optional: Navigate to another page after success
         },
         onError: (error) => {
             console.error("Failed to create course", error);
@@ -51,10 +52,11 @@ const CreateCourse: React.FC = () => {
         createCourseMutation.mutate({
             title: courseName,
             openForEnrollment: openForEnrollment,
-            numStudents: Number(courseCapacity),
-            instructorId: userData.id,
         });
     };
+    function navigate(){
+        navigator("/courses");
+    }
 
     return (
         <div className="create-course-container">
@@ -106,11 +108,15 @@ const CreateCourse: React.FC = () => {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h2>Course Created Successfully!</h2>
-                        <p>Your course has been created and is ready to use.</p>
+                        <p>Your course has been created and the course Enrollment key is </p>
+                        <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
                         <button onClick={CloseModal}>OK</button>
+                        <button onClick={navigate}>Go to Courses</button>
                     </div>
                 </div>
             )}
+
+           
         </div>
     );
 };
