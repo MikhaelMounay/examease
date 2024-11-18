@@ -14,6 +14,9 @@ import StudentHomeView from "../pages/StudentHomeView";
 import JoinCoursePage from "../pages/JoinCourseView";
 import TakeExamPage from "../pages/TakeExamView";
 import ViewGradesPage from "../pages/GradesView";
+import AddStudent from "../pages/AddStudent";
+import RemoveStudent from "../pages/RemoveStudent";
+import ViewStudentsInfo from "../pages/ViewStudentsInfo";
 import { ProtectedRoute } from "../components/auth/ProtectedRoute";
 
 const router = createBrowserRouter(
@@ -36,6 +39,9 @@ const router = createBrowserRouter(
                 <Route path="/take-exam" element={<TakeExamPage />} />
                 <Route path="/view-grades" element={<ViewGradesPage />} />
                 <Route path = "/course/:courseId" element={<CourseView />} />
+                <Route path="/add-student" element={<AddStudent />} />
+                <Route path="/remove-student" element={<RemoveStudent />} />
+                <Route path="/view-students-info" element = {<ViewStudentsInfo/>} />
             </Route>
         </Route>
     )
