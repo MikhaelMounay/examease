@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthData } from "../contexts/AuthWrapper";
 import { useMutation } from "@tanstack/react-query";
-import { Course } from "../types/course";
+import { Course } from "../types/Course";
 
 const CreateCourse: React.FC = () => {
     const { userData, token } = AuthData();
@@ -17,6 +17,8 @@ const CreateCourse: React.FC = () => {
         mutationFn: async (data: {
             title: string;
             openForEnrollment: boolean;
+            numStudents: number;
+            instructorId: number;
         }) => {
             const response = await fetch(import.meta.env.VITE_API_URL + "/courses", {
                 method: "POST",
@@ -32,7 +34,6 @@ const CreateCourse: React.FC = () => {
             console.log("Course created successfully");
             setShowSuccessModal(true);
             showSuccessModal;
-            // Optional: Navigate to another page after success
         },
         onError: (error) => {
             console.error("Failed to create course", error);
@@ -52,6 +53,8 @@ const CreateCourse: React.FC = () => {
         createCourseMutation.mutate({
             title: courseName,
             openForEnrollment: openForEnrollment,
+            numStudents: Number(courseCapacity),
+            instructorId: userData.id,
         });
     };
     function navigate(){

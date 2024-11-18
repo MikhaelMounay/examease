@@ -12,7 +12,6 @@ async function main() {
     app.use(cors());
     app.use(urlencoded({ extended: true }));
     app.use(json());
-
     app.use("/api", router);
 }
 

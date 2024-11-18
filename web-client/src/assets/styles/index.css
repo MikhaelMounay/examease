@@ -156,37 +156,42 @@
     justify-content: center;
     height: 100vh;
     background-color: #e8f0fe;
+    overflow-x: hidden;
 }
 
 .greeting {
-    font-size: 2.5em;
+    font-size: 2em; 
     font-weight: bold;
     color: #1a1a1a;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .course-list {
-    display: grid;
-    gap: 20px;
-    max-width: 600px;
-    width: 80%;
-    justify-content: center;
+    display: flex;
+    gap: 15px;
+    max-width: 90%;
+    overflow-x: auto;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
 }
 
 .course-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    min-width: 200px; 
+    max-width: 250px;
+    padding: 15px; 
     background-color: #1d4ed8;
     color: #ffffff;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 1.2em;
-    text-align: left;
+    font-size: 1em;
+    text-align: center;
     transition: transform 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
+    scroll-snap-align: start; 
 }
 
 .course-card:hover {
@@ -197,17 +202,19 @@
 .course-details {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .course-title {
-    font-size: 1 rem;
+    font-size: 1em;
     margin: 0;
 }
 
 .course-description {
-    font-size: 1em;
+    font-size: 0.9em;
     margin-top: 5px;
 }
+
 /*============================================================================================= new course */
 .create-course-container {
     width: 70%;
