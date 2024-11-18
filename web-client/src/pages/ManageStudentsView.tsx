@@ -18,7 +18,7 @@ const ManageStudentsView: React.FC = () => {
           <span className="card-title">Remove Student</span>
         </button>
 
-        <button className="action-card" onClick={() => navigate('/view-student-info')}>
+        <button className="action-card" onClick={() => navigate('/view-students-info')}>
           <span className="card-title">View Student Info</span>
         </button>
       </div>
