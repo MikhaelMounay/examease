@@ -201,7 +201,9 @@
   text-align: center;
   transition: transform 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
-  scroll-snap-align: start; /* Ensure a consistent height for the cards */
+  padding: 15px;
+    min-height: 100px;
+  scroll-snap-align: start; 
 }
 
 .course-card:hover {
