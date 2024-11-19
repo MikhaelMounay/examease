@@ -46,7 +46,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         console.log("User: ", user);
 
         if (!user) {
-            res.status(401).json({ message: "Invalid email or password." });
+            res.status(401).json({ errMsg: "crederr_nouser" });
             return;
         }
 
@@ -54,7 +54,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         const isPasswordCorrect = await compare(req.body.password, user.password);
 
         if (!isPasswordCorrect) {
-            res.status(401).json({ message: "Invalid email or password." });
+            res.status(401).json({ errMsg: "crederr_incorrectpassword" });
             return;
         }
 

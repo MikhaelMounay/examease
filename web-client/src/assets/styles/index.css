@@ -3,11 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root
 {
   --main-color: #168AAD;
   --secondary-color:#34A0A4;
 }
+
+body, #root {
+    @apply h-screen;
+}
+
 .main-layout {
     font-family: Arial, sans-serif;
     color: #333;
@@ -68,7 +74,7 @@
     }
 
     .navbar-right a:hover {
-        color: var(--secondary-color); 
+        color: var(--secondary-color);
     }
 
     .navbar-right a::after {
@@ -94,7 +100,7 @@
 }
 
 .nav-links a:hover {
-    color: var(--secondary-color); 
+    color: var(--secondary-color);
 }
 
 .content h1 {
@@ -142,12 +148,12 @@
 }
 
 .card.blue {
-    background-color: var(--main-color); 
+    background-color: var(--main-color);
 }
 
 .card.blue:hover {
-    background-color:var(--secondary-color); 
-    transform: scale(1.05);    
+    background-color:var(--secondary-color);
+    transform: scale(1.05);
 }
 
 .card.black {
@@ -172,7 +178,7 @@
 }
 
 .greeting {
-  font-size: 2em; 
+  font-size: 2em;
   font-weight: bold;
   color: #1a1a1a;
   margin-bottom: 20px;
@@ -203,7 +209,7 @@
   cursor: pointer;
   padding: 15px;
     min-height: 100px;
-  scroll-snap-align: start; 
+  scroll-snap-align: start;
 }
 
 .course-card:hover {
@@ -313,9 +319,9 @@
     background-color: #000;
     color: #fff;
   }
-  
+
   .publish-button {
-    background-color: var(--main-color); 
+    background-color: var(--main-color);
     color: #fff;
 }
 
@@ -365,7 +371,7 @@
   padding: 10px 20px;
   margin: 5px;
   border: none;
-  background-color: var(--main-color); 
+  background-color: var(--main-color);
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -435,7 +441,7 @@
     align-items: center;
     text-align: center;
   }
-  
+
   .action-button1:hover {
     background-color: var(--secondary-color);
     transform: translateY(-3px);
@@ -494,7 +500,7 @@
     width: 100%;
     max-width: 800px;
   }
-  
+
   .action-button {
     background-color: var(--main-color);
     color: #fff;
@@ -514,15 +520,15 @@
     margin-right: 8px;
     font-size: 1.2rem;
   }
-  
+
   .edit-exam {
     background-color: var(--main-color);
   }
-  
+
   .delete-exam {
     background-color: var(--main-color);
   }
-  
+
   .action-button:hover {
     opacity: 0.8;
 }
@@ -567,11 +573,11 @@
     cursor: pointer;
     transition: 0.3s;
   }
-  
+
   .action-card:hover {
     background-color: var(--main-color);
   }
-  
+
   .card-title {
     font-size: 1.2em;
     font-weight: bold;
@@ -714,14 +720,14 @@
         background-color: #f0f4fc;
         padding: 20px;
       }
-      
+
       .login-container h1 {
         font-size: 2.5rem;
         font-weight: bold;
         color: #333;
         margin-bottom: 1em;
       }
-      
+
       .login-form {
         display: flex;
         flex-direction: column;
@@ -729,7 +735,7 @@
         width: 100%;
         max-width: 400px;
       }
-      
+
       .login-input {
         width: 100%;
         padding: 10px;
@@ -738,7 +744,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
       }
-      
+
       .login-button {
         width: 100%;
         padding: 12px;
@@ -751,23 +757,23 @@
         transition: background-color 0.3s;
         margin-top: 1em;
       }
-      
+
       .login-button:hover {
         background-color: var(--secondary-color);
       }
-      
+
       .register-message {
         margin-top: 1.5em;
         font-size: 0.9rem;
         color: #555;
       }
-      
+
       .register-link {
         color: var(--main-color);
         cursor: pointer;
         font-weight: bold;
       }
-      
+
       .register-link:hover {
         text-decoration: underline;
       }
@@ -843,17 +849,17 @@
     transition: background-color 0.3s;
     margin-top: 1em;
   }
-  
+
   .register-button:hover {
     background-color: var(--secondary-color);
   }
-  
+
   .login-message {
     margin-top: 1.5em;
     font-size: 0.9rem;
     color: #555;
   }
-  
+
   .login-link {
     color: var(--main-color);
     cursor: pointer;
@@ -911,7 +917,7 @@
     transition: background-color 0.3s;
     margin-top: 1em;
   }
-  
+
   .join-course-button:hover {
     background-color: var(--secondary-color);
   }
@@ -970,11 +976,11 @@ h1 {
     transition: background-color 0.3s;
     width: 100%;
   }
-  
+
   .submit-button:hover {
     background-color: var(--secondary-color);
   }
-/* ============================================================================================= view grades & feedback */ 
+/* ============================================================================================= view grades & feedback */
 .page-container {
     display: flex;
     flex-direction: column;
@@ -1171,7 +1177,7 @@ h1 {
     outline: none;
     transition: border-color 0.3s;
   }
-  
+
   .remove-student-form input:focus {
     border-color: var(--main-color);
   }
@@ -1257,7 +1263,7 @@ h2 {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: var(--main-color); 
+  background-color: var(--main-color);
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;

@@ -1,4 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import NavigationGuard from "../components/auth/NavigationGuard.tsx";
 import App from "../App";
 import HomeView from "../pages/HomeView";
 import CoursesView from "../pages/CoursesView";
@@ -17,14 +18,13 @@ import AddStudent from "../pages/AddStudent";
 import RemoveStudent from "../pages/RemoveStudent";
 import ViewStudentsInfo from "../pages/ViewStudentsInfo";
 import CourseViewWithInfo from "../pages/CourseInfoView";
-import { ProtectedRoute } from "../components/auth/ProtectedRoute";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/" element={<ProtectedRoute />}>
+            <Route path="/" element={<NavigationGuard />}>
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route index element={<HomeView />} />
                 <Route path="courses" element={<CoursesView />} />
                 <Route path="create-course" element={<NewCourseView />} />

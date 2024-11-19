@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const HomeView: React.FC = function() {
-    const { userData } = AuthData();
+    const { userData } = useAuth();
 
     return (
         <div className="main-container">
