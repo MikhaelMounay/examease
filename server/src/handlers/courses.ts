@@ -33,6 +33,8 @@ export const getCourseById = async (req: Request, res: Response) => {
     }
 };
 
+
+
 // All courses for a specific person
 export const getCoursesByInstructorId = async (req: Request, res: Response) => {
     const { Instructor_Id } = req.params; 
