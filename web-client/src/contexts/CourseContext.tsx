@@ -22,11 +22,7 @@ const CourseContext = createContext<CourseContextType | undefined>(undefined);
 export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [courseData, setCourseData] = useState<Course | null>(null);
 
-    return (
-        <CourseContext.Provider value={{ courseData, setCourseData }}>
-            {children}
-        </CourseContext.Provider>
-    );
+    return <CourseContext.Provider value={{ courseData, setCourseData }}>{children}</CourseContext.Provider>;
 };
 
 export const useCourseContext = () => {

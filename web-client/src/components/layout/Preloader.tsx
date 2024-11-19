@@ -1,7 +1,7 @@
 import { ProgressSpinner } from "primereact/progressspinner";
 import Logo from "../../assets/logo.png";
 
-const Preloader: React.FC = function() {
+const Preloader: React.FC = function () {
     return (
         <div className="z-50 flex h-full flex-col items-center justify-center">
             <div className="w-24">

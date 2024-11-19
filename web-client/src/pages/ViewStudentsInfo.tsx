@@ -14,10 +14,10 @@ interface Exam {
 }
 
 const ViewStudentsInfo: React.FC = () => {
-    const { courseId } = useParams();  // Get the courseId from the URL
-    const [students, setStudents] = useState<Student[]>([]);  // State for students
-    const [exams, setExams] = useState<Exam[]>([]);  // State for exams
-    const [loading, setLoading] = useState<boolean>(true);  // Loading state
+    const { courseId } = useParams(); // Get the courseId from the URL
+    const [students, setStudents] = useState<Student[]>([]); // State for students
+    const [exams, setExams] = useState<Exam[]>([]); // State for exams
+    const [loading, setLoading] = useState<boolean>(true); // Loading state
     const [error, setError] = useState<string>("");
 
     // Fetch students and exams when the component mounts
@@ -36,7 +36,7 @@ const ViewStudentsInfo: React.FC = () => {
                 const studentsData = await studentsResponse.json();
                 setStudents(studentsData);
 
-                setLoading(false);  // Set loading state to false once data is fetched
+                setLoading(false); // Set loading state to false once data is fetched
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (err) {
                 setError("An error occurred while fetching data.");
@@ -45,7 +45,7 @@ const ViewStudentsInfo: React.FC = () => {
         };
 
         fetchData();
-    }, [courseId]);  // Dependency array ensures fetch is run when courseId changes
+    }, [courseId]); // Dependency array ensures fetch is run when courseId changes
 
     // Function to update grade for a student in a particular exam
     const handleGradeChange = async (aucId: string, examId: number, grade: string) => {
@@ -64,12 +64,10 @@ const ViewStudentsInfo: React.FC = () => {
             if (!response.ok) throw new Error("Failed to update grade.");
 
             // If grade update is successful, update the local state
-            setStudents(prevStudents =>
-                prevStudents.map(student =>
-                    student.aucId === aucId
-                        ? { ...student, grades: { ...student.grades, [examId]: grade } }
-                        : student,
-                ),
+            setStudents((prevStudents) =>
+                prevStudents.map((student) =>
+                    student.aucId === aucId ? { ...student, grades: { ...student.grades, [examId]: grade } } : student
+                )
             );
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
@@ -78,11 +76,11 @@ const ViewStudentsInfo: React.FC = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;  // Display loading message while data is being fetched
+        return <div>Loading...</div>; // Display loading message while data is being fetched
     }
 
     if (error) {
-        return <div>{error}</div>;  // Display error message if there is an issue with the fetch
+        return <div>{error}</div>; // Display error message if there is an issue with the fetch
     }
 
     return (
@@ -91,37 +89,35 @@ const ViewStudentsInfo: React.FC = () => {
             <div className="table-container">
                 <table>
                     <thead>
-                    <tr>
-                        <th>AUC ID</th>
-                        <th>Name</th>
-                        {exams.map(exam => (
-                            <th key={exam.id}>{exam.name}</th>  // Dynamically generate exam columns
-                        ))}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {students.map(student => (
-                        <tr key={student.aucId}>
-                            <td>{student.aucId}</td>
-                            <td>{student.name}</td>
-                            {exams.map(exam => (
-                                <td key={exam.id}>
-                                    {student.grades[exam.id] === null ? (
-                                        <input
-                                            type="text"
-                                            value=""
-                                            placeholder="Grade"
-                                            onChange={(e) =>
-                                                handleGradeChange(student.aucId, exam.id, e.target.value)
-                                            }
-                                        />
-                                    ) : (
-                                        student.grades[exam.id]
-                                    )}
-                                </td>
+                        <tr>
+                            <th>AUC ID</th>
+                            <th>Name</th>
+                            {exams.map((exam) => (
+                                <th key={exam.id}>{exam.name}</th> // Dynamically generate exam columns
                             ))}
                         </tr>
-                    ))}
+                    </thead>
+                    <tbody>
+                        {students.map((student) => (
+                            <tr key={student.aucId}>
+                                <td>{student.aucId}</td>
+                                <td>{student.name}</td>
+                                {exams.map((exam) => (
+                                    <td key={exam.id}>
+                                        {student.grades[exam.id] === null ? (
+                                            <input
+                                                type="text"
+                                                value=""
+                                                placeholder="Grade"
+                                                onChange={(e) => handleGradeChange(student.aucId, exam.id, e.target.value)}
+                                            />
+                                        ) : (
+                                            student.grades[exam.id]
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -130,7 +126,6 @@ const ViewStudentsInfo: React.FC = () => {
 };
 
 export default ViewStudentsInfo;
-
 
 // import React, { useState } from 'react';
 // import { useParams } from 'react-router-dom';
@@ -156,9 +151,9 @@ export default ViewStudentsInfo;
 
 //   // Function to update grade for a student
 //   const handleGradeChange = (aucId: string, examId: number, grade: string) => {
-//     setStudents(prevStudents => 
-//       prevStudents.map(student => 
-//         student.aucId === aucId 
+//     setStudents(prevStudents =>
+//       prevStudents.map(student =>
+//         student.aucId === aucId
 //           ? { ...student, grades: { ...student.grades, [examId]: grade } }
 //           : student
 //       )
@@ -187,11 +182,11 @@ export default ViewStudentsInfo;
 //                 {exams.map(exam => (
 //                   <td key={exam.id}>
 //                     {student.grades[exam.id] === null ? (
-//                       <input 
-//                         type="text" 
-//                         value="" 
-//                         placeholder="Grade" 
-//                         onChange={(e) => handleGradeChange(student.aucId, exam.id, e.target.value)} 
+//                       <input
+//                         type="text"
+//                         value=""
+//                         placeholder="Grade"
+//                         onChange={(e) => handleGradeChange(student.aucId, exam.id, e.target.value)}
 //                       />
 //                     ) : (
 //                       student.grades[exam.id]
@@ -211,4 +206,3 @@ export default ViewStudentsInfo;
 // };
 
 // export default ViewStudentsInfo;
-

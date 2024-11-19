@@ -35,7 +35,7 @@ export const getCourseById = async (req: Request, res: Response) => {
 
 // All courses for a specific person
 export const getCoursesByInstructorId = async (req: Request, res: Response) => {
-    const { Instructor_Id } = req.params; 
+    const { Instructor_Id } = req.params;
     try {
         const courses = await db
             .select()
@@ -58,7 +58,7 @@ export const createCourse = async (req: Request, res: Response) => {
     const { title, openForEnrollment, numStudents, instructorId } = req.body;
 
     // @ts-ignore
-    console.log(req.user)
+    console.log(req.user);
 
     // Generate a random enrollment key
     let enrollmentKey = "";

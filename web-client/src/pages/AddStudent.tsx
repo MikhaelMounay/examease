@@ -72,12 +72,10 @@ const AddStudent: React.FC = () => {
                 />
                 {error && <p className="error-message">{error}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
-                <button type="submit" className="submit-button">Add Student</button>
-                <button
-                    type="button"
-                    className="back-button"
-                    onClick={() => navigate(`/manage-students`)}
-                >
+                <button type="submit" className="submit-button">
+                    Add Student
+                </button>
+                <button type="button" className="back-button" onClick={() => navigate(`/manage-students`)}>
                     Back
                 </button>
             </form>

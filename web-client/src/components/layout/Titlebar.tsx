@@ -1,23 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faHome, faCalendarDays,faFolderPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faHome, faFolderPlus, faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-const Titlebar: React.FC = function() {
+const Titlebar: React.FC = function () {
     const { pathname } = useLocation();
     const [title, setTitle] = useState("Home");
     const [icon, setIcon] = useState<IconProp>(faHome);
 
     useEffect(() => {
-        if(pathname.includes("courses")){
+        if (pathname.includes("courses")) {
             setTitle("Courses");
             setIcon(faBook);
         } else if (pathname.includes("create-course")) {
             setTitle("Create Course");
             setIcon(faFolderPlus);
-        }
-        else if (pathname.includes("/")) {
+        } else if (pathname.includes("make-exam")) {
+            setTitle("Create Exam");
+            setIcon(faNewspaper);
+        } else if (pathname.includes("/home")) {
             setTitle("Home");
             setIcon(faHome);
         }
@@ -25,12 +27,10 @@ const Titlebar: React.FC = function() {
 
     return (
         <div>
-             
-                <div className="ms-4 flex items-center">
-                    <FontAwesomeIcon icon={icon} />
-                    <h1 className="ms-4 text-lg text-textColorLight mb-0 font-semibold">{title}</h1>
-                </div>
-            
+            <div className="ms-4 flex items-center">
+                <FontAwesomeIcon icon={icon} />
+                <h1 className="text-textColorLight mb-0 ms-4 text-lg font-semibold">{title}</h1>
+            </div>
         </div>
     );
 };
