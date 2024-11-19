@@ -81,7 +81,10 @@ const CourseInfoPage: React.FC = () => {
     if (error) return <p>{error}</p>;
 
     if (!courseInfo) return <p>No course data available.</p>;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     return (
         <div>
             <div className="course-info-container">
