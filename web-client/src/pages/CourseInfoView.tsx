@@ -17,7 +17,7 @@ const CourseInfoPage: React.FC = () => {
     const teacherFunctions = () => (
         <div className="actions-grid1">
             <button className="action-button1" onClick={() => navigate("/make-exam")}>
-                Make an Exam
+                Create an Exam
             </button>
             <button className="action-button1" onClick={() => navigate("/manage-students")}>
                 Manage Enrolled Students
@@ -38,8 +38,10 @@ const CourseInfoPage: React.FC = () => {
     const studentFunctions = () => (
         <div className="actions-grid1">
             <button className="action-button1" onClick={() => navigate("/take-exam")}>
+            <button className="action-button1" onClick={() => navigate("/take-exam")}>
                 Take an Exam
             </button>
+            <button className="action-button1" onClick={() => navigate("/view-grades")}>
             <button className="action-button1" onClick={() => navigate("/view-grades")}>
                 View Grades & Feedback
             </button>
@@ -82,10 +84,43 @@ const CourseInfoPage: React.FC = () => {
 
     if (!courseInfo) return <p>No course data available.</p>;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const renderCourseInfo = () => {
+        if (userData?.role === "INSTRUCTOR" && course) {
+            return (
+                <div className="course-info">
+                    <h3>Course Details</h3>
+                    <p>
+                        <strong>Course Title:</strong> {course.title}
+                    </p>
+                    <p>
+                        <strong>Enrollment Code:</strong> {course.enrollmentKey}
+                    </p>
+                    <p>
+                        <strong>Number of Students:</strong> {course.numStudents}
+                    </p>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <div>
             <div className="course-info-container">
                 <h1>Course Info: {courseInfo.title}</h1>
+                <p>
+                    <strong>Course ID:</strong> {courseInfo.id}
+                </p>
+                <p>
+                    <strong>Instructor:</strong> {courseInfo.instructorId}
+                </p>
+                <p>
+                    <strong>Number of Students:</strong> {courseInfo.numStudents}
+                </p>
+                <p>
+                    <strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}
+                </p>
                 <p>
                     <strong>Course ID:</strong> {courseInfo.id}
                 </p>

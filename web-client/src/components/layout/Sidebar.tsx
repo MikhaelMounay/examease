@@ -47,7 +47,7 @@ const Sidebar: React.FC<SidebarProps> = function (props) {
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarItems, _setSidebarItems] = useState<{ linkTo: string; icon: IconDefinition; label: string }[]>([
         {
-            linkTo: "/courses",
+            linkTo: "/",
             icon: faHome,
             label: "Home",
         },
@@ -62,12 +62,7 @@ const Sidebar: React.FC<SidebarProps> = function (props) {
             label: "Create Course",
         },
         {
-            linkTo: "",
-            icon: faCalendarDays,
-            label: "Calendar",
-        },
-        {
-            linkTo: "",
+            linkTo: " ",
             icon: faBullhorn,
             label: "Announcments",
         },
