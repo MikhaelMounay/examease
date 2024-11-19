@@ -33,6 +33,7 @@ const RegisterPage: React.FC = () => {
     };
 
     const handleRegister = () => {
+        console.log("Function is called");
         if (name && email && password && confirmPassword && aucId && role) {
             if (!validateEmail(email)) {
                 setErrorMessage("Please enter a valid email address.");

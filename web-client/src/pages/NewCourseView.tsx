@@ -33,16 +33,13 @@ const CreateCourse: React.FC = () => {
         onSuccess: () => {
             console.log("Course created successfully");
             setShowSuccessModal(true);
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             showSuccessModal;
         },
         onError: (error) => {
             console.error("Failed to create course", error);
         },
     });
-
-    const CloseModal = () => {
-        setShowSuccessModal(false);
-    };
 
     function handleCreateCourse() {
         if (!(courseName && courseCapacity && userData?.id)) {
@@ -56,6 +53,7 @@ const CreateCourse: React.FC = () => {
             numStudents: Number(courseCapacity),
             instructorId: userData.id,
         });
+        
     };
     function navigate(){
         navigator("/courses");
@@ -107,21 +105,27 @@ const CreateCourse: React.FC = () => {
                 </button>
             </div>
 
-            {showSuccessModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <h2>Course Created Successfully!</h2>
-                        <p>Your course has been created and the course Enrollment key is </p>
-                        <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
-                        <button onClick={CloseModal}>OK</button>
-                        <button onClick={navigate}>Go to Courses</button>
-                    </div>
-                </div>
-            )}
-
-           
+            {showSuccessModal && createCourseMutation.data && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Course Created Successfully!</h2>
+            <p>Your course has been created and the course Enrollment key is </p>
+            <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
+            <p>Course Name: {createCourseMutation.data.title}</p>
+            <button
+               onClick={() => {const courseId = createCourseMutation.data?.id;
+                  navigator(`/course-info/${courseId}`);
+              }}
+            >
+              Go to Course
+            </button>
+            <button onClick={navigate}>Ok</button>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
+
 
 export default CreateCourse;

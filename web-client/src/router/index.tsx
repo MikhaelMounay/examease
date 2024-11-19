@@ -10,7 +10,7 @@ import ViewAllExams from "../pages/AllExamsView";
 import RegisterPage from "../pages/RegisterView";
 import LoginPage from "../pages/LoginView";
 import StudentHomeView from "../pages/StudentHomeView";
-import JoinCoursePage from "../pages/JoinCourseView";
+import JoinCourseView from "../pages/JoinCourseView";
 import TakeExamPage from "../pages/TakeExamView";
 import ViewGradesPage from "../pages/GradesView";
 import AddStudent from "../pages/AddStudent";
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
                 <Route path="/monitor-exams" element={<MonitorLiveExams />} />
                 <Route path="/view-exams" element={<ViewAllExams />} />
                 <Route path="/student-home" element={<StudentHomeView />} />
-                <Route path="/join-course" element={<JoinCoursePage />} />
+                <Route path="/join-course" element={<JoinCourseView />} />
                 <Route path="/take-exam" element={<TakeExamPage />} />
                 <Route path="/view-grades" element={<ViewGradesPage />} />
                 <Route path="/add-student" element={<AddStudent />} />

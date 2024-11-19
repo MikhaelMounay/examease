@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const MonitorLiveExams: React.FC = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const navigate = useNavigate();
   const students = [
     { id: 1, name: "John Doe", progress: "75%" },

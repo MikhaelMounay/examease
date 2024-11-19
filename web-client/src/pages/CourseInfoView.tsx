@@ -105,6 +105,7 @@ const CourseInfoPage: React.FC = () => {
 
   if (!courseInfo) return <p>No course data available.</p>;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const renderCourseInfo = () => {
     if (userData?.role === 'INSTRUCTOR' && course) {
       return (
