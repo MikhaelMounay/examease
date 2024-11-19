@@ -82,27 +82,6 @@ const CourseInfoPage: React.FC = () => {
 
     if (!courseInfo) return <p>No course data available.</p>;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const renderCourseInfo = () => {
-        if (userData?.role === "INSTRUCTOR" && course) {
-            return (
-                <div className="course-info">
-                    <h3>Course Details</h3>
-                    <p>
-                        <strong>Course Title:</strong> {course.title}
-                    </p>
-                    <p>
-                        <strong>Enrollment Code:</strong> {course.enrollmentKey}
-                    </p>
-                    <p>
-                        <strong>Number of Students:</strong> {course.numStudents}
-                    </p>
-                </div>
-            );
-        }
-        return null;
-    };
-
     return (
         <div>
             <div className="course-info-container">

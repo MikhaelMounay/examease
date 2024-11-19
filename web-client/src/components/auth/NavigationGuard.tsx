@@ -12,7 +12,7 @@ const NavigationGuard = function () {
         console.log("NavigationGuard isAuthenticated: ", isAuthenticated);
         if (isAuthenticated && pathname.includes("login") || pathname.includes("register")) {
             navigate("/", { replace: true });
-        } else if (isAuthenticated === false || !pathname.includes("login") || !pathname.includes("register")) {
+        } else if (isAuthenticated === false) {
             navigate("/login");
         }
     }, [navigate, pathname, isAuthenticated]);
