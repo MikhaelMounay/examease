@@ -24,7 +24,7 @@ const CreateCourse: React.FC = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Token ${token}`
+                    Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -53,9 +53,10 @@ const CreateCourse: React.FC = () => {
             numStudents: Number(courseCapacity),
             instructorId: userData.id,
         });
-        
+
     };
-    function navigate(){
+
+    function navigate() {
         navigator("/courses");
     }
 
@@ -106,25 +107,26 @@ const CreateCourse: React.FC = () => {
             </div>
 
             {showSuccessModal && createCourseMutation.data && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>Course Created Successfully!</h2>
-            <p>Your course has been created and the course Enrollment key is </p>
-            <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
-            <p>Course Name: {createCourseMutation.data.title}</p>
-            <button
-               onClick={() => {const courseId = createCourseMutation.data?.id;
-                  navigator(`/course-info/${courseId}`);
-              }}
-            >
-              Go to Course
-            </button>
-            <button onClick={navigate}>Ok</button>
-          </div>
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <h2>Course Created Successfully!</h2>
+                        <p>Your course has been created and the course Enrollment key is </p>
+                        <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
+                        <p>Course Name: {createCourseMutation.data.title}</p>
+                        <button
+                            onClick={() => {
+                                const courseId = createCourseMutation.data?.id;
+                                navigator(`/course-info/${courseId}`);
+                            }}
+                        >
+                            Go to Course
+                        </button>
+                        <button onClick={navigate}>Ok</button>
+                    </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 

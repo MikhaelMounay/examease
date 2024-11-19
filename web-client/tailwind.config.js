@@ -12,7 +12,7 @@ export default {
                 tertiary: "#52B69A",
                 quaternary: "#76C893",
                 primaryContrast: "#EE6C4D",
-                primaryBg: "#e8f0fe",
+                primaryBg: "#f0f4fc",
                 textColor: "#111",
                 textColorLight: "#f3f4f6",
             },

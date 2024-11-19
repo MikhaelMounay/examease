@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarItems, _setSidebarItems] = useState<{ linkTo: string; icon: IconDefinition; label: string }[]>([
         {
-            linkTo: "/",
+            linkTo: "/courses",
             icon: faHome,
             label: "Home",
         },

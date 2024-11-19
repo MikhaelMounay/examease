@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AuthData } from "../contexts/AuthWrapper";
 
-const HomeView: React.FC = function () {
+const HomeView: React.FC = function() {
     const { userData } = AuthData();
 
     return (

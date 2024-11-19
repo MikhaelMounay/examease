@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type Course = {
     id: number;
@@ -13,26 +13,26 @@ type Course = {
 };
 
 type CourseContextType = {
-  courseData: Course | null;
-  setCourseData: React.Dispatch<React.SetStateAction<Course | null>>;
+    courseData: Course | null;
+    setCourseData: React.Dispatch<React.SetStateAction<Course | null>>;
 };
 
 const CourseContext = createContext<CourseContextType | undefined>(undefined);
 
 export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [courseData, setCourseData] = useState<Course | null>(null);
+    const [courseData, setCourseData] = useState<Course | null>(null);
 
-  return (
-    <CourseContext.Provider value={{ courseData, setCourseData }}>
-      {children}
-    </CourseContext.Provider>
-  );
+    return (
+        <CourseContext.Provider value={{ courseData, setCourseData }}>
+            {children}
+        </CourseContext.Provider>
+    );
 };
 
 export const useCourseContext = () => {
-  const context = useContext(CourseContext);
-  if (!context) {
-    throw new Error('useCourseContext must be used within a CourseProvider');
-  }
-  return context;
+    const context = useContext(CourseContext);
+    if (!context) {
+        throw new Error("useCourseContext must be used within a CourseProvider");
+    }
+    return context;
 };
