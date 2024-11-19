@@ -1,3 +1,5 @@
+@import "primereact/resources/themes/lara-light-blue/theme.css" layer(primereact);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -200,7 +202,7 @@
 }
 
 .course-title {
-    font-size: 1 rem;
+    font-size: 1rem;
     margin: 0;
 }
 
