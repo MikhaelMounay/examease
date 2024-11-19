@@ -10,9 +10,9 @@ const NavigationGuard = function () {
 
     useEffect(() => {
         console.log("NavigationGuard isAuthenticated: ", isAuthenticated);
-        if ((isAuthenticated && pathname.includes("login")) || pathname.includes("register")) {
+        if (isAuthenticated && pathname.includes("login") || pathname.includes("register")) {
             navigate("/", { replace: true });
-        } else if (isAuthenticated === false) {
+        } else if (isAuthenticated === false || !pathname.includes("login") || !pathname.includes("register")) {
             navigate("/login");
         }
     }, [navigate, pathname, isAuthenticated]);
