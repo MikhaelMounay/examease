@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const HomeView: React.FC = function () {
-    const { userData } = AuthData();
+    const { userData } = useAuth();
 
     // Determine greeting based on role
     const greeting =
@@ -24,7 +24,7 @@ const HomeView: React.FC = function () {
                 )}
                 {userData?.role === "STUDENT" && (
                     <Link to="/join-course" className="card black">
-                        Join a Course
+                        Join a course{" "}
                     </Link>
                 )}
             </div>

@@ -46,7 +46,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         console.log("User: ", user);
 
         if (!user) {
-            res.status(401).json({ message: "Invalid email or password." });
+            res.status(401).json({ errMsg: "crederr_nouser" });
             return;
         }
 
@@ -54,7 +54,7 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         const isPasswordCorrect = await compare(req.body.password, user.password);
 
         if (!isPasswordCorrect) {
-            res.status(401).json({ message: "Invalid email or password." });
+            res.status(401).json({ errMsg: "crederr_incorrectpassword" });
             return;
         }
 
@@ -66,7 +66,6 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         next(err);
     }
 }
-
 export async function getUser(req: ExpressRequest, res: Response, next: NextFunction) {
     try {
         if (!req.user) {
@@ -80,3 +79,25 @@ export async function getUser(req: ExpressRequest, res: Response, next: NextFunc
         next(err);
     }
 }
+export const getUserById = async (req: Request, res: Response) => {
+    const { student_id } = req.params;
+  
+    try {
+      // Query the database to get the user by ID
+      const student = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.aucId, student_id));
+  
+      if (student.length === 0) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+      }
+  
+      // Return the user data
+      res.status(200).json({ user: student});
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };

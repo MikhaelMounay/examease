@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const Navbar: React.FC = function () {
     const navigate = useNavigate();
-    const { logout } = AuthData();
+    const { logout } = useAuth();
 
     // Methods
     function handleLogout() {

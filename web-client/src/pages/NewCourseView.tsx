@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 import { useMutation } from "@tanstack/react-query";
 import { Course } from "../types/Course";
 
 const CreateCourse: React.FC = () => {
-    const { userData, token } = AuthData();
+    const { userData, token } = useAuth();
     const navigator = useNavigate();
 
     const [courseName, setCourseName] = useState<string>("");

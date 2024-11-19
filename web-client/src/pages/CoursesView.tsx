@@ -1,14 +1,14 @@
 // components/CoursesView.tsx
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Course } from "../types/Course";
 import { useCourseContext } from "../contexts/CourseContext";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const CoursesView: React.FC = () => {
     const { setCourseData } = useCourseContext();
-    const { userData, token } = AuthData();
+    const { userData, token } = useAuth();
     const navigate = useNavigate();
 
     const fetchCourses = async (): Promise<Course[]> => {

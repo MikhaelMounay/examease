@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Course } from "../types/Course";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const CourseInfoPage: React.FC = () => {
     const { courseid } = useParams();
     const [courseInfo, setCourseInfo] = useState<Course | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { userData } = AuthData();
+    const { userData } = useAuth();
     const navigate = useNavigate();
 
     const course = courseInfo;
@@ -38,8 +38,10 @@ const CourseInfoPage: React.FC = () => {
     const studentFunctions = () => (
         <div className="actions-grid1">
             <button className="action-button1" onClick={() => navigate("/take-exam")}>
+            <button className="action-button1" onClick={() => navigate("/take-exam")}>
                 Take an Exam
             </button>
+            <button className="action-button1" onClick={() => navigate("/view-grades")}>
             <button className="action-button1" onClick={() => navigate("/view-grades")}>
                 View Grades & Feedback
             </button>
@@ -107,6 +109,18 @@ const CourseInfoPage: React.FC = () => {
         <div>
             <div className="course-info-container">
                 <h1>Course Info: {courseInfo.title}</h1>
+                <p>
+                    <strong>Course ID:</strong> {courseInfo.id}
+                </p>
+                <p>
+                    <strong>Instructor:</strong> {courseInfo.instructorId}
+                </p>
+                <p>
+                    <strong>Number of Students:</strong> {courseInfo.numStudents}
+                </p>
+                <p>
+                    <strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}
+                </p>
                 <p>
                     <strong>Course ID:</strong> {courseInfo.id}
                 </p>

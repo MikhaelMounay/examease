@@ -7,6 +7,12 @@
     --main-color: #168aad;
     --secondary-color: #34a0a4;
 }
+
+body,
+#root {
+    @apply h-screen;
+}
+
 .main-layout {
     font-family: Arial, sans-serif;
     color: #333;
@@ -67,6 +73,7 @@
 
     .navbar-right a:hover {
         color: var(--secondary-color);
+        color: var(--secondary-color);
     }
 
     .navbar-right a::after {
@@ -92,6 +99,7 @@
 }
 
 .nav-links a:hover {
+    color: var(--secondary-color);
     color: var(--secondary-color);
 }
 
@@ -139,13 +147,19 @@
     transition:
         transform 0.2s ease,
         background-color 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .card.blue {
     background-color: var(--main-color);
+    background-color: var(--main-color);
 }
 
 .card.blue:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
     background-color: var(--secondary-color);
     transform: scale(1.05);
 }
@@ -169,6 +183,14 @@
     background-color: #e8f0fe;
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: #e8f0fe;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .greeting {
@@ -177,9 +199,21 @@
     color: #1a1a1a;
     margin-bottom: 20px;
     text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .course-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+    gap: 20px; /* Spacing between the cards */
+    max-width: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns per row */
     gap: 20px; /* Spacing between the cards */
@@ -204,11 +238,28 @@
         background-color 0.2s ease;
     cursor: pointer;
     padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+    color: #ffffff;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
+    cursor: pointer;
+    padding: 15px;
     min-height: 100px;
+    scroll-snap-align: start;
     scroll-snap-align: start;
 }
 
 .course-card:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
     background-color: var(--secondary-color);
     transform: scale(1.05);
 }
@@ -217,14 +268,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .course-title {
     font-size: 1rem;
     margin: 0;
+    font-size: 1rem;
+    margin: 0;
 }
 
 .course-description {
+    font-size: 0.9em;
+    margin-top: 5px;
     font-size: 0.9em;
     margin-top: 5px;
 }
@@ -234,9 +292,15 @@
     .course-list {
         grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
     }
+    .course-list {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+    }
 }
 
 @media (max-width: 480px) {
+    .course-list {
+        grid-template-columns: 1fr; /* One column for small screens */
+    }
     .course-list {
         grid-template-columns: 1fr; /* One column for small screens */
     }
@@ -318,6 +382,10 @@
 
 .publish-button {
     background-color: var(--main-color);
+}
+
+.publish-button {
+    background-color: var(--main-color);
     color: #fff;
 }
 
@@ -372,6 +440,14 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .modal-content button:hover {
@@ -380,6 +456,7 @@
 
 /* Close Modal button */
 .modal-content button:last-child {
+    background-color: var(--main-color); /* Red background for 'Ok' button */
     background-color: var(--main-color); /* Red background for 'Ok' button */
 }
 
@@ -433,11 +510,17 @@
     transition:
         background-color 0.3s,
         transform 0.3s;
+    transition:
+        background-color 0.3s,
+        transform 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: grid;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.action-button1:hover {
 }
 
 .action-button1:hover {
@@ -500,6 +583,9 @@
 }
 
 .action-button {
+}
+
+.action-button {
     background-color: var(--main-color);
     color: #fff;
     font-size: 1rem;
@@ -520,11 +606,20 @@
 }
 
 .edit-exam {
+}
+
+.edit-exam {
     background-color: var(--main-color);
 }
 
 .delete-exam {
+}
+
+.delete-exam {
     background-color: var(--main-color);
+}
+
+.action-button:hover {
 }
 
 .action-button:hover {
@@ -573,7 +668,13 @@
 }
 
 .action-card:hover {
+}
+
+.action-card:hover {
     background-color: var(--main-color);
+}
+
+.card-title {
 }
 
 .card-title {
@@ -691,6 +792,9 @@
     transition:
         transform 0.2s,
         box-shadow 0.2s;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
 }
 
 .exam-card:hover {
@@ -710,6 +814,73 @@
 }
 
 /* ============================================================================================= */
+/* ============================================================================================= Login */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4fc;
+    padding: 20px;
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em;
+}
+
+.login-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.register-message {
+    margin-top: 1.5em;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.register-link {
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
 /* ============================================================================================= Login */
 .login-container {
     display: flex;
@@ -850,13 +1021,22 @@
 }
 
 .register-button:hover {
+}
+
+.register-button:hover {
     background-color: var(--secondary-color);
+}
+
+.login-message {
 }
 
 .login-message {
     margin-top: 1.5em;
     font-size: 0.9rem;
     color: #555;
+}
+
+.login-link {
 }
 
 .login-link {
@@ -918,6 +1098,9 @@
 }
 
 .join-course-button:hover {
+}
+
+.join-course-button:hover {
     background-color: var(--secondary-color);
 }
 /* ============================================================================================= Take an exam*/
@@ -974,6 +1157,9 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
+}
+
+.submit-button:hover {
 }
 
 .submit-button:hover {
@@ -1084,6 +1270,7 @@ h1 {
 
 .add-student-form input:focus {
     border-color: var(--main-color);
+    border-color: var(--main-color);
 }
 
 /* Submit and Back buttons */
@@ -1100,9 +1287,12 @@ h1 {
 .submit-button {
     background-color: var(--main-color);
     color: #fff;
+    background-color: var(--main-color);
+    color: #fff;
 }
 
 .submit-button:hover {
+    background-color: var(--main-color);
     background-color: var(--main-color);
 }
 
@@ -1178,7 +1368,11 @@ h1 {
 }
 
 .remove-student-form input:focus {
+}
+
+.remove-student-form input:focus {
     border-color: var(--main-color);
+}
 }
 
 /* =============================================================================================View Students Info */
@@ -1209,11 +1403,18 @@ table {
 
 th,
 td {
+th,
+td {
     padding: 12px 15px;
     text-align: center;
 }
 
 th {
+    background-color: var(--main-color);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
     background-color: var(--main-color);
     color: white;
     font-weight: bold;
@@ -1269,6 +1470,16 @@ h2 {
     display: grid;
     justify-content: center;
     align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--main-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .course-info-container h1 {
@@ -1283,7 +1494,6 @@ h2 {
     margin: 8px 0;
 }
 
-/* Style for other fields if added */
 .course-info-container .additional-field {
     font-weight: bold;
     color: #ddd;

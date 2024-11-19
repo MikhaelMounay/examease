@@ -7,7 +7,7 @@ import LoginLayout from "../layouts/LoginLayout";
 type AuthContextData = {
     userData?: UserWithoutPassword | null;
     token?: string | null;
-    isAuthenticated: boolean;
+    isAuthenticated: boolean | null;
     login: (email: string, password: string) => Promise<unknown>;
     register: (data: NewUser) => Promise<unknown>;
     logout: () => void;
@@ -16,33 +16,37 @@ type AuthContextData = {
 const AuthContext = createContext<AuthContextData>({
     userData: null,
     token: null,
-    isAuthenticated: true,
+    isAuthenticated: null,
     login: async () => {},
     register: async () => {},
     logout: () => {},
 });
-export const AuthData = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
 const AuthWrapper: React.FC = function () {
     // States
     const [userData, setUserData] = useState<UserWithoutPassword | null>(null);
     const [token, setToken] = useState<string | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
     useEffect(() => {
-        const token = localStorage.getItem("user_token");
-        if (!token) {
-            setIsAuthenticated(false);
-            return;
-        }
+        async function authenticate() {
+            const token = localStorage.getItem("user_token");
 
-        fetch(import.meta.env.VITE_API_URL + "/users/user", {
-            headers: {
-                Authorization: `Token ${token}`,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
+            if (!token || token === "undefined") {
+                localStorage.removeItem("user_token");
+                setIsAuthenticated(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(import.meta.env.VITE_API_URL + "/users/user", {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
+                const data = await response.json();
+
                 if (token && data) {
                     setUserData(data);
                     setToken(token);
@@ -50,11 +54,25 @@ const AuthWrapper: React.FC = function () {
                 } else {
                     setIsAuthenticated(false);
                 }
-            })
-            .catch((err) => {
+            } catch (err) {
                 console.log("Error: ", err);
-                setIsAuthenticated(false);
-            });
+                if (err instanceof TypeError && err.message.includes("Failed to fetch")) {
+                    console.log("Connectivity Error!");
+                    setIsAuthenticated(null);
+                } else {
+                    setIsAuthenticated(false);
+                }
+            }
+        }
+
+        authenticate();
+        const clearAuthRetries = setInterval(() => {
+            if (isAuthenticated === null) {
+                authenticate();
+            } else {
+                clearInterval(clearAuthRetries);
+            }
+        }, 2000);
     }, []);
 
     // Methods
@@ -68,12 +86,21 @@ const AuthWrapper: React.FC = function () {
                     },
                     body: JSON.stringify({ email, password }),
                 })
-                    .then((response) => response.json())
+                    .then((response) => {
+                        return response.json();
+                    })
                     .then((data) => {
+                        if (data.errMsg) {
+                            reject({ message: data.errMsg });
+                            return;
+                        }
+
                         const { token, ...userWithoutPassword } = data;
+
                         setUserData(userWithoutPassword);
                         setToken(token);
                         setIsAuthenticated(true);
+
                         localStorage.setItem("user_token", token);
                         resolve(data);
                     })
