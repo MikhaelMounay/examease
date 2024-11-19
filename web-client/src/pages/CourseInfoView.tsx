@@ -104,7 +104,6 @@ const CourseInfoPage: React.FC = () => {
                 <h2>Select an action for this course</h2>
 
                 {userData?.role === "INSTRUCTOR" ? teacherFunctions() : studentFunctions()}
-
             </div>
         </div>
     );

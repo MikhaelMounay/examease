@@ -57,6 +57,7 @@ const AuthWrapper: React.FC = function () {
             } catch (err) {
                 console.log("Error: ", err);
                 if (err instanceof TypeError && err.message.includes("Failed to fetch")) {
+                    console.log("Connectivity Error!");
                     setIsAuthenticated(null);
                 } else {
                     setIsAuthenticated(false);
