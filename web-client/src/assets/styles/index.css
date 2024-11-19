@@ -144,12 +144,10 @@ body,
     font-size: 1.2em;
     text-align: center;
     cursor: pointer;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .card.blue {
@@ -233,9 +231,8 @@ body,
     font-weight: bold;
     font-size: 1em;
     text-align: center;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
     cursor: pointer;
     padding: 15px;
     display: flex;
@@ -247,9 +244,8 @@ body,
     font-weight: bold;
     font-size: 1em;
     text-align: center;
-    transition:
-        transform 0.2s ease,
-        background-color 0.2s ease;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
     cursor: pointer;
     padding: 15px;
     min-height: 100px;
@@ -292,6 +288,7 @@ body,
     .course-list {
         grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
     }
+
     .course-list {
         grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
     }
@@ -301,6 +298,7 @@ body,
     .course-list {
         grid-template-columns: 1fr; /* One column for small screens */
     }
+
     .course-list {
         grid-template-columns: 1fr; /* One column for small screens */
     }
@@ -507,12 +505,10 @@ body,
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition:
-        background-color 0.3s,
-        transform 0.3s;
-    transition:
-        background-color 0.3s,
-        transform 0.3s;
+    transition: background-color 0.3s,
+    transform 0.3s;
+    transition: background-color 0.3s,
+    transform 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: grid;
     justify-content: center;
@@ -789,12 +785,10 @@ body,
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
+    transition: transform 0.2s,
+    box-shadow 0.2s;
+    transition: transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .exam-card:hover {
@@ -881,6 +875,7 @@ body,
 .register-link:hover {
     text-decoration: underline;
 }
+
 /* ============================================================================================= Login */
 .login-container {
     display: flex;
@@ -1103,6 +1098,7 @@ body,
 .join-course-button:hover {
     background-color: var(--secondary-color);
 }
+
 /* ============================================================================================= Take an exam*/
 .page-container {
     display: flex;
@@ -1165,6 +1161,7 @@ h1 {
 .submit-button:hover {
     background-color: var(--secondary-color);
 }
+
 /* ============================================================================================= view grades & feedback */
 .page-container {
     display: flex;
@@ -1403,8 +1400,6 @@ table {
 
 th,
 td {
-th,
-td {
     padding: 12px 15px;
     text-align: center;
 }
@@ -1439,6 +1434,7 @@ tbody tr:nth-child(even) {
 }
 
 /* Table header styles */
+
 thead {
     position: sticky;
     top: 0;
@@ -1459,6 +1455,7 @@ h2 {
 }
 
 /* ============================================================================================= Course Info page */
+
 .course-info-container {
     max-width: 600px;
     margin: 0 auto;
@@ -1565,9 +1562,8 @@ select:focus {
     border-radius: 8px;
     cursor: pointer;
     margin-right: 10px;
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .add-question {
@@ -1578,9 +1574,8 @@ select:focus {
     border-radius: 8px;
     cursor: pointer;
     margin-right: 10px;
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .add-question:hover {
@@ -1647,9 +1642,8 @@ select:focus {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition:
-        background-color 0.3s ease,
-        transform 0.2s ease;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .submit-button:hover {
@@ -1666,5 +1660,4 @@ select:focus {
     .exam-details button {
         width: 100%;
     }
-}
 }
