@@ -9,10 +9,10 @@ const coursesRouter = Router();
 // TODO: Add authentication middleware
 // coursesRouter.use(authenticate);
 
-coursesRouter.get("/", getCourses);
-coursesRouter.get("/:id", getCourseById);
+coursesRouter.get("/", authenticate, getCourses);
+coursesRouter.get("/:id", authenticate, getCourseById);
 coursesRouter.post("/", authenticate, createCourse);
-coursesRouter.put("/:id",authenticate, updateCourse);
-coursesRouter.delete("/:id",authenticate, deleteCourse);
+coursesRouter.put("/:id", authenticate, updateCourse);
+coursesRouter.delete("/:id", authenticate, deleteCourse);
 
 export default coursesRouter;
