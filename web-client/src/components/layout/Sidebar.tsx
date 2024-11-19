@@ -8,7 +8,6 @@ import {
     faRightFromBracket,
     faHome,
     faBook,
-    faCalendarDays,
     faBullhorn,
     faFolderPlus,
 } from "@fortawesome/free-solid-svg-icons";

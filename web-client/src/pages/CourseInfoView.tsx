@@ -38,10 +38,8 @@ const CourseInfoPage: React.FC = () => {
     const studentFunctions = () => (
         <div className="actions-grid1">
             <button className="action-button1" onClick={() => navigate("/take-exam")}>
-            <button className="action-button1" onClick={() => navigate("/take-exam")}>
                 Take an Exam
             </button>
-            <button className="action-button1" onClick={() => navigate("/view-grades")}>
             <button className="action-button1" onClick={() => navigate("/view-grades")}>
                 View Grades & Feedback
             </button>
