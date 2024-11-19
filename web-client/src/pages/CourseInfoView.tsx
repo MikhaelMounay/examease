@@ -13,63 +13,45 @@ const CourseInfoPage: React.FC = () => {
 
     const course = courseInfo;
 
-  // Placeholder for instructor actions
-  const teacherFunctions = () => (
-    <div className="actions-grid1">
-      <button 
-        className="action-button1" 
-        onClick={() => navigate('/make-exam')}
-      >
-        Make an Exam
-      </button>
-      <button 
-        className="action-button1" 
-        onClick={() => navigate('/manage-students')}
-      >
-        Manage Enrolled Students
-      </button>
-      <button 
-        className="action-button1" 
-        onClick={() => navigate('/monitor-exams')}
-      >
-        Monitor Live Exams
-      </button>
-      <button 
-        className="action-button1" 
-        onClick={() => navigate('/view-exams')}
-      >
-        View All Exams
-      </button>
-      <button className="action-button1" onClick={()=> navigate('/create-course')}>
-                    Edit Course Properties
-                </button>
-    </div>
-  );
+    // Placeholder for instructor actions
+    const teacherFunctions = () => (
+        <div className="actions-grid1">
+            <button className="action-button1" onClick={() => navigate("/make-exam")}>
+                Make an Exam
+            </button>
+            <button className="action-button1" onClick={() => navigate("/manage-students")}>
+                Manage Enrolled Students
+            </button>
+            <button className="action-button1" onClick={() => navigate("/monitor-exams")}>
+                Monitor Live Exams
+            </button>
+            <button className="action-button1" onClick={() => navigate("/view-exams")}>
+                View All Exams
+            </button>
+            <button className="action-button1" onClick={() => navigate("/create-course")}>
+                Edit Course Properties
+            </button>
+        </div>
+    );
 
     // Placeholder for student actions
     const studentFunctions = () => (
         <div className="actions-grid1">
-            <button
-                className="action-button1"
-                onClick={() => navigate("/take-exam")}
-            >
+            <button className="action-button1" onClick={() => navigate("/take-exam")}>
                 Take an Exam
             </button>
-            <button
-                className="action-button1"
-                onClick={() => navigate("/view-grades")}
-            >
+            <button className="action-button1" onClick={() => navigate("/view-grades")}>
                 View Grades & Feedback
             </button>
         </div>
     );
 
-  useEffect(() => {
-    console.log('Course ID from URL:', courseid);
+    useEffect(() => {
+        console.log("Course ID from URL:", courseid);
 
-    const fetchCourseInfo = async () => {
-      setLoading(true);
-      setError(null);
+        const fetchCourseInfo = async () => {
+            setLoading(true);
+            setError(null);
 
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`);
@@ -100,22 +82,28 @@ const CourseInfoPage: React.FC = () => {
 
     if (!courseInfo) return <p>No course data available.</p>;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return (
         <div>
             <div className="course-info-container">
                 <h1>Course Info: {courseInfo.title}</h1>
-                <p><strong>Course ID:</strong> {courseInfo.id}</p>
-                <p><strong>Instructor:</strong> {courseInfo.instructorId}</p>
-                <p><strong>Number of Students:</strong> {courseInfo.numStudents}</p>
-                <p><strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}</p>
+                <p>
+                    <strong>Course ID:</strong> {courseInfo.id}
+                </p>
+                <p>
+                    <strong>Instructor:</strong> {courseInfo.instructorId}
+                </p>
+                <p>
+                    <strong>Number of Students:</strong> {courseInfo.numStudents}
+                </p>
+                <p>
+                    <strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}
+                </p>
             </div>
             <div className="course-view-container">
                 <h1>{course ? course?.title : "Loading Course..."}</h1>
                 <h2>Select an action for this course</h2>
 
                 {userData?.role === "INSTRUCTOR" ? teacherFunctions() : studentFunctions()}
-
             </div>
         </div>
     );

@@ -70,9 +70,7 @@ const LoginPage: React.FC = () => {
                 </button>
             </div>
 
-            {errorMessage && (
-                <div className="error-message">{errorMessage}</div>
-            )}
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
 
             <p className="register-message">
                 New to the app?{" "}

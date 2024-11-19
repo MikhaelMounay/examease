@@ -20,5 +20,5 @@ createRoot(document.getElementById("root")!).render(
                 </PrimeReactProvider>
             </QueryClientProvider>
         </CourseProvider>
-    </StrictMode>,
+    </StrictMode>
 );

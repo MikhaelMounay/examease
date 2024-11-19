@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthWrapper";
 
-const HomeView: React.FC = function() {
+const HomeView: React.FC = function () {
     const { userData } = useAuth();
 
     return (
@@ -19,7 +19,7 @@ const HomeView: React.FC = function() {
                 )}
                 {userData?.role === "STUDENT" && (
                     <Link to="/join-course" className="card black">
-                        Join a course {" "}
+                        Join a course{" "}
                     </Link>
                 )}
             </div>

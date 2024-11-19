@@ -53,8 +53,7 @@ const CreateCourse: React.FC = () => {
             numStudents: Number(courseCapacity),
             instructorId: userData.id,
         });
-
-    };
+    }
 
     function navigate() {
         navigator("/courses");
@@ -98,7 +97,6 @@ const CreateCourse: React.FC = () => {
                 </div>
             </div>
             <div className="button-group">
-                
                 <button className="button publish-button" onClick={handleCreateCourse}>
                     Publish Course
                 </button>
@@ -126,6 +124,5 @@ const CreateCourse: React.FC = () => {
         </div>
     );
 };
-
 
 export default CreateCourse;

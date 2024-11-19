@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 const ViewAllExams: React.FC = () => {
     const navigate = useNavigate();
 
-    const exams = [
-        { id: 1, title: "Midterm Exam", date: "October 15, 2024" },
-    ];
-    {/* Update the exam title and date */
+    const exams = [{ id: 1, title: "Midterm Exam", date: "October 15, 2024" }];
+    {
+        /* Update the exam title and date */
     }
 
     const handleExamClick = (examId: number) => {
@@ -21,11 +20,7 @@ const ViewAllExams: React.FC = () => {
 
             <div className="exam-list">
                 {exams.map((exam) => (
-                    <div
-                        key={exam.id}
-                        className="exam-card"
-                        onClick={() => handleExamClick(exam.id)}
-                    >
+                    <div key={exam.id} className="exam-card" onClick={() => handleExamClick(exam.id)}>
                         <h2>{exam.title}</h2>
                         <p>{exam.date}</p>
                     </div>

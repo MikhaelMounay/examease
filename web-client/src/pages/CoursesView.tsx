@@ -1,6 +1,6 @@
 // components/CoursesView.tsx
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Course } from "../types/Course";
 import { useCourseContext } from "../contexts/CourseContext";
@@ -21,13 +21,16 @@ const CoursesView: React.FC = () => {
         return response.json();
     };
 
-// Use `useQuery` with instructor-specific fetch
-    const { data: courses, error, isLoading } = useQuery({
+    // Use `useQuery` with instructor-specific fetch
+    const {
+        data: courses,
+        error,
+        isLoading,
+    } = useQuery({
         queryKey: ["courses", userData?.aucId],
         queryFn: fetchCourses,
         enabled: !!userData?.aucId && !!token,
     });
-
 
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Failed to load courses. Please try again later.</p>;
