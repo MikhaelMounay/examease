@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarItems, _setSidebarItems] = useState<{ linkTo: string; icon: IconDefinition; label: string }[]>([
         {
-            linkTo: "/",
+            linkTo: "/courses",
             icon: faHome,
             label: "Home",
         },
@@ -159,7 +159,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
                                             </p>
                                         )}
                                         <button
-                                            className="hidden rounded-full border-2 border-gray-400 p-1 lg:block"
+                                            className="hidden w-8 h-8 rounded-full border-2 border-gray-400 lg:block"
                                             onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                                         >
                                             {isSidebarCollapsed && <FontAwesomeIcon icon={faAngleRight} />}
@@ -172,7 +172,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
                                         </button>
                                     </div>
 
-                                    <nav className="max-h-[calc(100%-120px)] overflow-y-auto">
+                                    <nav className="max-h-[calc(100%-120px)] overflow-y-auto overflow-x-hidden">
                                         <ul>
                                             {
                                                 sidebarItems.map(((item, i) => (

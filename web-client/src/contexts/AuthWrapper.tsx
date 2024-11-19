@@ -17,13 +17,16 @@ const AuthContext = createContext<AuthContextData>({
     userData: null,
     token: null,
     isAuthenticated: true,
-    login: async () => {},
-    register: async () => {},
-    logout: () => {},
+    login: async () => {
+    },
+    register: async () => {
+    },
+    logout: () => {
+    },
 });
 export const AuthData = () => useContext(AuthContext);
 
-const AuthWrapper: React.FC = function () {
+const AuthWrapper: React.FC = function() {
     // States
     const [userData, setUserData] = useState<UserWithoutPassword | null>(null);
     const [token, setToken] = useState<string | null>(null);
@@ -77,10 +80,10 @@ const AuthWrapper: React.FC = function () {
                         localStorage.setItem("user_token", token);
                         resolve(data);
                     }).catch(err => {
-                        console.log("Error: ", err);
-                        setIsAuthenticated(false);
-                        reject(err);
-                    });
+                    console.log("Error: ", err);
+                    setIsAuthenticated(false);
+                    reject(err);
+                });
             } catch (err) {
                 console.log("Error: ", err);
                 reject(err);

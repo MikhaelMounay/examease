@@ -22,7 +22,7 @@ const MainLayout: React.FC = function() {
 
                     {/*// <!-- TODO: add overflow-hidden before release -->*/}
                     <main
-                        className="h-[calc(100vh-56px)] max-w-full flex-1 duration-300 lg:h-screen lg:max-w-[calc(100%-var(--sidebar-width))]"
+                        className="h-[calc(100vh-56px)] max-w-full flex-1 duration-300 lg:h-screen lg:max-w-[calc(100%-var(--sidebar-width)-0.5rem)]"
                     >
                         <div className="flex h-full flex-col">
                             <div className="flex-none">

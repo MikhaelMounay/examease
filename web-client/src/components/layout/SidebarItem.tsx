@@ -16,7 +16,7 @@ const SidebarItem: React.FC<SidebarProps> = function(props) {
             <NavLink
                 to={props.linkTo}
                 className={({ isActive }) => ("block h-full truncate rounded p-2 py-3 duration-200 hover:bg-primary hover:text-textColorLight " + (isActive ? "bg-secondary text-textColorLight" : ""))}
-                onClick={() => props.setIsSidebarOpen(false)}
+                // onClick={() => props.setIsSidebarOpen(false)} // TODO: either closes the navbar on click (good for small screens) or removes the whole sidebar on click (disastrous for large screens)
             >
                 <div className={"flex items-center " + (props.isSidebarCollapsed ? "justify-center" : "")}>
                     <div className="mx-2">

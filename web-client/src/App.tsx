@@ -1,6 +1,6 @@
 import AuthWrapper from "./contexts/AuthWrapper";
 
-const App: React.FC = function () {
+const App: React.FC = function() {
     return (
         <>
             <AuthWrapper />
