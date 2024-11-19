@@ -13,43 +13,39 @@ const CourseInfoPage: React.FC = () => {
 
     const course = courseInfo;
 
-    // Placeholder for instructor actions
-    const teacherFunctions = () => (
-        <div className="actions-grid1">
-            <button
-                className="action-button1"
-                onClick={() => navigate("/make-exam")}
-            >
-                Make an Exam
-            </button>
-            <button
-                className="action-button1"
-                onClick={() => navigate("/manage-students")}
-            >
-                Manage Enrolled Students
-            </button>
-            <button
-                className="action-button1"
-                onClick={() => navigate("/monitor-exams")}
-            >
-                Monitor Live Exams
-            </button>
-            <button
-                className="action-button1"
-                onClick={() => navigate("/view-exams")}
-            >
-                View All Exams
-            </button>
-            {course && (
-                <button
-                    className="action-button1"
-                    onClick={() => navigate(`/course-info/${course.id}`)}
-                >
-                    View Course Info
+  // Placeholder for instructor actions
+  const teacherFunctions = () => (
+    <div className="actions-grid1">
+      <button 
+        className="action-button1" 
+        onClick={() => navigate('/make-exam')}
+      >
+        Make an Exam
+      </button>
+      <button 
+        className="action-button1" 
+        onClick={() => navigate('/manage-students')}
+      >
+        Manage Enrolled Students
+      </button>
+      <button 
+        className="action-button1" 
+        onClick={() => navigate('/monitor-exams')}
+      >
+        Monitor Live Exams
+      </button>
+      <button 
+        className="action-button1" 
+        onClick={() => navigate('/view-exams')}
+      >
+        View All Exams
+      </button>
+      <button className="action-button1" onClick={()=> navigate('/create-course')}>
+                    Edit Course Properties
                 </button>
-            )}
-        </div>
-    );
+      
+    </div>
+  );
 
     // Placeholder for student actions
     const studentFunctions = () => (
