@@ -97,9 +97,7 @@ const CreateCourse: React.FC = () => {
                 </div>
             </div>
             <div className="button-group">
-                <button className="button edit-button" onClick={handleCreateCourse}>
-                    Edit Properties
-                </button>
+                
                 <button className="button publish-button" onClick={handleCreateCourse}>
                     Publish Course
                 </button>

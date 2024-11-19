@@ -3,7 +3,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+:root
+{
+  --main-color: #168AAD;
+  --secondary-color:#34A0A4;
+}
 .main-layout {
     font-family: Arial, sans-serif;
     color: #333;
@@ -61,7 +65,7 @@
     }
     
     .navbar-right a:hover {
-        color: #007bff; 
+        color: var(--secondary-color); 
     }
     
     .navbar-right a::after {
@@ -71,7 +75,7 @@
         right: 0;
         bottom: -4px;
         height: 2px;
-        background-color: #007bff;
+        background-color: var(--main-color);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
@@ -87,7 +91,7 @@
 }
 
 .nav-links a:hover {
-    color: #0056b3; 
+    color: var(--secondary-color); 
 }
 
 .content h1 {
@@ -134,11 +138,11 @@
 }
 
 .card.blue {
-    background-color: #1d4ed8; 
+    background-color: var(--main-color); 
 }
 
 .card.blue:hover {
-    background-color: #1e40af; 
+    background-color:var(--secondary-color); 
     transform: scale(1.05);    
 }
 
@@ -152,69 +156,82 @@
 }
 /*============================================================================================= courses view*/
 .course-view-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #e8f0fe;
-    overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background-color: #e8f0fe;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .greeting {
-    font-size: 2em; 
-    font-weight: bold;
-    color: #1a1a1a;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 2em; 
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .course-list {
-    display: flex;
-    gap: 15px;
-    max-width: 90%;
-    overflow-x: auto;
-    padding: 10px;
-    scroll-snap-type: x mandatory;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+  gap: 20px; /* Spacing between the cards */
+  max-width: 100%;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .course-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 200px; 
-    max-width: 250px;
-    padding: 15px; 
-    background-color: #1d4ed8;
-    color: #ffffff;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1em;
-    text-align: center;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-    cursor: pointer;
-    scroll-snap-align: start; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  padding: 15px;
+  min-height: 100px; /* Ensure a consistent height for the cards */
 }
 
 .course-card:hover {
-    background-color: #1e40af;
-    transform: scale(1.05);
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
 }
 
 .course-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .course-title {
-    font-size: 1rem;
-    margin: 0;
+  font-size: 1rem;
+  margin: 0;
 }
 
 .course-description {
-    font-size: 0.9em;
-    margin-top: 5px;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .course-list {
+      grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .course-list {
+      grid-template-columns: 1fr; /* One column for small screens */
+  }
 }
 
 /*============================================================================================= new course */
@@ -292,7 +309,7 @@
   }
   
   .publish-button {
-    background-color: #007bff; 
+    background-color: var(--main-color); 
     color: #fff;
   }
   
@@ -341,7 +358,7 @@
   padding: 10px 20px;
   margin: 5px;
   border: none;
-  background-color: #007bff; 
+  background-color: var(--main-color); 
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -354,7 +371,7 @@
 
 /* Close Modal button */
 .modal-content button:last-child {
-  background-color:  #007bff; /* Red background for 'Ok' button */
+  background-color: var(--main-color); /* Red background for 'Ok' button */
 }
 
 .modal-content button:last-child:hover {
@@ -412,7 +429,7 @@
   }
   
   .action-button1:hover {
-    background-color: #0056d2;
+    background-color: var(--secondary-color);
     transform: translateY(-3px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   }
@@ -470,7 +487,7 @@
   }
   
   .action-button {
-    background-color: #0056d2;
+    background-color: var(--main-color);
     color: #fff;
     font-size: 1rem;
     padding: 15px;
@@ -490,11 +507,11 @@
   }
   
   .edit-exam {
-    background-color: #0056d2;
+    background-color: var(--main-color);
   }
   
   .delete-exam {
-    background-color: #0056d2;
+    background-color: var(--main-color);
   }
   
   .action-button:hover {
@@ -542,7 +559,7 @@
   }
   
   .action-card:hover {
-    background-color: #1a73e8;
+    background-color: var(--main-color);
   }
   
   .card-title {
@@ -723,7 +740,7 @@
       }
       
       .login-button:hover {
-        background-color: #0056d2;
+        background-color: var(--secondary-color);
       }
       
       .register-message {
@@ -733,7 +750,7 @@
       }
       
       .register-link {
-        color: #0056d2;
+        color: var(--main-color);
         cursor: pointer;
         font-weight: bold;
       }
@@ -815,7 +832,7 @@
   }
   
   .register-button:hover {
-    background-color: #0056d2;
+    background-color: var(--secondary-color);
   }
   
   .login-message {
@@ -825,7 +842,7 @@
   }
   
   .login-link {
-    color: #0056d2;
+    color: var(--main-color);
     cursor: pointer;
     font-weight: bold;
   }
@@ -882,7 +899,7 @@
   }
   
   .join-course-button:hover {
-    background-color: #0056d2;
+    background-color: var(--secondary-color);
   }
 /* ============================================================================================= Take an exam*/
 .page-container {
@@ -941,7 +958,7 @@
   }
   
   .submit-button:hover {
-    background-color: #0056d2;
+    background-color: var(--secondary-color);
   }
 /* ============================================================================================= view grades & feedback */ 
 .page-container {
@@ -1046,7 +1063,7 @@
 }
 
 .add-student-form input:focus {
-  border-color: #007bff;
+  border-color: var(--main-color);
 }
 
 /* Submit and Back buttons */
@@ -1061,12 +1078,12 @@
 }
 
 .submit-button {
-  background-color: #007bff;
+  background-color: var(--main-color);
   color: #fff;
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: var(--main-color);
 }
 
 .back-button {
@@ -1141,7 +1158,7 @@
   }
   
   .remove-student-form input:focus {
-    border-color: #007bff;
+    border-color: var(--main-color);
   }
 
 
@@ -1178,7 +1195,7 @@ th, td {
 }
 
 th {
-  background-color: #0056b3;
+  background-color: var(--main-color);
   color: white;
   font-weight: bold;
   text-transform: uppercase;
@@ -1225,7 +1242,7 @@ h2 {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #0056b3; 
+  background-color: var(--main-color); 
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
