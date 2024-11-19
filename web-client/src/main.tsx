@@ -12,10 +12,12 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
+        <CourseProvider>
         <QueryClientProvider client={queryClient}>
             <PrimeReactProvider >
                 <RouterProvider router={router} />
             </PrimeReactProvider>
         </QueryClientProvider>
+        </CourseProvider>
     </StrictMode>
 );
