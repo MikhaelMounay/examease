@@ -17,6 +17,11 @@ const HomeView: React.FC = function () {
                         Create a New Course{" "}
                     </Link>
                 )}
+                {userData?.role === "STUDENT" && (
+                    <Link to="/join-course" className="card black">
+                        Join a course {" "}
+                    </Link>
+                )}
             </div>
         </div>
     );
