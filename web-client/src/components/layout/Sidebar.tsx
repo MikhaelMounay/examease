@@ -7,6 +7,10 @@ import {
     faCircleUser,
     faRightFromBracket,
     faHome,
+    faBook,
+    faCalendarDays,
+    faBullhorn,
+    faFolderPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthData } from "../../contexts/AuthWrapper.tsx";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
@@ -47,6 +51,26 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
             linkTo: "/courses",
             icon: faHome,
             label: "Home",
+        },
+        {
+            linkTo: "courses",
+            icon: faBook,
+            label: "Courses",
+        },
+        {
+            linkTo: "/create-course",
+            icon: faFolderPlus,
+            label: "Create Course",
+        },
+        {
+            linkTo: "",
+            icon: faCalendarDays,
+            label: "Calendar",
+        },
+        {
+            linkTo: "",
+            icon: faBullhorn,
+            label: "Announcments",
         },
     ]);
 
