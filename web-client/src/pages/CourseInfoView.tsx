@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Course } from "../types/Course";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const CourseInfoPage: React.FC = () => {
     const { courseid } = useParams();
     const [courseInfo, setCourseInfo] = useState<Course | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { userData } = AuthData();
+    const { userData } = useAuth();
     const navigate = useNavigate();
 
     const course = courseInfo;

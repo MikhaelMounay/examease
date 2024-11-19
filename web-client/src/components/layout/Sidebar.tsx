@@ -8,7 +8,7 @@ import {
     faRightFromBracket,
     faHome,
 } from "@fortawesome/free-solid-svg-icons";
-import { AuthData } from "../../contexts/AuthWrapper.tsx";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import SidebarItem from "./SidebarItem.tsx";
 import { createPortal } from "react-dom";
@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     // Constants
     const sidebarWidthConstraints = {
         minWidth: 192, // 12rem
-        defaultWidth: 256, // 18rem
+        defaultWidth: 224, // 16rem
         maxWidth: 352, // 22rem
     };
 
@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     };
 
     // User Data
-    const { userData, logout } = AuthData();
+    const { userData, logout } = useAuth();
 
     // React States
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);

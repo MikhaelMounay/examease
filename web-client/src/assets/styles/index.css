@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body, #root {
+    @apply h-screen;
+}
+
 .main-layout {
     font-family: Arial, sans-serif;
     color: #333;

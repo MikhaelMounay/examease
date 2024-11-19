@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NewUser, Role } from "../types/User";
 import { useMutation } from "@tanstack/react-query";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../contexts/AuthWrapper";
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
-    const { register } = AuthData();
+    const { register } = useAuth();
 
     // States
     const [errorMessage, setErrorMessage] = useState("");
