@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthWrapper";
 import { useEffect, useState } from "react";
 import Preloader from "../layout/Preloader.tsx";
 
-const NavigationGuard = function() {
+const NavigationGuard = function () {
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
     const { pathname } = useLocation();
@@ -12,7 +12,7 @@ const NavigationGuard = function() {
 
     useEffect(() => {
         console.log("NavigationGuard isAuthenticated: ", isAuthenticated);
-        if (isAuthenticated && pathname.includes("login") || pathname.includes("register")) {
+        if ((isAuthenticated && pathname.includes("login")) || pathname.includes("register")) {
             navigate("/", { replace: true });
             setIsLoading(false);
         } else if (isAuthenticated === false) {

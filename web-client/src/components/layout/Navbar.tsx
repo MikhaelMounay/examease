@@ -5,22 +5,19 @@ import { useNavigate } from "react-router-dom";
 
 type NavbarProps = {
     setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
-const Navbar: React.FC<NavbarProps> = function(props) {
+const Navbar: React.FC<NavbarProps> = function (props) {
     const navigate = useNavigate();
 
     return (
-        <nav
-            className="sticky flex h-14 items-center justify-start bg-black bg-opacity-90 text-textColorLight shadow-md lg:hidden">
+        <nav className="text-textColorLight sticky flex h-14 items-center justify-start bg-black bg-opacity-90 shadow-md lg:hidden">
             <div className="mx-3 flex items-center">
-                <button
-                    onClick={() => navigate(-1)} className="px-3 duration-200 hover:-translate-x-0.5">
+                <button onClick={() => navigate(-1)} className="px-3 duration-200 hover:-translate-x-0.5">
                     <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
 
-                <button
-                    onClick={() => props.setIsSidebarOpen(true)} className="px-3">
+                <button onClick={() => props.setIsSidebarOpen(true)} className="px-3">
                     <FontAwesomeIcon icon={faBars} />
                 </button>
             </div>

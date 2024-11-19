@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ProgressSpinner } from "primereact/progressspinner";
 import Logo from "../../assets/logo.png";
 
-const Preloader: React.FC = function() {
+const Preloader: React.FC = function () {
     const [showConnectivityError, setShowConnectivityError] = useState(false);
 
     useEffect(() => {
@@ -21,9 +21,7 @@ const Preloader: React.FC = function() {
 
             <ProgressSpinner style={{ width: 65, height: 65 }} strokeWidth="4" aria-label="Loading" />
 
-            {showConnectivityError && (
-                <p className="text-sm text-red-600 mt-6">Looks like we can't connect to server!</p>
-            )}
+            {showConnectivityError && <p className="mt-6 text-sm text-red-600">Looks like we can't connect to server!</p>}
         </div>
     );
 };

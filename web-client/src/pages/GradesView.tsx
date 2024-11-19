@@ -17,11 +17,7 @@ const ViewGradesPage: React.FC = () => {
             <h1>Grades and Feedback</h1>
             <div className="exams-container">
                 {exams.map((exam) => (
-                    <button
-                        key={exam.id}
-                        className="exam-button"
-                        onClick={() => handleExamClick(exam.id)}
-                    >
+                    <button key={exam.id} className="exam-button" onClick={() => handleExamClick(exam.id)}>
                         <span className="exam-name">{exam.name}</span>
                         <span className="exam-grade">Grade: {exam.grade}</span>
                     </button>

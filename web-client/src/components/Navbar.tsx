@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthWrapper";
 
-const Navbar: React.FC = function() {
+const Navbar: React.FC = function () {
     const navigate = useNavigate();
     const { logout } = useAuth();
 

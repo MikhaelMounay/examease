@@ -17,13 +17,12 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import SidebarItem from "./SidebarItem.tsx";
 import { createPortal } from "react-dom";
 
-
 type SidebarProps = {
     isSidebarOpen: boolean;
     setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
-const Sidebar: React.FC<SidebarProps> = function(props) {
+const Sidebar: React.FC<SidebarProps> = function (props) {
     // Constants
     const sidebarWidthConstraints = {
         minWidth: 192, // 12rem
@@ -112,10 +111,8 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
         window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener("mousemove", (_e) => {
-            });
-            window.removeEventListener("mouseup", () => {
-            });
+            window.removeEventListener("mousemove", (_e) => {});
+            window.removeEventListener("mouseup", () => {});
             window.removeEventListener("resize", handleResize);
         };
     }, []);
@@ -130,122 +127,120 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
 
     return (
         <>
-            {
-                props.isSidebarOpen && (
-                    <div
-                        className="absolute left-0 top-0 z-30 bg-black text-textColorLight shadow-lg shadow-gray-600 lg:relative lg:flex lg:bg-opacity-85"
-                    >
-
-                        {props.isSidebarOpen && createPortal(
-                            (<div
-
+            {props.isSidebarOpen && (
+                <div className="text-textColorLight absolute left-0 top-0 z-30 bg-black shadow-lg shadow-gray-600 lg:relative lg:flex lg:bg-opacity-85">
+                    {props.isSidebarOpen &&
+                        createPortal(
+                            <div
                                 className="absolute left-0 top-0 z-20 h-full w-full bg-gray-900 bg-opacity-50 lg:hidden"
                                 onClick={() => props.setIsSidebarOpen(false)}
-                            ></div>), document.getElementById("backdrop")!,
+                            ></div>,
+                            document.getElementById("backdrop")!
                         )}
 
-                        <aside
-                            className={"relative z-30 h-screen p-4 lg:pe-3 " + (isResizing ? "" : "duration-300")}
-                            style={{ width: (window.innerWidth < breakpointsTailwind.lg ? "fit-content" : isSidebarCollapsed ? "5rem" : `${sidebarWidth / 16}rem`) }}
-                        >
-                            <div className="flex h-full flex-col justify-between">
-                                <div className="h-full overflow-hidden">
-                                    <div
-                                        className={"mb-10 mt-3 flex items-center " + (isSidebarCollapsed ? "justify-center" : "justify-between")}
+                    <aside
+                        className={"relative z-30 h-screen p-4 lg:pe-3 " + (isResizing ? "" : "duration-300")}
+                        style={{
+                            width:
+                                window.innerWidth < breakpointsTailwind.lg
+                                    ? "fit-content"
+                                    : isSidebarCollapsed
+                                      ? "5rem"
+                                      : `${sidebarWidth / 16}rem`,
+                        }}
+                    >
+                        <div className="flex h-full flex-col justify-between">
+                            <div className="h-full overflow-hidden">
+                                <div
+                                    className={
+                                        "mb-10 mt-3 flex items-center " +
+                                        (isSidebarCollapsed ? "justify-center" : "justify-between")
+                                    }
+                                >
+                                    {!isSidebarCollapsed && <p className="ms-2 truncate text-lg font-bold">ExamEase</p>}
+                                    <button
+                                        className="hidden h-8 w-8 rounded-full border-2 border-gray-400 lg:block"
+                                        onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                                     >
-                                        {!isSidebarCollapsed && (
-                                            <p className="ms-2 truncate text-lg font-bold">
-                                                ExamEase
-                                            </p>
-                                        )}
-                                        <button
-                                            className="hidden w-8 h-8 rounded-full border-2 border-gray-400 lg:block"
-                                            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                                        >
-                                            {isSidebarCollapsed && <FontAwesomeIcon icon={faAngleRight} />}
-                                            {!isSidebarCollapsed && <FontAwesomeIcon icon={faAngleLeft} />}
-                                        </button>
-                                        <button className="ms-2 p-2 lg:hidden"
-                                                onClick={() => props.setIsSidebarOpen(false)}>
-
-                                            <FontAwesomeIcon icon={faXmark} />
-                                        </button>
-                                    </div>
-
-                                    <nav className="max-h-[calc(100%-120px)] overflow-y-auto overflow-x-hidden">
-                                        <ul>
-                                            {
-                                                sidebarItems.map(((item, i) => (
-                                                    <SidebarItem
-                                                        key={i}
-                                                        linkTo={item.linkTo}
-                                                        isSidebarCollapsed={isSidebarCollapsed}
-                                                        setIsSidebarOpen={props.setIsSidebarOpen}
-                                                        icon={item.icon}
-                                                        label={item.label} />
-                                                )))
-                                            }
-                                        </ul>
-                                    </nav>
+                                        {isSidebarCollapsed && <FontAwesomeIcon icon={faAngleRight} />}
+                                        {!isSidebarCollapsed && <FontAwesomeIcon icon={faAngleLeft} />}
+                                    </button>
+                                    <button className="ms-2 p-2 lg:hidden" onClick={() => props.setIsSidebarOpen(false)}>
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </button>
                                 </div>
-                                <div>
+
+                                <nav className="max-h-[calc(100%-120px)] overflow-y-auto overflow-x-hidden">
                                     <ul>
-                                        <li className={"relative mb-3 " + (isSidebarCollapsed ? "hidden" : "")}
-                                        >
-                                            <div className="block h-full w-full truncate rounded p-2 py-3">
-                                                <div
-                                                    className={"flex items-center " + (isSidebarCollapsed ? "justify-center" : "")}
-                                                >
-                                                    <div className="mx-2">
-                                                        <FontAwesomeIcon icon={faCircleUser} />
-                                                    </div>
-                                                    <div v-show="!isSidebarCollapsed" className="truncate">
-                                                        {userData?.name}
-                                                    </div>
+                                        {sidebarItems.map((item, i) => (
+                                            <SidebarItem
+                                                key={i}
+                                                linkTo={item.linkTo}
+                                                isSidebarCollapsed={isSidebarCollapsed}
+                                                setIsSidebarOpen={props.setIsSidebarOpen}
+                                                icon={item.icon}
+                                                label={item.label}
+                                            />
+                                        ))}
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li className={"relative mb-3 " + (isSidebarCollapsed ? "hidden" : "")}>
+                                        <div className="block h-full w-full truncate rounded p-2 py-3">
+                                            <div
+                                                className={
+                                                    "flex items-center " + (isSidebarCollapsed ? "justify-center" : "")
+                                                }
+                                            >
+                                                <div className="mx-2">
+                                                    <FontAwesomeIcon icon={faCircleUser} />
+                                                </div>
+                                                <div v-show="!isSidebarCollapsed" className="truncate">
+                                                    {userData?.name}
                                                 </div>
                                             </div>
-                                        </li>
+                                        </div>
+                                    </li>
 
-                                        <li className="group relative mb-3">
-                                            <button
-                                                className="block h-full w-full truncate rounded p-2 py-3 duration-200 hover:bg-primary hover:text-textColorLight"
-                                                onClick={() => {
-                                                    props.setIsSidebarOpen(false);
-                                                    logout();
-                                                }}
+                                    <li className="group relative mb-3">
+                                        <button
+                                            className="hover:bg-primary hover:text-textColorLight block h-full w-full truncate rounded p-2 py-3 duration-200"
+                                            onClick={() => {
+                                                props.setIsSidebarOpen(false);
+                                                logout();
+                                            }}
+                                        >
+                                            <div
+                                                className={
+                                                    "flex items-center " + (isSidebarCollapsed ? "justify-center" : "")
+                                                }
                                             >
-                                                <div
-                                                    className={"flex items-center " + (isSidebarCollapsed ? "justify-center" : "")}>
-                                                    <div className="mx-2">
-                                                        <FontAwesomeIcon icon={faRightFromBracket} />
-                                                    </div>
-                                                    {!isSidebarCollapsed && (
-                                                        <div className="truncate">Logout</div>
-                                                    )}
+                                                <div className="mx-2">
+                                                    <FontAwesomeIcon icon={faRightFromBracket} />
                                                 </div>
-
-                                            </button>
-                                            {isSidebarCollapsed && (
-                                                <div
-                                                    className="invisible absolute left-full top-2 ml-8 -translate-x-3 truncate rounded-md bg-primary px-2 py-1 text-sm text-textColorLight opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100"
-                                                >
-                                                    Logout
-                                                </div>
-                                            )}
-                                        </li>
-                                    </ul>
-                                </div>
+                                                {!isSidebarCollapsed && <div className="truncate">Logout</div>}
+                                            </div>
+                                        </button>
+                                        {isSidebarCollapsed && (
+                                            <div className="bg-primary text-textColorLight invisible absolute left-full top-2 ml-8 -translate-x-3 truncate rounded-md px-2 py-1 text-sm opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100">
+                                                Logout
+                                            </div>
+                                        )}
+                                    </li>
+                                </ul>
                             </div>
-                        </aside>
-                        <div className={"w-2 " + (!isSidebarCollapsed ? "cursor-col-resize" : "")}
-                             onMouseDown={() => {
-                                 setIsResizing(false);
-                             }}
-                        >
                         </div>
-                    </div>
-                )
-            }
+                    </aside>
+                    <div
+                        className={"w-2 " + (!isSidebarCollapsed ? "cursor-col-resize" : "")}
+                        onMouseDown={() => {
+                            setIsResizing(false);
+                        }}
+                    ></div>
+                </div>
+            )}
         </>
     );
 };

@@ -81,11 +81,13 @@ const RemoveStudent: React.FC = () => {
                 />
                 {error && <p className="error-message">{error}</p>}
                 {successMessage && <p className="success-message">{successMessage}</p>}
-                <button type="submit" className="submit-button">Remove Student</button>
+                <button type="submit" className="submit-button">
+                    Remove Student
+                </button>
                 <button
                     type="button"
                     className="back-button"
-                    onClick={() => navigate(`/manage-students`)}  // Navigate to Manage Students View
+                    onClick={() => navigate(`/manage-students`)} // Navigate to Manage Students View
                 >
                     Back
                 </button>

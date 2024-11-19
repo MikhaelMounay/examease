@@ -42,8 +42,8 @@ const router = createBrowserRouter(
                 <Route path="/view-students-info" element={<ViewStudentsInfo />} />
                 <Route path="/course-info/:courseid" element={<CourseViewWithInfo />} />
             </Route>
-        </Route>,
-    ),
+        </Route>
+    )
 );
 
 export default router;

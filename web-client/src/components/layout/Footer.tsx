@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const Footer: React.FC = function() {
+const Footer: React.FC = function () {
     return (
         <footer className="sticky flex h-10 items-center justify-center bg-black bg-opacity-55 text-gray-200">
             <p>
