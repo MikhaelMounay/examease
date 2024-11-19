@@ -39,11 +39,11 @@ const router = createBrowserRouter(
                 <Route path="/view-grades" element={<ViewGradesPage />} />
                 <Route path="/add-student" element={<AddStudent />} />
                 <Route path="/remove-student" element={<RemoveStudent />} />
-                <Route path="/view-students-info" element = {<ViewStudentsInfo/>} />
+                <Route path="/view-students-info" element={<ViewStudentsInfo />} />
                 <Route path="/course-info/:courseid" element={<CourseViewWithInfo />} />
-                </Route>
-        </Route>
-    )
+            </Route>
+        </Route>,
+    ),
 );
 
 export default router;
