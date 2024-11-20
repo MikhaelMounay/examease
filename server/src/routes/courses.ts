@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-// import { authenticate } from "../middleware/auth.js";
 import {
     createCourse,
     deleteCourse,

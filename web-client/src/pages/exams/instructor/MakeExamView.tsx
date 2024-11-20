@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons"; // Importing icons
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { Exam } from "../../../types/exam";
+import { useAuth } from "../../../contexts/AuthWrapper";
 
 interface Question {
     id: number;
@@ -10,6 +14,7 @@ interface Question {
 }
 
 const CreateExam: React.FC = () => {
+    const { userData, token } = useAuth();
     const [examName, setExamName] = useState("");
     const [examDate, setExamDate] = useState("");
     const [startTime, setStartTime] = useState("");
@@ -19,6 +24,7 @@ const CreateExam: React.FC = () => {
     const [questionPrompt, setQuestionPrompt] = useState("");
     const [editingQuestionId, setEditingQuestionId] = useState<number | null>(null);
     const [options, setOptions] = useState<string[]>([""]); // For MCQs
+    const navigator = useNavigate();
 
     // Load data from localStorage on page load
     useEffect(() => {
@@ -32,12 +38,6 @@ const CreateExam: React.FC = () => {
             setQuestions(parsedData.questions);
         }
     }, []);
-
-    // Save data to localStorage whenever the exam or questions change
-    useEffect(() => {
-        const examData = { examName, examDate, startTime, endTime, questions };
-        localStorage.setItem("examData", JSON.stringify(examData));
-    }, [examName, examDate, startTime, endTime, questions]);
 
     // Add a new question
     const addQuestion = () => {
@@ -108,18 +108,55 @@ const CreateExam: React.FC = () => {
         setOptions((prevOptions) => prevOptions.filter((_, i) => i !== index));
     };
 
-    const handleSubmitExam = () => {
-        const examData = {
-            name: examName,
-            date: examDate,
-            startTime,
-            endTime,
-            questions,
-        };
-        console.log("Exam Data: ", examData);
-        // Send `examData` to the server
-    };
-
+    // Mutation function to handle the exam creation logic
+    const createExamMutation = useMutation({
+        mutationFn: async (data: {
+            title: string;
+            examDate: string;
+            startTime: string;
+            endTime: string;
+            questions: Question[];
+            courseId: number; // Added courseId parameter
+        }) => {
+            console.log("ay haga");
+            const response = await fetch(import.meta.env.VITE_API_URL + "/exams/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+            if (!response.ok || response.status!== 200) throw new Error("Failed to create exam.");
+            return response.json() as Promise<Exam>;
+        },
+        onSuccess: (data) => {
+            console.log("Exam created successfully:", data);
+            alert("Exam created successfully!"); 
+            navigator("/courses"); // Show success message
+            // Optionally, you could redirect to another page or show a modal here
+        },
+        onError: (error) => {
+            console.error("Error occurred while creating exam:", error);
+            alert("Failed to create exam.");
+        },
+    });
+    
+    function handleCreateExam() {
+        if (!(examName && examDate && startTime && endTime && questions.length > 0)) {
+            console.error("Please fill in all fields and add at least one question");
+            return;
+        }
+    
+        createExamMutation.mutate({
+            title: examName,
+            examDate: examDate,
+            startTime: startTime,
+            endTime: endTime,
+            questions: questions,
+            courseId: 1, // Replace with the actual selected course ID
+        });
+    }
     return (
         <div className="create-exam-container">
             <h1>Create New Exam</h1>
@@ -232,8 +269,8 @@ const CreateExam: React.FC = () => {
                 </div>
             )}
 
-            {/* Submit Exam */}
-            <button onClick={handleSubmitExam} className="submit-button">
+            {/* Submit Exam Button */}
+            <button onClick={handleCreateExam} className="submit-exam">
                 Submit Exam
             </button>
         </div>

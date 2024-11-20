@@ -50,3 +50,17 @@ export type Course = typeof coursesTable.$inferSelect;
 export type NewCourse = typeof coursesTable.$inferInsert;
 
 // #endregion
+
+// #region exam schema
+
+// Define the `exams` table schema and infer Typescript types
+export const examsTable = pgTable("exams", {
+    id: serial().primaryKey().notNull(),
+    courseId: integer().references(() => coursesTable.id),
+    title: text().notNull(),
+    maxGrade: integer().notNull(),
+    duration: integer().notNull(),
+    ...timestamps,
+});
+export type Exam = typeof examsTable.$inferSelect;
+export type NewExam = typeof examsTable.$inferInsert;

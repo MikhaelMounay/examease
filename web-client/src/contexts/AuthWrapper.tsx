@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import LoginLayout from "../layouts/LoginLayout";
 
 // Types & Interfaces
-type AuthContextData = {
+export type AuthContextData = {
     userData?: UserWithoutPassword | null;
     token?: string | null;
     isAuthenticated: boolean | null;
