@@ -92,3 +92,17 @@ export const usersToGroupsRelations = relations(usersCoursesTable, ({ one }) => 
     }),
 }));
 // #endregion
+
+// #region exam schema
+
+// Define the `exams` table schema and infer Typescript types
+export const examsTable = pgTable("exams", {
+    id: serial().primaryKey().notNull(),
+    courseId: integer().references(() => coursesTable.id),
+    title: text().notNull(),
+    maxGrade: integer().notNull(),
+    duration: integer().notNull(),
+    ...timestamps,
+});
+export type Exam = typeof examsTable.$inferSelect;
+export type NewExam = typeof examsTable.$inferInsert;
