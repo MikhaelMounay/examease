@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
-import { primaryKey } from "drizzle-orm/mysql-core";
-import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, primaryKey } from "drizzle-orm/pg-core";
 
 // Define timestamps for all tables
 const timestamps = {
@@ -77,7 +76,7 @@ export const usersCoursesTable = pgTable(
             .references(() => coursesTable.id),
     },
     (t) => ({
-        pk: primaryKey({ columns: [t.userId, t.courseId] }), //why error? not resolved
+        pk: primaryKey({ columns: [t.userId, t.courseId] }),
     })
 );
 

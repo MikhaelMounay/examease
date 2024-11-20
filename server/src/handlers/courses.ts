@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { coursesTable } from "../db/schema/schema.js";
+import { coursesTable, usersCoursesTable } from "../db/schema/schema.js";
 
 // Fetch all courses
 export const getCourses = async (_req: Request, res: Response) => {
@@ -110,5 +110,86 @@ export const deleteCourse = async (req: Request, res: Response) => {
         res.status(200).json({ message: "Course deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Failed to delete course", error });
+    }
+};
+
+//self-enrollment: join course
+export const joinCourse = async (req: Request, res: Response) => {
+    try {
+        // @ts-ignore
+        const studentId = Number(req.user.id);
+        const { courseId, enrollmentKey } = req.body;
+
+        // Check if the course exists and is open for enrollment
+        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+        if (!course) {
+            return res.status(404).json({ message: "Course not found" });
+        }
+        if (!course.openForEnrollment || course.enrollmentKey !== enrollmentKey) {
+            return res.status(400).json({ message: "Invalid enrollment key or course is not open for enrollment" });
+        }
+
+        // Check if the user is already enrolled
+        const existingEnrollment = await db
+            .select()
+            .from(usersCoursesTable)
+            .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)))
+            .limit(1);
+
+        if (existingEnrollment) {
+            return res.status(400).json({ message: "You are already enrolled in this course" });
+        }
+        await db
+            .insert(usersCoursesTable)
+            .values({
+                courseId,
+                userId: studentId,
+            })
+            .returning();
+
+        // Increment the student count for the course
+        await db
+            .update(coursesTable)
+            .set({ numStudents: (course.numStudents ?? 0) + 1 })
+            .where(eq(coursesTable.id, courseId));
+
+        res.status(200).json({ message: "Successfully enrolled in the course" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+//self-enrollment: Drop Course
+export const dropCourse = async (req: Request, res: Response) => {
+    try {
+        const { studentId, courseId } = req.body;
+
+        // Check if the user is already enrolled
+        const existingEnrollment = await db
+            .select()
+            .from(usersCoursesTable)
+            .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)))
+            .limit(1);
+        if (!existingEnrollment) {
+            return res.status(400).json({ message: "You are not enrolled in this course" });
+        }
+
+        //remove the student from the course
+        await db
+            .delete(usersCoursesTable)
+            .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)));
+
+        // Decrement the student count for the course
+        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+        await db
+            .update(coursesTable)
+            .set({ numStudents: (course.numStudents ?? 0) - 1 })
+            .where(eq(coursesTable.id, courseId));
+
+        res.status(200).json({ message: "Successfully dropped the course" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
     }
 };
