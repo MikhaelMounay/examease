@@ -75,7 +75,7 @@ const AddStudent: React.FC = () => {
                 <button type="submit" className="submit-button">
                     Add Student
                 </button>
-                <button type="button" className="back-button" onClick={() => navigate(`/manage-students`)}>
+                <button type="button" className="back-button" onClick={() => navigate(`/manage-students/${courseId}`)}>
                     Back
                 </button>
             </form>

@@ -87,7 +87,7 @@ const RemoveStudent: React.FC = () => {
                 <button
                     type="button"
                     className="back-button"
-                    onClick={() => navigate(`/manage-students`)} // Navigate to Manage Students View
+                    onClick={() => navigate(`/manage-students/${courseId}`)} // Navigate to Manage Students View
                 >
                     Back
                 </button>

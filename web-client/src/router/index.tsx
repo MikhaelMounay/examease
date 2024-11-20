@@ -30,7 +30,7 @@ const router = createBrowserRouter(
                 <Route path="create-course" element={<NewCourseView />} />
                 <Route path="/home" element={<HomeView />} />
                 <Route path="/make-exam" element={<MakeExamView />} />
-                <Route path="/manage-students" element={<ManageStudentsView />} />
+                <Route path="/manage-students/:courseId" element={<ManageStudentsView />} />
                 <Route path="/monitor-exams" element={<MonitorLiveExams />} />
                 <Route path="/view-exams" element={<ViewAllExams />} />
                 <Route path="/student-home" element={<StudentHomeView />} />

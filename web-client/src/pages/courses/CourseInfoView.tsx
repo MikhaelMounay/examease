@@ -19,7 +19,7 @@ const CourseInfoPage: React.FC = () => {
             <button className="action-button1" onClick={() => navigate("/make-exam")}>
                 Create an Exam
             </button>
-            <button className="action-button1" onClick={() => navigate("/manage-students")}>
+            <button className="action-button1" onClick={() => navigate(`/manage-students/${courseInfo?.id}`)}>
                 Manage Enrolled Students
             </button>
             <button className="action-button1" onClick={() => navigate("/monitor-exams")}>

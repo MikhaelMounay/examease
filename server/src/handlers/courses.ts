@@ -232,7 +232,8 @@ export const getCourseStudents = async (req: Request, res: Response) => {
             .innerJoin(usersTable, eq(usersCoursesTable.userId, usersTable.id));
 
         res.status(200).json(students.map(student => ({
-            studentId: student.users.aucId,
+            studentId: student.users.id,
+            studentAucId: student.users.aucId,
             studentName: student.users.name,
             classStanding: student.users.classStanding,
         })))
