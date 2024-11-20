@@ -37,7 +37,7 @@ const router = createBrowserRouter(
                 <Route path="/join-course" element={<JoinCourseView />} />
                 <Route path="/take-exam" element={<TakeExamPage />} />
                 <Route path="/view-grades" element={<ViewGradesPage />} />
-                <Route path="/add-student" element={<AddStudent />} />
+                <Route path="/:courseId/add-student" element={<AddStudent />} />
                 <Route path="/remove-student" element={<RemoveStudent />} />
                 <Route path="/view-students-info" element={<ViewStudentsInfo />} />
                 <Route path="/course-info/:courseid" element={<CourseViewWithInfo />} />

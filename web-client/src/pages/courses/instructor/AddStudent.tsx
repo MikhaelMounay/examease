@@ -30,20 +30,30 @@ const AddStudent: React.FC = () => {
 
         try {
             // Check if the student exists
-            const response = await fetch(`/api/students/${aucId}`);
-            const data = await response.json();
-
-            if (!response.ok || !data.exists) {
-                setError("Student with this AUC ID does not exist.");
-                return;
-            }
+            // const response = await fetch(`/api/students/${aucId}`);
+            // const data = await response.json();
+            //
+            // if (!response.ok || !data.exists) {
+            //     setError("Student with this AUC ID does not exist.");
+            //     return;
+            // }
 
             // Add the student to the course
-            const addStudentResponse = await fetch(`/api/courses/${courseId}/students`, {
+            const addStudentResponse = await fetch(import.meta.env.VITE_API_URL + `/courses/add/`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ aucId }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                },
+                body: JSON.stringify({ courseId: courseId, studentAucId: aucId }),
             });
+
+            const addStudentJson = await addStudentResponse.json();
+
+            if (!addStudentResponse.ok || addStudentResponse.status !== 200) {
+                setError(addStudentJson.message);
+                return;
+            }
 
             if (addStudentResponse.ok) {
                 setSuccessMessage(`Student with AUC ID ${aucId} has been added to the course.`);
@@ -51,8 +61,8 @@ const AddStudent: React.FC = () => {
             } else {
                 setError("Failed to add student to the course. Please try again.");
             }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
+            console.log("Error: ", err);
             setError("An error occurred while adding the student. Please try again.");
         }
     };

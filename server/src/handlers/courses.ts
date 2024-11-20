@@ -187,11 +187,11 @@ export const joinCourse = async (req: Request, res: Response) => {
 export const addStudenttoCourse = async (req: Request, res: Response) => {
     try {
         //@ts-ignore
-        const instructorId = Number(req.user.id);
-        const { courseId, studentId } = req.body;
+        // const instructorId = Number(req.user.id);
+        const { courseId, studentAucId } = req.body;
 
         // Validate input
-        if (!courseId || !studentId) {
+        if (!courseId || !studentAucId) {
             res.status(400).json({ message: "Course ID and Student ID are required." });
             return;
         }
@@ -210,9 +210,9 @@ export const addStudenttoCourse = async (req: Request, res: Response) => {
         // }
 
         // Check if the student exists
-        const student = await db.select().from(usersTable).where(eq(usersTable.id, studentId)).limit(1);
+        const [studentUser] = await db.select().from(usersTable).where(eq(usersTable.aucId, studentAucId)).limit(1);
 
-        if (!student) {
+        if (!studentUser) {
             res.status(404).json({ message: "Student not found." });
             return;
         }
@@ -220,7 +220,7 @@ export const addStudenttoCourse = async (req: Request, res: Response) => {
         // Add student to the course
         await db.insert(usersCoursesTable).values({
             courseId,
-            userId: studentId,
+            userId: studentUser.id,
         });
 
         // Update the number of students in the course
