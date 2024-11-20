@@ -8,7 +8,7 @@ const CourseInfoPage: React.FC = () => {
     const [courseInfo, setCourseInfo] = useState<Course | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const { userData } = useAuth();
+    const { userData, token } = useAuth();
     const navigate = useNavigate();
 
     const course = courseInfo;
@@ -54,7 +54,11 @@ const CourseInfoPage: React.FC = () => {
             setError(null);
 
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`, {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
                 if (!response.ok) throw new Error("Failed to fetch course data");
 
                 const data = await response.json();
