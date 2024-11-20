@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { eq, and } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { coursesTable, usersCoursesTable } from "../db/schema/schema.js";
+import { coursesTable, usersCoursesTable, usersTable } from "../db/schema/schema.js";
 
 // Fetch all courses
 export const getCourses = async (_req: Request, res: Response) => {
@@ -32,7 +32,6 @@ export const getCourseById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Failed to retrieve course", error });
     }
 };
-
 
 
 // All courses for a specific person
@@ -212,6 +211,33 @@ export const dropCourse = async (req: Request, res: Response) => {
         res.status(200).json({ message: "Successfully dropped the course" });
     } catch (error) {
         console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const getCourseStudents = async (req: Request, res: Response) => {
+    let courseId;
+    try {
+        courseId = parseInt(req.params.courseId);
+    } catch (err) {
+        console.log("Error: ", err);
+        res.status(400).json({ message: "Course Id invalid" });
+        return;
+    }
+
+    try {
+        const students = await db.select()
+            .from(usersCoursesTable)
+            .where(and(eq(usersCoursesTable.courseId, courseId), eq(usersTable.role, "STUDENT")))
+            .innerJoin(usersTable, eq(usersCoursesTable.userId, usersTable.id));
+
+        res.status(200).json(students.map(student => ({
+            studentId: student.users.aucId,
+            studentName: student.users.name,
+            classStanding: student.users.classStanding,
+        })))
+    } catch (err) {
+        console.log("Error: ", err);
         res.status(500).json({ message: "Internal server error" });
     }
 };

@@ -6,10 +6,10 @@ import {
     deleteCourse,
     getCourseById,
     getCourses,
-    joinCourse,
+    // joinCourse,
     updateCourse,
-    dropCourse,
-    getCoursesByInstructorId,
+    // dropCourse,
+    getCoursesByInstructorId, getCourseStudents,
 } from "../handlers/courses.js";
 import { authenticate } from "../middleware/auth.js";
 
@@ -25,7 +25,9 @@ coursesRouter.put("/:id",  authenticate, updateCourse);
 coursesRouter.delete("/:id",  authenticate, deleteCourse);
 coursesRouter.get("/instructor/:Instructor_Id", getCoursesByInstructorId);
 
-coursesRouter.post("/join", authenticate, joinCourse);
-coursesRouter.post("/drop", authenticate, dropCourse);
+// coursesRouter.post("/join", authenticate, joinCourse);
+// coursesRouter.post("/drop", authenticate, dropCourse);
+
+coursesRouter.get("/coursestudents/:courseId", authenticate, getCourseStudents);
 
 export default coursesRouter;
