@@ -49,7 +49,7 @@ const ManageStudentsView: React.FC = () => {
             <div className="actions-grid mb-6">
                 <div></div>
                 <div></div>
-                <button className="action-card" onClick={() => navigate("/add-student")}>
+                <button className="action-card" onClick={() => navigate(`/${courseId}/add-student`)}>
                     <span className="card-title">Add Student</span>
                 </button>
 
