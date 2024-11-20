@@ -47,8 +47,15 @@
     {
       "idx": 6,
       "version": "7",
+      "when": 1732133294848,
+      "tag": "0006_brown_queen_noir",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
       "when": 1732138859672,
-      "tag": "0006_chemical_blue_shield",
+      "tag": "0007_chemical_blue_shield",
       "breakpoints": true
     }
   ]

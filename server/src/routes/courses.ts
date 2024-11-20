@@ -5,8 +5,12 @@ import {
     deleteCourse,
     getCourseById,
     getCourses,
-    getCoursesByInstructorId,
+    joinCourse,
     updateCourse,
+    addStudenttoCourse,
+    removeStudentfromCourse,
+    getCoursesByInstructorId,
+    getCourseStudents,
 } from "../handlers/courses.js";
 import { authenticate } from "../middleware/auth.js";
 
@@ -15,11 +19,18 @@ const coursesRouter = Router();
 // TODO: Add authentication middleware
 // coursesRouter.use(authenticate);
 
-coursesRouter.get("/", getCourses);
-coursesRouter.get("/:id", getCourseById);
+coursesRouter.get("/", authenticate, getCourses);
+coursesRouter.get("/:id", authenticate, getCourseById);
 coursesRouter.post("/", authenticate, createCourse);
 coursesRouter.put("/:id", authenticate, updateCourse);
 coursesRouter.delete("/:id", authenticate, deleteCourse);
 coursesRouter.get("/instructor/:Instructor_Id", getCoursesByInstructorId);
+
+coursesRouter.post("/join", authenticate, joinCourse); //self-enroll
+
+coursesRouter.post("/add", authenticate, addStudenttoCourse);
+coursesRouter.post("/remove", authenticate, removeStudentfromCourse);
+
+coursesRouter.get("/coursestudents/:courseId", authenticate, getCourseStudents);
 
 export default coursesRouter;

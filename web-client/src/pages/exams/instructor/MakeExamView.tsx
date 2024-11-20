@@ -11,6 +11,9 @@ interface Question {
     type: string;
     prompt: string;
     options?: string[]; // For MCQs
+    language?: string; // For coding questions
+    isCodeSnippet?: boolean; // Whether it's a code snippet
+    codeSnippet?: string; // The actual code snippet
 }
 
 const CreateExam: React.FC = () => {
@@ -25,6 +28,9 @@ const CreateExam: React.FC = () => {
     const [editingQuestionId, setEditingQuestionId] = useState<number | null>(null);
     const [options, setOptions] = useState<string[]>([""]); // For MCQs
     const navigator = useNavigate();
+    const [codingLanguage, setCodingLanguage] = useState(""); // For coding questions
+    const [isCodeSnippet, setIsCodeSnippet] = useState(false); // For code snippet checkbox
+    const [codeSnippet, setCodeSnippet] = useState(""); // For the code snippet textarea
 
     // Load data from localStorage on page load
     useEffect(() => {
@@ -49,6 +55,9 @@ const CreateExam: React.FC = () => {
                     type: questionType,
                     prompt: questionPrompt,
                     options: questionType === "mcq" ? options.filter(Boolean) : undefined,
+                    language: questionType === "Coding" ? codingLanguage : undefined,
+                    isCodeSnippet,
+                    codeSnippet: isCodeSnippet ? codeSnippet : undefined, // Add code snippet if applicable
                 },
             ]);
             resetForm();
@@ -61,11 +70,14 @@ const CreateExam: React.FC = () => {
             prevQuestions.map((q) =>
                 q.id === editingQuestionId
                     ? {
-                          ...q,
-                          type: questionType,
-                          prompt: questionPrompt,
-                          options: questionType === "mcq" ? options.filter(Boolean) : undefined,
-                      }
+                        ...q,
+                        type: questionType,
+                        prompt: questionPrompt,
+                        options: questionType === "mcq" ? options.filter(Boolean) : undefined,
+                        language: questionType === "Coding" ? codingLanguage : q.language,
+                        isCodeSnippet,
+                        codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
+                    }
                     : q
             )
         );
@@ -78,6 +90,9 @@ const CreateExam: React.FC = () => {
         setQuestionType(question.type);
         setQuestionPrompt(question.prompt);
         setOptions(question.options || [""]);
+        setCodingLanguage(question.language || "");
+        setIsCodeSnippet(question.isCodeSnippet || false); // Set the checkbox for code snippet
+        setCodeSnippet(question.codeSnippet || ""); // Set the code snippet for editing
     };
 
     // Delete a question
@@ -91,6 +106,9 @@ const CreateExam: React.FC = () => {
         setQuestionType("");
         setQuestionPrompt("");
         setOptions([""]);
+        setCodingLanguage("");
+        setIsCodeSnippet(false);
+        setCodeSnippet("");
     };
 
     // Add an option for MCQs
@@ -208,6 +226,24 @@ const CreateExam: React.FC = () => {
                         placeholder="Enter the question prompt"
                     />
                 </label>
+                <label className="code-snippet-label">
+                            Will be a code snippet?
+                            <input
+                                type="checkbox"
+                                checked={isCodeSnippet}
+                                onChange={(e) => setIsCodeSnippet(e.target.checked)}
+                            />
+                        </label>
+                        {isCodeSnippet && (
+                            <label>
+                                Code Snippet:
+                                <textarea
+                                    value={codeSnippet}
+                                    onChange={(e) => setCodeSnippet(e.target.value)}
+                                    placeholder="Enter the code snippet"
+                                />
+                            </label>
+                        )}
 
                 {/* MCQ Options */}
                 {questionType === "mcq" && (
@@ -221,7 +257,6 @@ const CreateExam: React.FC = () => {
                                     onChange={(e) => updateOption(index, e.target.value)}
                                     placeholder={`Option ${index + 1}`}
                                 />
-                                {/* Show remove icon only for the first option if there are more than one option */}
                                 {options.length > 1 && (
                                     <button onClick={() => removeOption(index)}>
                                         <FontAwesomeIcon icon={faTrash} />
@@ -233,6 +268,23 @@ const CreateExam: React.FC = () => {
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
                     </div>
+                )}
+
+                {/* Coding Question Language */}
+                {questionType === "Coding" && (
+                    <>
+                        <label>
+                            Programming Language:
+                            <select value={codingLanguage} onChange={(e) => setCodingLanguage(e.target.value)}>
+                                <option value="">Select language</option>
+                                <option value="Python">Python</option>
+                                <option value="Java">Java</option>
+                                <option value="C++">C++</option>
+                                <option value="JavaScript">JavaScript</option>
+                            </select>
+                        </label>
+                        
+                    </>
                 )}
 
                 <button onClick={editingQuestionId ? saveEditedQuestion : addQuestion} className="add-question">
@@ -249,12 +301,24 @@ const CreateExam: React.FC = () => {
                             <li key={question.id}>
                                 <strong>Type:</strong> {question.type} <br />
                                 <strong>Prompt:</strong> {question.prompt} <br />
+                                {question.isCodeSnippet && (
+                                            <>
+                                                <strong>Code Snippet:</strong>
+                                                <pre>{question.codeSnippet}</pre>
+                                            </>
+                                        )}
                                 {question.type === "mcq" && (
                                     <>
                                         <strong>Options:</strong>
                                         <ul>{question.options?.map((opt, idx) => <li key={idx}>{opt}</li>)}</ul>
                                     </>
                                 )}
+                                {question.type === "Coding" && (
+                                    <>
+                                        <strong>Language:</strong> {question.language} <br />
+                                    </>
+                                )}
+
                                 <div className="action-buttons">
                                     <button onClick={() => editQuestion(question)}>
                                         <FontAwesomeIcon icon={faPen} />
@@ -269,9 +333,9 @@ const CreateExam: React.FC = () => {
                 </div>
             )}
 
-            {/* Submit Exam Button */}
+            {/* Submit Exam */}
             <button onClick={handleCreateExam} className="submit-exam">
-                Submit Exam
+                Save Exam
             </button>
         </div>
     );
