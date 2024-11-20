@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+
 const ManageStudentsView: React.FC = () => {
     const navigate = useNavigate();
 
@@ -21,6 +24,16 @@ const ManageStudentsView: React.FC = () => {
                 <button className="action-card" onClick={() => navigate("/view-students-info")}>
                     <span className="card-title">View Student Info</span>
                 </button>
+            </div>
+
+            <div className="w-full">
+                <DataTable style={{ width: "100%" }}>
+                    <Column field="studentAucId" header="Student Id" />
+                    <Column field="studentName" header="Student Name" />
+                    <Column field="classStanding" header="Class Standing" />
+                    <Column header="Actions">
+                    </Column>
+                </DataTable>
             </div>
         </div>
     );

@@ -281,3 +281,30 @@ export const removeStudentfromCourse = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+export const getCourseStudents = async (req: Request, res: Response) => {
+    let courseId;
+    try {
+        courseId = parseInt(req.params.courseId);
+    } catch (err) {
+        console.log("Error: ", err);
+        res.status(400).json({ message: "Course Id invalid" });
+        return;
+    }
+
+    try {
+        const students = await db.select()
+            .from(usersCoursesTable)
+            .where(and(eq(usersCoursesTable.courseId, courseId), eq(usersTable.role, "STUDENT")))
+            .innerJoin(usersTable, eq(usersCoursesTable.userId, usersTable.id));
+
+        res.status(200).json(students.map(student => ({
+            studentId: student.users.aucId,
+            studentName: student.users.name,
+            classStanding: student.users.classStanding,
+        })))
+    } catch (err) {
+        console.log("Error: ", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};

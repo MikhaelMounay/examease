@@ -11,6 +11,7 @@ import {
     addStudenttoCourse,
     removeStudentfromCourse,
     getCoursesByInstructorId,
+    getCourseStudents,
 } from "../handlers/courses.js";
 import { authenticate } from "../middleware/auth.js";
 
@@ -30,5 +31,7 @@ coursesRouter.post("/join", authenticate, joinCourse); //self-enroll
 
 coursesRouter.post("/add", authenticate, addStudenttoCourse);
 coursesRouter.post("/remove", authenticate, removeStudentfromCourse);
+
+coursesRouter.get("/coursestudents/:courseId", authenticate, getCourseStudents);
 
 export default coursesRouter;
