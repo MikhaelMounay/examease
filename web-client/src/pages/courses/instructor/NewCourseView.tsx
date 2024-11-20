@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../../../contexts/AuthWrapper.tsx";
 import { useMutation } from "@tanstack/react-query";
+import { Course } from "../../../types/Course.ts";
 
 const CreateCourse: React.FC = () => {
-    const { userData } = AuthData();
+    const { userData, token } = useAuth();
     const navigator = useNavigate();
 
     const [courseName, setCourseName] = useState<string>("");
@@ -23,24 +24,22 @@ const CreateCourse: React.FC = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
             });
-            return response.json();
+            return response.json() as Promise<Course>;
         },
         onSuccess: () => {
             console.log("Course created successfully");
-            setShowSuccessModal(true); // Make sure this triggers modal
-            navigator("/courses"); // Optional: Navigate to another page after success
+            setShowSuccessModal(true);
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            showSuccessModal;
         },
         onError: (error) => {
             console.error("Failed to create course", error);
         },
     });
-
-    const CloseModal = () => {
-        setShowSuccessModal(false);
-    };
 
     function handleCreateCourse() {
         if (!(courseName && courseCapacity && userData?.id)) {
@@ -54,7 +53,11 @@ const CreateCourse: React.FC = () => {
             numStudents: Number(courseCapacity),
             instructorId: userData.id,
         });
-    };
+    }
+
+    function navigate() {
+        navigator("/courses");
+    }
 
     return (
         <div className="create-course-container">
@@ -94,20 +97,27 @@ const CreateCourse: React.FC = () => {
                 </div>
             </div>
             <div className="button-group">
-                <button className="button edit-button" onClick={handleCreateCourse}>
-                    Edit Properties
-                </button>
                 <button className="button publish-button" onClick={handleCreateCourse}>
                     Publish Course
                 </button>
             </div>
 
-            {showSuccessModal && (
+            {showSuccessModal && createCourseMutation.data && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <h2>Course Created Successfully!</h2>
-                        <p>Your course has been created and is ready to use.</p>
-                        <button onClick={CloseModal}>OK</button>
+                        <p>Your course has been created and the course Enrollment key is </p>
+                        <p>Course Enrollment key : {createCourseMutation.data?.enrollmentKey}</p>
+                        <p>Course Name: {createCourseMutation.data.title}</p>
+                        <button
+                            onClick={() => {
+                                const courseId = createCourseMutation.data?.id;
+                                navigator(`/course-info/${courseId}`);
+                            }}
+                        >
+                            Go to Course
+                        </button>
+                        <button onClick={navigate}>Ok</button>
                     </div>
                 </div>
             )}

@@ -33,6 +33,28 @@ export const getCourseById = async (req: Request, res: Response) => {
     }
 };
 
+
+
+// All courses for a specific person
+export const getCoursesByInstructorId = async (req: Request, res: Response) => {
+    const { Instructor_Id } = req.params;
+    try {
+        const courses = await db
+            .select()
+            .from(coursesTable)
+            .where(eq(coursesTable.instructorId, Number(Instructor_Id)));
+
+        if (courses.length === 0) {
+            res.status(404).json({ message: "No courses found for this instructor" });
+            return;
+        }
+
+        res.status(200).json(courses);
+    } catch (error) {
+        res.status(500).json({ message: "Failed to retrieve courses", error });
+    }
+};
+
 // Create a new course
 export const createCourse = async (req: Request, res: Response) => {
     const { title, openForEnrollment, numStudents } = req.body;

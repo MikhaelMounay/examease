@@ -1,24 +1,38 @@
+@import "primereact/resources/themes/lara-light-blue/theme.css" layer(primereact);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+    --main-color: #168aad;
+    --secondary-color: #34a0a4;
+}
+
+body,
+#root {
+    @apply h-screen;
+}
 
 .main-layout {
     font-family: Arial, sans-serif;
     color: #333;
 }
+
 .top-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .nav-logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
 }
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -37,18 +51,17 @@
         justify-content: space-between;
         align-items: center;
         padding: 10px 20px;
-        background-color: #f8f9fa; 
-        border-bottom: 1px solid #ddd; 
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ddd;
     }
-    
+
     .navbar-left h1 {
         font-size: 24px;
         color: #333;
         margin: 0;
         font-weight: 600;
     }
-    
-    
+
     .navbar-right a {
         margin: 0 15px;
         color: #333;
@@ -57,11 +70,11 @@
         font-weight: 500;
         position: relative;
     }
-    
+
     .navbar-right a:hover {
-        color: #007bff; 
+        color: var(--secondary-color);
     }
-    
+
     .navbar-right a::after {
         content: "";
         position: absolute;
@@ -69,15 +82,15 @@
         right: 0;
         bottom: -4px;
         height: 2px;
-        background-color: #007bff;
+        background-color: var(--main-color);
         transform: scaleX(0);
         transition: transform 0.3s ease;
     }
-    
+
     .navbar-right a:hover::after {
         transform: scaleX(1);
     }
-    
+
     text-decoration: none;
     color: #333;
     font-weight: 700;
@@ -85,7 +98,7 @@
 }
 
 .nav-links a:hover {
-    color: #0056b3; 
+    color: var(--secondary-color);
 }
 
 .content h1 {
@@ -94,14 +107,15 @@
     color: #333;
     margin-top: 1rem;
 }
+
 /*============================================================================================= home*/
 .main-container {
     display: grid;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 100vh; 
-    background-color: #e8f0fe;
+    height: 100vh;
+    /*background-color: #e8f0fe;*/
 }
 
 .greeting {
@@ -114,7 +128,7 @@
 
 .card-grid {
     display: grid;
-    gap: 20px; 
+    gap: 20px;
 }
 
 .card {
@@ -128,212 +142,269 @@
     font-size: 1.2em;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .card.blue {
-    background-color: #1d4ed8; 
+    background-color: var(--main-color);
 }
 
 .card.blue:hover {
-    background-color: #1e40af; 
-    transform: scale(1.05);    
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
 }
 
 .card.black {
-    background-color: #111827; 
+    background-color: #111827;
 }
 
 .card.black:hover {
-    background-color: #0f172a; 
+    background-color: #0f172a;
     transform: scale(1.05);
 }
+
 /*============================================================================================= courses view*/
 .course-view-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    justify-content: flex-start;
+    min-height: 100vh;
     background-color: #e8f0fe;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .greeting {
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: bold;
     color: #1a1a1a;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
 .course-list {
     display: grid;
-    gap: 20px;
-    max-width: 600px;
-    width: 80%;
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr); /* Three columns per row */
+    gap: 20px; /* Spacing between the cards */
+    max-width: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .course-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #1d4ed8;
+    justify-content: center;
+    background-color: var(--main-color);
     color: #ffffff;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 1.2em;
-    text-align: left;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    font-size: 1em;
+    text-align: center;
+    transition: transform 0.2s ease,
+    background-color 0.2s ease;
     cursor: pointer;
+    /*padding: 15px;*/
+    min-height: 100px;
+    scroll-snap-align: start;
 }
 
 .course-card:hover {
-    background-color: #1e40af;
+    background-color: var(--secondary-color);
     transform: scale(1.05);
 }
 
 .course-details {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .course-title {
-    font-size: 1 rem;
+    font-size: 1rem;
     margin: 0;
 }
 
 .course-description {
-    font-size: 1em;
+    font-size: 0.9em;
     margin-top: 5px;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .course-list {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+    }
+
+    .course-list {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .course-list {
+        grid-template-columns: 1fr; /* One column for small screens */
+    }
+
+    .course-list {
+        grid-template-columns: 1fr; /* One column for small screens */
+    }
+}
+
 /*============================================================================================= new course */
 .create-course-container {
     width: 70%;
     margin: 0 auto;
     padding: 2rem;
-    background-color: #f4f7fc; 
+    background-color: #f4f7fc;
     color: #000;
     font-family: Arial, sans-serif;
-  }
-  
-  .title {
+}
+
+.title {
     font-size: 2.5rem;
     font-weight: 700;
     color: #000;
     margin-bottom: 0.5rem;
-  }
-  
-  .subtitle {
+}
+
+.subtitle {
     font-size: 1.1rem;
     color: #666;
     margin-bottom: 2rem;
-  }
-  
-  .form-grid {
+}
+
+.form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     margin-bottom: 2rem;
-  }
-  
-  .form-item {
+}
+
+.form-item {
     display: flex;
     flex-direction: column;
-  }
-  
-  .label {
+}
+
+.label {
     background-color: #000;
     color: #fff;
     padding: 0.75rem;
     font-weight: 600;
     border-radius: 5px 0 0 5px;
-  }
-  
-  .input-box {
+}
+
+.input-box {
     padding: 0.75rem;
     border: 1px solid #ddd;
     border-radius: 0 5px 5px 0;
     font-size: 1rem;
-  }
-  
-  .input-box::placeholder {
+}
+
+.input-box::placeholder {
     color: #888;
-  }
-  
-  .button-group {
+}
+
+.button-group {
     display: flex;
     gap: 1rem;
     justify-content: center;
-  }
-  
-  .button {
+}
+
+.button {
     font-size: 2rem;
     font-weight: 600;
     padding: 0.75rem 2rem;
     cursor: pointer;
     border: none;
     border-radius: 5px;
-  }
-  
-  .edit-button {
+}
+
+.edit-button {
     background-color: #000;
     color: #fff;
-  }
-  
-  .publish-button {
-    background-color: #007bff; 
+}
+
+.publish-button {
+    background-color: var(--main-color);
+}
+
+.publish-button {
+    background-color: var(--main-color);
     color: #fff;
-  }
-  
-  .button:hover {
+}
+
+.button:hover {
     opacity: 0.9;
-  }
-  .modal-overlay {
+}
+
+/* Modal Overlay */
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 9999; /* Ensure it's on top of other content */
 }
 
+/* Modal Content */
 .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    text-align: center;
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
+/* Modal Title */
 .modal-content h2 {
+    font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
+/* Modal Paragraph */
 .modal-content p {
+    font-size: 1rem;
     margin-bottom: 20px;
 }
 
+/* Modal Buttons */
 .modal-content button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    margin: 5px;
     border: none;
+    background-color: var(--main-color);
+    color: white;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .modal-content button:hover {
-    background-color: #0056b3;
+    opacity: 0.9;
 }
-  /*============================================================================================= course details */
-  .course-view-container {
+
+/* Close Modal button */
+.modal-content button:last-child {
+    background-color: var(--main-color); /* Red background for 'Ok' button */
+}
+
+.modal-content button:last-child:hover {
+    opacity: 0.9;
+}
+
+/*============================================================================================= course details */
+.course-view-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -341,32 +412,32 @@
     padding: 40px;
     min-height: 100vh;
     box-sizing: border-box;
-  }
-  
-  .course-view-container h1 {
+}
+
+.course-view-container h1 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 0.5em;
     color: #333;
-  }
-  
-  .course-view-container h2 {
+}
+
+.course-view-container h2 {
     font-size: 1.3rem;
     color: #555;
     margin-bottom: 2em;
     font-weight: 500;
-  }
-  
-  .actions-grid1 {
+}
+
+.actions-grid1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 100%;
     max-width: 700px;
     margin-top: 20px;
-  }
-  
-  .action-button1{
+}
+
+.action-button1 {
     background-color: #000;
     color: #fff;
     font-size: 1rem !important;
@@ -375,35 +446,40 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s,
+    transform 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: grid; 
+    display: grid;
     justify-content: center;
     align-items: center;
     text-align: center;
-  }
-  
-  .action-button1:hover {
-    background-color: #0056d2;
+}
+
+.action-button1:hover {
+}
+
+.action-button1:hover {
+    background-color: var(--secondary-color);
     transform: translateY(-3px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .action-button1:active {
+}
+
+.action-button1:active {
     transform: translateY(0);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  /*============================================================================================= make an exam */
-  .create-exam-container {
+}
+
+/*============================================================================================= make an exam */
+.create-exam-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f0f4fc;
     padding: 20px;
     min-height: 100vh;
-  }
-  
-  .exam-banner {
+}
+
+.exam-banner {
     background-color: #000;
     color: #fff;
     width: 100%;
@@ -414,35 +490,38 @@
     align-items: center;
     padding: 20px;
     position: relative;
-  }
-  
-  .exam-banner button {
+}
+
+.exam-banner button {
     font-size: 2.5rem;
     font-weight: bold;
     color: #fff;
-  }
-  
-  .exam-icon {
+}
+
+.exam-icon {
     position: absolute;
     bottom: 20px;
     right: 20px;
-  }
-  
-  .exam-icon img {
+}
+
+.exam-icon img {
     width: 40px;
     height: 40px;
-  }
-  
-  .exam-actions {
+}
+
+.exam-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
     width: 100%;
     max-width: 800px;
-  }
-  
-  .action-button {
-    background-color: #0056d2;
+}
+
+.action-button {
+}
+
+.action-button {
+    background-color: var(--main-color);
     color: #fff;
     font-size: 1rem;
     padding: 15px;
@@ -454,54 +533,64 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .action-button .icon {
+}
+
+.action-button .icon {
     margin-right: 8px;
     font-size: 1.2rem;
-  }
-  
-  .edit-exam {
-    background-color: #0056d2;
-  }
-  
-  .delete-exam {
-    background-color: #0056d2;
-  }
-  
-  .action-button:hover {
+}
+
+.edit-exam {
+}
+
+.edit-exam {
+    background-color: var(--main-color);
+}
+
+.delete-exam {
+}
+
+.delete-exam {
+    background-color: var(--main-color);
+}
+
+.action-button:hover {
+}
+
+.action-button:hover {
     opacity: 0.8;
-  }
-  /*============================================================================================= Manage student view */
-  .manage-students-container {
+}
+
+/*============================================================================================= Manage student view */
+.manage-students-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 40px;
     color: #1a1a1a;
-  } 
-  
-  .manage-students-container h1 {
+}
+
+.manage-students-container h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
-  }
-  
-  .manage-students-container p {
+}
+
+.manage-students-container p {
     font-size: 1.1em;
     color: #666;
     margin-bottom: 30px;
-  }
-  
-  .actions-grid {
+}
+
+.actions-grid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
     max-width: 800px;
-  }
-  
-  .action-card {
+}
+
+.action-card {
     background-color: #000000;
     color: #ffffff;
     padding: 20px;
@@ -511,48 +600,55 @@
     align-items: center;
     cursor: pointer;
     transition: 0.3s;
-  }
-  
-  .action-card:hover {
-    background-color: #1a73e8;
-  }
-  
-  .card-title {
+}
+
+.action-card:hover {
+}
+
+.action-card:hover {
+    background-color: var(--main-color);
+}
+
+.card-title {
+}
+
+.card-title {
     font-size: 1.2em;
     font-weight: bold;
-  }
-  /*============================================================================================= Monitor live exams */
-  .monitor-live-exams-container {
+}
+
+/*============================================================================================= Monitor live exams */
+.monitor-live-exams-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f0f4fc;
     padding: 20px;
     min-height: 100vh;
-  }
-  
-  .monitor-live-exams-container h1 {
+}
+
+.monitor-live-exams-container h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1em;
     color: #333;
-  }
-  
-  .monitor-live-exams-container p {
+}
+
+.monitor-live-exams-container p {
     font-size: 1rem;
     color: #555;
     margin-bottom: 2em;
-  }
-  
-  .student-list {
+}
+
+.student-list {
     display: flex;
     flex-direction: column;
     gap: 1.5em;
     width: 100%;
     max-width: 700px;
-  }
-  
-  .student-card {
+}
+
+.student-card {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -561,21 +657,21 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .student-info h2 {
+}
+
+.student-info h2 {
     font-size: 1.2rem;
     color: #333;
     margin: 0;
-  }
-  
-  .student-info p {
+}
+
+.student-info p {
     font-size: 1rem;
     color: #666;
     margin: 5px 0 0;
-  }
-  
-  .deny-access-button {
+}
+
+.deny-access-button {
     background-color: #ff4d4d;
     color: #fff;
     padding: 10px 15px;
@@ -584,11 +680,12 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .deny-access-button:hover {
+}
+
+.deny-access-button:hover {
     background-color: #cc0000;
-  }
+}
+
 /*============================================================================================= View All Exams */
 .view-all-exams-container {
     display: flex;
@@ -597,134 +694,59 @@
     background-color: #f0f4fc;
     padding: 20px;
     min-height: 100vh;
-  }
-  
-  .view-all-exams-container h1 {
+}
+
+.view-all-exams-container h1 {
     font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 1em;
     color: #333;
-  }
-  
-  .view-all-exams-container p {
+}
+
+.view-all-exams-container p {
     font-size: 1rem;
     color: #555;
     margin-bottom: 2em;
-  }
-  
-  .exam-list {
+}
+
+.exam-list {
     display: flex;
     flex-direction: column;
     gap: 1.5em;
     width: 100%;
     max-width: 700px;
-  }
-  
-  .exam-card {
+}
+
+.exam-card {
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .exam-card:hover {
+    transition: transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.exam-card:hover {
     transform: scale(1.02);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .exam-card h2 {
+}
+
+.exam-card h2 {
     font-size: 1.5rem;
     color: #333;
     margin: 0 0 10px;
-  }
-  
-  .exam-card p {
+}
+
+.exam-card p {
     font-size: 1rem;
     color: #666;
-  }
+}
+
 /* ============================================================================================= */
-      /* ============================================================================================= Login */
-      .login-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background-color: #f0f4fc;
-        padding: 20px;
-      }
-      
-      .login-container h1 {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 1em;
-      }
-      
-      .login-form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 400px;
-      }
-      
-      .login-input {
-        width: 100%;
-        padding: 10px;
-        margin: 0.5em 0;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-      
-      .login-button {
-        width: 100%;
-        padding: 12px;
-        font-size: 1rem;
-        background-color: #000;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 1em;
-      }
-      
-      .login-button:hover {
-        background-color: #0056d2;
-      }
-      
-      .register-message {
-        margin-top: 1.5em;
-        font-size: 0.9rem;
-        color: #555;
-      }
-      
-      .register-link {
-        color: #0056d2;
-        cursor: pointer;
-        font-weight: bold;
-      }
-      
-      .register-link:hover {
-        text-decoration: underline;
-      }
-
-      .error-message {
-        color: red;
-        font-size: 14px;
-        margin-top: 10px;
-        text-align: center;
-        visibility: visible;
-    }
-    
-
-/* ============================================================================================= register */  
-.register-container {
+/* ============================================================================================= Login */
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -732,48 +754,33 @@
     min-height: 100vh;
     background-color: #f0f4fc;
     padding: 20px;
-  }
-  
-  .register-container h1 {
+}
+
+.login-container h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 1em;
-  }
-  
-  .register-form {
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 400px;
-  }
-  
-  .register-input {
+}
+
+.login-input {
     width: 100%;
     padding: 10px;
     margin: 0.5em 0;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .role-selection {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin: 1em 0;
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  .role-selection label {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .register-button {
+}
+
+.login-button {
     width: 100%;
     padding: 12px;
     font-size: 1rem;
@@ -784,27 +791,196 @@
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 1em;
-  }
-  
-  .register-button:hover {
-    background-color: #0056d2;
-  }
-  
-  .login-message {
+}
+
+.login-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.register-message {
     margin-top: 1.5em;
     font-size: 0.9rem;
     color: #555;
-  }
-  
-  .login-link {
-    color: #0056d2;
+}
+
+.register-link {
+    color: var(--main-color);
     cursor: pointer;
     font-weight: bold;
-  }
-  
-  .login-link:hover {
+}
+
+.register-link:hover {
     text-decoration: underline;
-  }
+}
+
+/* ============================================================================================= Login */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4fc;
+    padding: 20px;
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em;
+}
+
+.login-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.register-message {
+    margin-top: 1.5em;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.register-link {
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    visibility: visible;
+}
+
+/* ============================================================================================= register */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f4fc;
+    padding: 20px;
+}
+
+.register-container h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1em;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-input {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.role-selection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 1em 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.role-selection label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.register-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1em;
+}
+
+.register-button:hover {
+}
+
+.register-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.login-message {
+}
+
+.login-message {
+    margin-top: 1.5em;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.login-link {
+}
+
+.login-link {
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
 /* ============================================================================================= join a course */
 .join-course-container {
     display: flex;
@@ -814,33 +990,33 @@
     min-height: 100vh;
     background-color: #f0f4fc;
     padding: 20px;
-  }
-  
-  .join-course-container h1 {
+}
+
+.join-course-container h1 {
     font-size: 2.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 1em;
-  }
-  
-  .join-course-form {
+}
+
+.join-course-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 400px;
-  }
-  
-  .join-course-input {
+}
+
+.join-course-input {
     width: 100%;
     padding: 10px;
     margin: 0.5em 0;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .join-course-button {
+}
+
+.join-course-button {
     width: 100%;
     padding: 12px;
     font-size: 1rem;
@@ -851,11 +1027,15 @@
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 1em;
-  }
-  
-  .join-course-button:hover {
-    background-color: #0056d2;
-  }
+}
+
+.join-course-button:hover {
+}
+
+.join-course-button:hover {
+    background-color: var(--secondary-color);
+}
+
 /* ============================================================================================= Take an exam*/
 .page-container {
     display: flex;
@@ -864,43 +1044,43 @@
     background-color: #f0f4fc;
     padding: 20px;
     min-height: 100vh;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1em;
     color: #333;
-  }
-  
-  .form-container {
+}
+
+.form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
-  }
-  
-  .form-label {
+}
+
+.form-label {
     font-size: 1rem;
     color: #555;
     margin-bottom: 0.5em;
-  }
-  
-  .input-field {
+}
+
+.input-field {
     width: 100%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 1em;
-  }
-  
-  .submit-button {
+}
+
+.submit-button {
     background-color: #000;
     color: #fff;
     font-size: 1rem;
@@ -910,12 +1090,16 @@
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056d2;
-  }
-/* ============================================================================================= view grades & feedback */ 
+}
+
+.submit-button:hover {
+}
+
+.submit-button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* ============================================================================================= view grades & feedback */
 .page-container {
     display: flex;
     flex-direction: column;
@@ -923,24 +1107,24 @@
     background-color: #f0f4fc;
     padding: 20px;
     min-height: 100vh;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1em;
     color: #333;
-  }
-  
-  .exams-container {
+}
+
+.exams-container {
     display: flex;
     flex-direction: column;
     gap: 1em;
     width: 100%;
     max-width: 600px;
-  }
-  
-  .exam-button {
+}
+
+.exam-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -952,20 +1136,446 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .exam-button:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.exam-button:hover {
     background-color: #e0e7ff;
-  }
-  
-  .exam-name {
+}
+
+.exam-name {
     font-weight: bold;
-  }
-  
-  .exam-grade {
+}
+
+.exam-grade {
     font-size: 0.9rem;
     color: #555;
-  }
-  
+}
 
+/* =============================================================================================Add Student */
+/* Container for the whole page */
+.add-student-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Page title */
+.add-student-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form container */
+.add-student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form label */
+.add-student-form label {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Input field */
+.add-student-form input {
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.add-student-form input:focus {
+    border-color: var(--main-color);
+}
+
+/* Submit and Back buttons */
+.submit-button,
+.back-button {
+    height: 40px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.submit-button:hover {
+    background-color: var(--main-color);
+}
+
+.back-button {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.back-button:hover {
+    background-color: #5a6268;
+}
+
+/* Error message styling */
+.error-message {
+    color: #d9534f;
+    font-size: 0.9rem;
+}
+
+/* Success message styling */
+.success-message {
+    color: #28a745;
+    font-size: 0.9rem;
+}
+
+/* =============================================================================================Remove Student */
+/* Container for the whole page */
+.remove-student-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Page title */
+.remove-student-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form container */
+.remove-student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form label */
+.remove-student-form label {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Input field */
+.remove-student-form input {
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.remove-student-form input:focus {
+}
+
+.remove-student-form input:focus {
+    border-color: var(--main-color);
+}
+
+
+/* =============================================================================================View Students Info */
+/* Container for the entire view */
+.view-student-info-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+.table-container {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+th {
+    background-color: var(--main-color);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+td {
+    border-top: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Table header styles */
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.view-student-info-container td input {
+    border: 1px solid #ddd;
+    padding: 5px;
+    font-size: 14px;
+    width: 60px;
+}
+
+/* ============================================================================================= Course Info page */
+
+.course-info-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--main-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-info-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ddd;
+}
+
+.course-info-container p {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin: 8px 0;
+}
+
+.course-info-container .additional-field {
+    font-weight: bold;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+/* ============================================================================================= Create An Exam */
+
+.create-exam-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9fafb; /* Light background */
+    font-family: Arial, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-exam-container h1,
+.create-exam-container h2 {
+    text-align: center;
+    color: #333333; /* Dark text color */
+}
+
+.exam-details,
+.add-questions,
+.questions-list {
+    margin-bottom: 20px;
+    border: 1px solid #d1d5db; /* Light border color */
+    padding: 15px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.exam-details label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333333;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333333;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--main-color);
+    box-shadow: 0 0 4px rgba(22, 138, 173, 0.4);
+}
+
+.exam-details button,
+.questions-list button {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.add-question {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.add-question:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.exam-details button:hover,
+.questions-list button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.mcq-options {
+    margin-top: 10px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.option-item input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.questions-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.questions-list li {
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Flex container to stack content */
+    justify-content: space-between; /* Space out content and buttons */
+    height: fit-content; /* Ensure there’s enough space for buttons */
+}
+
+.questions-list .action-buttons {
+    margin-top: 10px;
+    align-self: flex-end; /* Align buttons to the right */
+}
+
+.questions-list .action-buttons .delete-button {
+    background-color: rgb(174, 3, 3);
+}
+
+.questions-list .action-buttons button {
+    margin-left: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.submit-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .create-exam-container {
+        padding: 10px;
+    }
+
+    .exam-details button {
+        width: 100%;
+    }
+}

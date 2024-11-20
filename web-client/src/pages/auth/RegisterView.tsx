@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { NewUser, Role } from "../types/User";
+import { NewUser, Role } from "../../types/User.ts";
 import { useMutation } from "@tanstack/react-query";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
-    const { register } = AuthData();
+    const { register } = useAuth();
 
     // States
     const [errorMessage, setErrorMessage] = useState("");
@@ -33,6 +33,7 @@ const RegisterPage: React.FC = () => {
     };
 
     const handleRegister = () => {
+        console.log("Function is called");
         if (name && email && password && confirmPassword && aucId && role) {
             if (!validateEmail(email)) {
                 setErrorMessage("Please enter a valid email address.");

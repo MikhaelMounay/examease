@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthData } from "../contexts/AuthWrapper";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 import { useMutation } from "@tanstack/react-query";
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-    const { login } = AuthData();
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,13 +13,20 @@ const LoginPage: React.FC = () => {
 
     const loginMutation = useMutation({
         mutationFn: async (data: { email: string; password: string }) => {
-            await login(data.email, data.password);
+            return login(data.email, data.password);
         },
         onSuccess: () => {
             navigate("/home");
         },
-        onError: () => {
-            setErrorMessage("Invalid login credentials, please try again.");
+        onError: (err) => {
+            console.log(err);
+            if (err.message === "crederr_nouser") {
+                setErrorMessage("Please register first!");
+            } else if (err.message === "crederr_incorrectpassword") {
+                setErrorMessage("Incorrect password!");
+            } else {
+                setErrorMessage("Something went wrong.. Please try again later!");
+            }
         },
     });
 
@@ -63,9 +70,7 @@ const LoginPage: React.FC = () => {
                 </button>
             </div>
 
-            {errorMessage && (
-                <div className="error-message">{errorMessage}</div>
-            )}
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
 
             <p className="register-message">
                 New to the app?{" "}
