@@ -1,4 +1,5 @@
-import { boolean, integer, pgEnum, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { boolean, integer, pgEnum, pgTable, serial, text, timestamp, primaryKey } from "drizzle-orm/pg-core";
 
 // Define timestamps for all tables
 const timestamps = {
@@ -31,6 +32,11 @@ export type NewUser = typeof usersTable.$inferInsert;
 export type UserWithoutPassword = Omit<User, "password">;
 export type UserWithToken = UserWithoutPassword & { token: string };
 
+// define usersTable relations
+export const usersRelations = relations(usersTable, ({ many }) => ({
+    usersCoursesTable: many(usersCoursesTable),
+}));
+
 // #endregion
 
 // #region Course schema
@@ -49,4 +55,40 @@ export const coursesTable = pgTable("courses", {
 export type Course = typeof coursesTable.$inferSelect;
 export type NewCourse = typeof coursesTable.$inferInsert;
 
+// define coursesTable relations
+export const coursesRelations = relations(coursesTable, ({ many }) => ({
+    usersCoursesTable: many(usersCoursesTable),
+}));
+
+// #endregion
+
+// #region userCoursesTable
+
+// Define the `courses` table schema and infer Typescript types
+export const usersCoursesTable = pgTable(
+    "users_courses",
+    {
+        userId: integer("user_id")
+            .notNull()
+            .references(() => usersTable.id),
+        courseId: integer("course_id")
+            .notNull()
+            .references(() => coursesTable.id),
+    },
+    (t) => ({
+        pk: primaryKey({ columns: [t.userId, t.courseId] }),
+    })
+);
+
+// Define userCourseTable relations
+export const usersToGroupsRelations = relations(usersCoursesTable, ({ one }) => ({
+    user: one(usersTable, {
+        fields: [usersCoursesTable.userId],
+        references: [usersTable.id],
+    }),
+    course: one(coursesTable, {
+        fields: [usersCoursesTable.userId],
+        references: [coursesTable.id],
+    }),
+}));
 // #endregion
