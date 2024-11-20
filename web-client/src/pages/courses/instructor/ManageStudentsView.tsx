@@ -28,7 +28,7 @@ const ManageStudentsView: React.FC = () => {
     // Methods
     async function removeStudentFromCourse(studentId: number) {
         const response = await fetch(import.meta.env.VITE_API_URL + `/courses/remove`, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("user_token")}`,
