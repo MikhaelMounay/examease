@@ -73,7 +73,6 @@ body,
 
     .navbar-right a:hover {
         color: var(--secondary-color);
-        color: var(--secondary-color);
     }
 
     .navbar-right a::after {
@@ -99,7 +98,6 @@ body,
 }
 
 .nav-links a:hover {
-    color: var(--secondary-color);
     color: var(--secondary-color);
 }
 
@@ -146,18 +144,13 @@ body,
     cursor: pointer;
     transition: transform 0.2s ease,
     background-color 0.2s ease;
-    transition: transform 0.2s ease,
-    background-color 0.2s ease;
 }
 
 .card.blue {
     background-color: var(--main-color);
-    background-color: var(--main-color);
 }
 
 .card.blue:hover {
-    background-color: var(--secondary-color);
-    transform: scale(1.05);
     background-color: var(--secondary-color);
     transform: scale(1.05);
 }
@@ -181,14 +174,6 @@ body,
     background-color: #e8f0fe;
     padding: 20px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    background-color: #e8f0fe;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .greeting {
@@ -197,21 +182,9 @@ body,
     color: #1a1a1a;
     margin-bottom: 20px;
     text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    color: #1a1a1a;
-    margin-bottom: 20px;
-    text-align: center;
 }
 
 .course-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns per row */
-    gap: 20px; /* Spacing between the cards */
-    max-width: 100%;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Three columns per row */
     gap: 20px; /* Spacing between the cards */
@@ -242,14 +215,9 @@ body,
 .course-card:hover {
     background-color: var(--secondary-color);
     transform: scale(1.05);
-    background-color: var(--secondary-color);
-    transform: scale(1.05);
 }
 
 .course-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -258,13 +226,9 @@ body,
 .course-title {
     font-size: 1rem;
     margin: 0;
-    font-size: 1rem;
-    margin: 0;
 }
 
 .course-description {
-    font-size: 0.9em;
-    margin-top: 5px;
     font-size: 0.9em;
     margin-top: 5px;
 }
@@ -424,14 +388,6 @@ body,
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    background-color: var(--main-color);
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .modal-content button:hover {
@@ -440,7 +396,6 @@ body,
 
 /* Close Modal button */
 .modal-content button:last-child {
-    background-color: var(--main-color); /* Red background for 'Ok' button */
     background-color: var(--main-color); /* Red background for 'Ok' button */
 }
 
@@ -491,8 +446,6 @@ body,
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s,
-    transform 0.3s;
     transition: background-color 0.3s,
     transform 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -771,8 +724,6 @@ body,
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: transform 0.2s,
-    box-shadow 0.2s;
     transition: transform 0.2s,
     box-shadow 0.2s;
 }
@@ -1109,7 +1060,7 @@ h1 {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
 }
@@ -1185,7 +1136,7 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .exam-button:hover {
@@ -1231,7 +1182,7 @@ h1 {
     background: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Form label */
@@ -1253,7 +1204,6 @@ h1 {
 
 .add-student-form input:focus {
     border-color: var(--main-color);
-    border-color: var(--main-color);
 }
 
 /* Submit and Back buttons */
@@ -1270,12 +1220,9 @@ h1 {
 .submit-button {
     background-color: var(--main-color);
     color: #fff;
-    background-color: var(--main-color);
-    color: #fff;
 }
 
 .submit-button:hover {
-    background-color: var(--main-color);
     background-color: var(--main-color);
 }
 
@@ -1330,7 +1277,7 @@ h1 {
     background: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Form label */
@@ -1396,11 +1343,6 @@ th {
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
-    background-color: var(--main-color);
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
 }
 
 td {
@@ -1448,17 +1390,7 @@ h2 {
     padding: 20px;
     background-color: var(--main-color);
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--main-color);
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     display: grid;
     justify-content: center;
