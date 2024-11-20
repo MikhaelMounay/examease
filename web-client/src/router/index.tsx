@@ -2,22 +2,22 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 import NavigationGuard from "../components/auth/NavigationGuard.tsx";
 import App from "../App";
 import HomeView from "../pages/HomeView";
-import CoursesView from "../pages/CoursesView";
-import NewCourseView from "../pages/NewCourseView";
-import MakeExamView from "../pages/MakeExamView";
-import ManageStudentsView from "../pages/ManageStudentsView";
-import MonitorLiveExams from "../pages/MonitorExamView";
-import ViewAllExams from "../pages/AllExamsView";
-import RegisterPage from "../pages/RegisterView";
-import LoginPage from "../pages/LoginView";
+import CoursesView from "../pages/courses/CoursesView.tsx";
+import NewCourseView from "../pages/courses/instructor/NewCourseView.tsx";
+import MakeExamView from "../pages/exams/instructor/MakeExamView.tsx";
+import ManageStudentsView from "../pages/courses/instructor/ManageStudentsView.tsx";
+import MonitorLiveExams from "../pages/exams/instructor/MonitorExamView.tsx";
+import ViewAllExams from "../pages/exams/AllExamsView.tsx";
+import RegisterPage from "../pages/auth/RegisterView.tsx";
+import LoginPage from "../pages/auth/LoginView.tsx";
 import StudentHomeView from "../pages/StudentHomeView";
-import JoinCourseView from "../pages/JoinCourseView";
-import TakeExamPage from "../pages/TakeExamView";
+import JoinCourseView from "../pages/courses/student/JoinCourseView.tsx";
+import TakeExamPage from "../pages/exams/student/TakeExamView.tsx";
 import ViewGradesPage from "../pages/GradesView";
-import AddStudent from "../pages/AddStudent";
-import RemoveStudent from "../pages/RemoveStudent";
+import AddStudent from "../pages/courses/instructor/AddStudent.tsx";
+import RemoveStudent from "../pages/courses/instructor/RemoveStudent.tsx";
 import ViewStudentsInfo from "../pages/ViewStudentsInfo";
-import CourseViewWithInfo from "../pages/CourseInfoView";
+import CourseViewWithInfo from "../pages/courses/CourseInfoView.tsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(

@@ -2,9 +2,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Course } from "../types/Course";
-import { useCourseContext } from "../contexts/CourseContext";
-import { useAuth } from "../contexts/AuthWrapper";
+import { Course } from "../../types/Course.ts";
+import { useCourseContext } from "../../contexts/CourseContext.tsx";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 
 const CoursesView: React.FC = () => {
     const { setCourseData } = useCourseContext();

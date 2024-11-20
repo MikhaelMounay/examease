@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Course } from "../types/Course";
-import { useAuth } from "../contexts/AuthWrapper";
+import { Course } from "../../types/Course.ts";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 
 const CourseInfoPage: React.FC = () => {
     const { courseid } = useParams();

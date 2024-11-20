@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthWrapper";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 import { useMutation } from "@tanstack/react-query";
 
 const LoginPage: React.FC = () => {

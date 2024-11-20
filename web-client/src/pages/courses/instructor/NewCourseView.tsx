@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthWrapper";
+import { useAuth } from "../../../contexts/AuthWrapper.tsx";
 import { useMutation } from "@tanstack/react-query";
-import { Course } from "../types/Course";
+import { Course } from "../../../types/Course.ts";
 
 const CreateCourse: React.FC = () => {
     const { userData, token } = useAuth();

@@ -15,12 +15,12 @@ interface Exam {
 
 const ViewStudentsInfo: React.FC = () => {
     const { courseId } = useParams(); // Get the courseId from the URL
-    const [students, setStudents] = useState<Student[]>([]); // State for students
+    const [students, setStudents] = useState<Student[]>([]); // State for student
     const [exams, setExams] = useState<Exam[]>([]); // State for exams
     const [loading, setLoading] = useState<boolean>(true); // Loading state
     const [error, setError] = useState<string>("");
 
-    // Fetch students and exams when the component mounts
+    // Fetch student and exams when the component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -30,9 +30,9 @@ const ViewStudentsInfo: React.FC = () => {
                 const examsData = await examsResponse.json();
                 setExams(examsData);
 
-                // Fetch students enrolled in the course along with their grades
+                // Fetch student enrolled in the course along with their grades
                 const studentsResponse = await fetch(`/api/courses/${courseId}/students`);
-                if (!studentsResponse.ok) throw new Error("Failed to fetch students.");
+                if (!studentsResponse.ok) throw new Error("Failed to fetch student.");
                 const studentsData = await studentsResponse.json();
                 setStudents(studentsData);
 
@@ -146,7 +146,7 @@ export default ViewStudentsInfo;
 
 // const ViewStudentsInfo: React.FC = () => {
 //   const { courseId } = useParams();  // Get the courseId from the URL
-//   const [students, setStudents] = useState(mockStudents);  // State for students
+//   const [student, setStudents] = useState(mockStudents);  // State for student
 //   const [exams, setExams] = useState(mockExams);  // State for exams
 
 //   // Function to update grade for a student
@@ -175,7 +175,7 @@ export default ViewStudentsInfo;
 //             </tr>
 //           </thead>
 //           <tbody>
-//             {students.map(student => (
+//             {student.map(student => (
 //               <tr key={student.aucId}>
 //                 <td>{student.aucId}</td>
 //                 <td>{student.name}</td>

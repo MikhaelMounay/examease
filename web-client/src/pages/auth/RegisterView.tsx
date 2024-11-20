@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { NewUser, Role } from "../types/User";
+import { NewUser, Role } from "../../types/User.ts";
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "../contexts/AuthWrapper";
+import { useAuth } from "../../contexts/AuthWrapper.tsx";
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
