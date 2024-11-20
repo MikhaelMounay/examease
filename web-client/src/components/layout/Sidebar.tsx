@@ -139,8 +139,8 @@ const Sidebar: React.FC<SidebarProps> = function (props) {
                                 window.innerWidth < breakpointsTailwind.lg
                                     ? "fit-content"
                                     : isSidebarCollapsed
-                                      ? "5rem"
-                                      : `${sidebarWidth / 16}rem`,
+                                        ? "5rem"
+                                        : `${sidebarWidth / 16}rem`,
                         }}
                     >
                         <div className="flex h-full flex-col justify-between">
