@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faPen } from "@fortawesome/free-solid-svg-icons"; // Importing icons
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { Exam } from "../../../types/exam";
+import { Exam } from "../../../types/Exam";
 import { useAuth } from "../../../contexts/AuthWrapper";
 
 interface Question {
@@ -17,7 +17,7 @@ interface Question {
 }
 
 const CreateExam: React.FC = () => {
-    const { userData, token } = useAuth();
+    const { token } = useAuth();
     const [examName, setExamName] = useState("");
     const [examDate, setExamDate] = useState("");
     const [startTime, setStartTime] = useState("");
