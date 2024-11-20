@@ -43,6 +43,7 @@ const CoursesView: React.FC = () => {
                     courses.map((course) => (
                         <div key={course.id} className="course-card">
                             <button
+                                className="h-full w-full"
                                 onClick={() => {
                                     setCourseData(course); // Set selected course data
                                     console.log("Course data set:", course);
