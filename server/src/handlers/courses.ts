@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { eq, and } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { coursesTable, usersCoursesTable } from "../db/schema/schema.js";
+import { usersTable, coursesTable, usersCoursesTable } from "../db/schema/schema.js";
 
 // Fetch all courses
 export const getCourses = async (_req: Request, res: Response) => {
@@ -32,8 +32,6 @@ export const getCourseById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Failed to retrieve course", error });
     }
 };
-
-
 
 // All courses for a specific person
 export const getCoursesByInstructorId = async (req: Request, res: Response) => {
@@ -145,10 +143,12 @@ export const joinCourse = async (req: Request, res: Response) => {
         // Check if the course exists and is open for enrollment
         const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
         if (!course) {
-            return res.status(404).json({ message: "Course not found" });
+            res.status(404).json({ message: "Course not found" });
+            return;
         }
         if (!course.openForEnrollment || course.enrollmentKey !== enrollmentKey) {
-            return res.status(400).json({ message: "Invalid enrollment key or course is not open for enrollment" });
+            res.status(400).json({ message: "Invalid enrollment key or course is not open for enrollment" });
+            return;
         }
 
         // Check if the user is already enrolled
@@ -158,8 +158,9 @@ export const joinCourse = async (req: Request, res: Response) => {
             .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)))
             .limit(1);
 
-        if (existingEnrollment) {
-            return res.status(400).json({ message: "You are already enrolled in this course" });
+        if (existingEnrollment.length) {
+            res.status(400).json({ message: "You are already enrolled in this course" });
+            return;
         }
         await db
             .insert(usersCoursesTable)
@@ -182,10 +183,75 @@ export const joinCourse = async (req: Request, res: Response) => {
     }
 };
 
-//self-enrollment: Drop Course
-export const dropCourse = async (req: Request, res: Response) => {
+//instructor-controlled enrollment: add student to course
+export const addStudenttoCourse = async (req: Request, res: Response) => {
     try {
+        //@ts-ignore
+        const instructorId = Number(req.user.id);
+        const { courseId, studentId } = req.body;
+
+        // Validate input
+        if (!courseId || !studentId) {
+            res.status(400).json({ message: "Course ID and Student ID are required." });
+            return;
+        }
+
+        // Check if the course exists and is managed by the instructor
+        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+
+        if (!course) {
+            res.status(404).json({ message: "Course not found." });
+            return;
+        }
+
+        // if (course.instructorId !== instructorId) {
+        //     res.status(403).json({ message: "You are not authorized to manage this course." });
+        //     return;
+        // }
+
+        // Check if the student exists
+        const student = await db.select().from(usersTable).where(eq(usersTable.id, studentId)).limit(1);
+
+        if (!student) {
+            res.status(404).json({ message: "Student not found." });
+            return;
+        }
+
+        // Add student to the course
+        await db.insert(usersCoursesTable).values({
+            courseId,
+            userId: studentId,
+        });
+
+        // Update the number of students in the course
+        const updatedNumStudents = (course.numStudents ?? 0) + 1;
+        await db.update(coursesTable).set({ numStudents: updatedNumStudents }).where(eq(coursesTable.id, courseId));
+
+        // Respond with success
+        res.status(200).json({ message: "Student successfully added to the course." });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error." });
+    }
+};
+
+//instructor-controlled enrollment: remove student from course
+export const removeStudentfromCourse = async (req: Request, res: Response) => {
+    try {
+        //@ts-ignore
+        const instructorId = Number(req.user.id);
         const { studentId, courseId } = req.body;
+
+        // Check if the course exists and is managed by the instructor
+        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+        if (!course) {
+            res.status(404).json({ error: "Course not found" });
+            return;
+        }
+        // if (course.instructorId !== instructorId) {
+        //     res.status(403).json({ error: "You are not authorized to manage this course" });
+        //     return;
+        // }
 
         // Check if the user is already enrolled
         const existingEnrollment = await db
@@ -194,7 +260,8 @@ export const dropCourse = async (req: Request, res: Response) => {
             .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)))
             .limit(1);
         if (!existingEnrollment) {
-            return res.status(400).json({ message: "You are not enrolled in this course" });
+            res.status(400).json({ message: "You are not enrolled in this course" });
+            return;
         }
 
         //remove the student from the course
@@ -203,7 +270,6 @@ export const dropCourse = async (req: Request, res: Response) => {
             .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)));
 
         // Decrement the student count for the course
-        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
         await db
             .update(coursesTable)
             .set({ numStudents: (course.numStudents ?? 0) - 1 })
