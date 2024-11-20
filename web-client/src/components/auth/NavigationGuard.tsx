@@ -9,11 +9,13 @@ const NavigationGuard = function () {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        console.log("NavigationGuard isAuthenticated: ", isAuthenticated);
-        if (isAuthenticated && pathname.includes("login") || pathname.includes("register")) {
+        if (isAuthenticated && (pathname.includes("login") || pathname.includes("register"))) {
             navigate("/", { replace: true });
         } else if (isAuthenticated === false) {
-            navigate("/login");
+            console.log(pathname)
+            if (!pathname.includes("login") && !pathname.includes("register")) {
+                navigate("/login");
+            }
         }
     }, [navigate, pathname, isAuthenticated]);
 
