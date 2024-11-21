@@ -57,7 +57,15 @@ export const getExamsByCourseId = async (req: Request, res: Response) => {
 
 // Create a new exam
 export const createExam = async (req: Request, res: Response) => {
-    const { courseId, title, maxGrade, duration } = req.body;
+    const { courseId, title, startTime, endTime, questions } = req.body;
+
+    let maxGrade = 0;
+    for (let i = 0; i < questions.length; i++) {
+        maxGrade += questions[i].maxGrade;
+    }
+
+    console.log(startTime);
+    console.log(endTime);
 
     try {
         const [newExam] = await db
@@ -65,8 +73,9 @@ export const createExam = async (req: Request, res: Response) => {
             .values({
                 courseId,
                 title,
+                startTime: new Date(startTime),
+                endTime: new Date(endTime),
                 maxGrade,
-                duration,
             })
             .returning();
 
@@ -80,7 +89,7 @@ export const createExam = async (req: Request, res: Response) => {
 // Update an exam by ID
 export const updateExam = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { courseId, title, maxGrade, duration } = req.body;
+    const { courseId, title, maxGrade, startTime, endTime } = req.body;
 
     try {
         const [updatedExam] = await db
@@ -89,7 +98,8 @@ export const updateExam = async (req: Request, res: Response) => {
                 courseId,
                 title,
                 maxGrade,
-                duration,
+                startTime,
+                endTime,
             })
             .where(eq(examsTable.id, Number(id)))
             .returning();

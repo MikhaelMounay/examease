@@ -5,16 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Exam } from "../../../types/Exam";
 import { useAuth } from "../../../contexts/AuthWrapper";
-
-interface Question {
-    id: number;
-    type: string;
-    prompt: string;
-    options?: string[]; // For MCQs
-    language?: string; // For coding questions
-    isCodeSnippet?: boolean; // Whether it's a code snippet
-    codeSnippet?: string; // The actual code snippet
-}
+import { Question } from "../../../types/Exam";
 
 const CreateExam: React.FC = () => {
     const { token } = useAuth();
@@ -31,6 +22,7 @@ const CreateExam: React.FC = () => {
     const [codingLanguage, setCodingLanguage] = useState(""); // For coding questions
     const [isCodeSnippet, setIsCodeSnippet] = useState(false); // For code snippet checkbox
     const [codeSnippet, setCodeSnippet] = useState(""); // For the code snippet textarea
+    const [maxGrade, setMaxGrade] = useState(0);
 
     // Load data from localStorage on page load
     useEffect(() => {
@@ -58,6 +50,7 @@ const CreateExam: React.FC = () => {
                     language: questionType === "Coding" ? codingLanguage : undefined,
                     isCodeSnippet,
                     codeSnippet: isCodeSnippet ? codeSnippet : undefined, // Add code snippet if applicable
+                    maxGrade: maxGrade,
                 },
             ]);
             resetForm();
@@ -70,14 +63,15 @@ const CreateExam: React.FC = () => {
             prevQuestions.map((q) =>
                 q.id === editingQuestionId
                     ? {
-                        ...q,
-                        type: questionType,
-                        prompt: questionPrompt,
-                        options: questionType === "mcq" ? options.filter(Boolean) : undefined,
-                        language: questionType === "Coding" ? codingLanguage : q.language,
-                        isCodeSnippet,
-                        codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
-                    }
+                          ...q,
+                          type: questionType,
+                          prompt: questionPrompt,
+                          options: questionType === "mcq" ? options.filter(Boolean) : undefined,
+                          language: questionType === "Coding" ? codingLanguage : q.language,
+                          isCodeSnippet,
+                          codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
+                          maxGrade: q.maxGrade,
+                      }
                     : q
             )
         );
@@ -93,6 +87,7 @@ const CreateExam: React.FC = () => {
         setCodingLanguage(question.language || "");
         setIsCodeSnippet(question.isCodeSnippet || false); // Set the checkbox for code snippet
         setCodeSnippet(question.codeSnippet || ""); // Set the code snippet for editing
+        setMaxGrade(question.maxGrade || 0);
     };
 
     // Delete a question
@@ -137,6 +132,7 @@ const CreateExam: React.FC = () => {
             courseId: number; // Added courseId parameter
         }) => {
             console.log("ay haga");
+            console.log(data);
             const response = await fetch(import.meta.env.VITE_API_URL + "/exams/", {
                 method: "POST",
                 headers: {
@@ -145,12 +141,12 @@ const CreateExam: React.FC = () => {
                 },
                 body: JSON.stringify(data),
             });
-            if (!response.ok || response.status!== 200) throw new Error("Failed to create exam.");
+            if (!response.ok || response.status !== 200) throw new Error("Failed to create exam.");
             return response.json() as Promise<Exam>;
         },
         onSuccess: (data) => {
             console.log("Exam created successfully:", data);
-            alert("Exam created successfully!"); 
+            alert("Exam created successfully!");
             navigator("/courses"); // Show success message
             // Optionally, you could redirect to another page or show a modal here
         },
@@ -159,18 +155,18 @@ const CreateExam: React.FC = () => {
             alert("Failed to create exam.");
         },
     });
-    
+
     function handleCreateExam() {
         if (!(examName && examDate && startTime && endTime && questions.length > 0)) {
             console.error("Please fill in all fields and add at least one question");
             return;
         }
-    
+
         createExamMutation.mutate({
             title: examName,
             examDate: examDate,
-            startTime: startTime,
-            endTime: endTime,
+            startTime: new Date(examDate + " " + startTime).toISOString(),
+            endTime: new Date(examDate + " " + endTime).toISOString(),
             questions: questions,
             courseId: 1, // Replace with the actual selected course ID
         });
@@ -227,23 +223,19 @@ const CreateExam: React.FC = () => {
                     />
                 </label>
                 <label className="code-snippet-label">
-                            Will be a code snippet?
-                            <input
-                                type="checkbox"
-                                checked={isCodeSnippet}
-                                onChange={(e) => setIsCodeSnippet(e.target.checked)}
-                            />
-                        </label>
-                        {isCodeSnippet && (
-                            <label>
-                                Code Snippet:
-                                <textarea
-                                    value={codeSnippet}
-                                    onChange={(e) => setCodeSnippet(e.target.value)}
-                                    placeholder="Enter the code snippet"
-                                />
-                            </label>
-                        )}
+                    Will be a code snippet?
+                    <input type="checkbox" checked={isCodeSnippet} onChange={(e) => setIsCodeSnippet(e.target.checked)} />
+                </label>
+                {isCodeSnippet && (
+                    <label>
+                        Code Snippet:
+                        <textarea
+                            value={codeSnippet}
+                            onChange={(e) => setCodeSnippet(e.target.value)}
+                            placeholder="Enter the code snippet"
+                        />
+                    </label>
+                )}
 
                 {/* MCQ Options */}
                 {questionType === "mcq" && (
@@ -283,12 +275,11 @@ const CreateExam: React.FC = () => {
                                 <option value="JavaScript">JavaScript</option>
                             </select>
                         </label>
-                        
                     </>
                 )}
 
                 <button onClick={editingQuestionId ? saveEditedQuestion : addQuestion} className="add-question">
-                    {editingQuestionId ? <FontAwesomeIcon icon={faPen} /> : "Add Question"}
+                    {editingQuestionId ? "Save Changes" : "Add Question"}
                 </button>
             </div>
 
@@ -302,11 +293,11 @@ const CreateExam: React.FC = () => {
                                 <strong>Type:</strong> {question.type} <br />
                                 <strong>Prompt:</strong> {question.prompt} <br />
                                 {question.isCodeSnippet && (
-                                            <>
-                                                <strong>Code Snippet:</strong>
-                                                <pre>{question.codeSnippet}</pre>
-                                            </>
-                                        )}
+                                    <>
+                                        <strong>Code Snippet:</strong>
+                                        <pre>{question.codeSnippet}</pre>
+                                    </>
+                                )}
                                 {question.type === "mcq" && (
                                     <>
                                         <strong>Options:</strong>
@@ -318,7 +309,6 @@ const CreateExam: React.FC = () => {
                                         <strong>Language:</strong> {question.language} <br />
                                     </>
                                 )}
-
                                 <div className="action-buttons">
                                     <button onClick={() => editQuestion(question)}>
                                         <FontAwesomeIcon icon={faPen} />

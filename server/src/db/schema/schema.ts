@@ -100,9 +100,37 @@ export const examsTable = pgTable("exams", {
     id: serial().primaryKey().notNull(),
     courseId: integer().references(() => coursesTable.id),
     title: text().notNull(),
-    maxGrade: integer().notNull(),
-    duration: integer().notNull(),
+    maxGrade: integer().default(0),
+    startTime: timestamp(),
+    endTime: timestamp(),
     ...timestamps,
 });
 export type Exam = typeof examsTable.$inferSelect;
 export type NewExam = typeof examsTable.$inferInsert;
+
+// Define the progLang enum
+export const progLangEnum = pgEnum("progLang", ["CPP", "PYTHON", "JAVA"]);
+
+// Define the `Questions` table schema and infer Typescript types
+export const questionsTable = pgTable("questions", {
+    id: serial().primaryKey().notNull(),
+    examId: integer().references(() => examsTable.id),
+    prompt: text().notNull(),
+    maxGrade: integer().notNull(),
+    numChoices: integer().default(0),
+    progLang: progLangEnum(),
+    ...timestamps,
+});
+export type Question = typeof questionsTable.$inferSelect;
+export type NewQuestion = typeof questionsTable.$inferInsert;
+
+export const choicesTable = pgTable("choices", {
+    id: serial().primaryKey().notNull(),
+    questionId: integer().references(() => questionsTable.id),
+    choiceBody: text().notNull(),
+    isTrueAnswer: boolean().default(false),
+    ...timestamps,
+});
+
+export type Choice = typeof choicesTable.$inferSelect;
+export type NewChoice = typeof choicesTable.$inferInsert;

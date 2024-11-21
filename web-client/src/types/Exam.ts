@@ -1,9 +1,12 @@
 interface Question {
     id: number;
-    text: string; // The question text
-    type: 'multiple-choice' | 'short-answer'; // The type of question
-    options?: string[]; // Options for multiple-choice questions
-    correctAnswer: string | string[]; // The correct answer(s)
+    type: string;
+    prompt: string;
+    options?: string[]; // For MCQs
+    language?: string; // For coding questions
+    isCodeSnippet?: boolean; // Whether it's a code snippet
+    codeSnippet?: string; // The actual code snippet
+    maxGrade:number;
 }
 
 interface Exam {
