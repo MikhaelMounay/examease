@@ -28,7 +28,7 @@ const ManageStudentsView: React.FC = () => {
     // Methods
     async function removeStudentFromCourse(studentId: number) {
         const response = await fetch(import.meta.env.VITE_API_URL + `/courses/remove`, {
-            method: "DELETE",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("user_token")}`,
@@ -49,7 +49,7 @@ const ManageStudentsView: React.FC = () => {
             <div className="actions-grid mb-6">
                 <div></div>
                 <div></div>
-                <button className="action-card" onClick={() => navigate("/add-student")}>
+                <button className="action-card" onClick={() => navigate(`/${courseId}/add-student`)}>
                     <span className="card-title">Add Student</span>
                 </button>
 

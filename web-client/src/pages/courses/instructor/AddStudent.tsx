@@ -29,15 +29,6 @@ const AddStudent: React.FC = () => {
         }
 
         try {
-            // Check if the student exists
-            // const response = await fetch(`/api/students/${aucId}`);
-            // const data = await response.json();
-            //
-            // if (!response.ok || !data.exists) {
-            //     setError("Student with this AUC ID does not exist.");
-            //     return;
-            // }
-
             // Add the student to the course
             const addStudentResponse = await fetch(import.meta.env.VITE_API_URL + `/courses/add/`, {
                 method: "POST",

@@ -138,10 +138,10 @@ export const joinCourse = async (req: Request, res: Response) => {
     try {
         // @ts-ignore
         const studentId = Number(req.user.id);
-        const { courseId, enrollmentKey } = req.body;
+        const { enrollmentKey } = req.body;
 
         // Check if the course exists and is open for enrollment
-        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+        const [course] = await db.select().from(coursesTable).where(eq(coursesTable.enrollmentKey, enrollmentKey)).limit(1);
         if (!course) {
             res.status(404).json({ message: "Course not found" });
             return;
@@ -155,7 +155,7 @@ export const joinCourse = async (req: Request, res: Response) => {
         const existingEnrollment = await db
             .select()
             .from(usersCoursesTable)
-            .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, courseId)))
+            .where(and(eq(usersCoursesTable.userId, studentId), eq(usersCoursesTable.courseId, course.id)))
             .limit(1);
 
         if (existingEnrollment.length) {
@@ -165,7 +165,7 @@ export const joinCourse = async (req: Request, res: Response) => {
         await db
             .insert(usersCoursesTable)
             .values({
-                courseId,
+                courseId: course.id,
                 userId: studentId,
             })
             .returning();
@@ -174,7 +174,7 @@ export const joinCourse = async (req: Request, res: Response) => {
         await db
             .update(coursesTable)
             .set({ numStudents: (course.numStudents ?? 0) + 1 })
-            .where(eq(coursesTable.id, courseId));
+            .where(eq(coursesTable.id, course.id));
 
         res.status(200).json({ message: "Successfully enrolled in the course" });
     } catch (error) {

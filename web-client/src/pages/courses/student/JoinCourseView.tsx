@@ -1,13 +1,47 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 const JoinCoursePage: React.FC = () => {
     const [enrollmentKey, setEnrollmentKey] = useState("");
     const navigate = useNavigate();
 
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const joinCourseMutation = useMutation({
+        mutationFn: async (data: { enrollmentKey: string }) => {
+            const response = await fetch(import.meta.env.VITE_API_URL + `/courses/join`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                },
+                body: JSON.stringify({
+                    enrollmentKey: data.enrollmentKey,
+                }),
+            });
+
+            const responseJson = await response.json();
+            if (!response.ok || response.status !== 200) {
+                if (responseJson.message) {
+                    throw new Error(responseJson.message);
+                }
+
+                throw new Error("Error joining course.. Please try again later!");
+            }
+        },
+        onSuccess: () => {
+            navigate("/courses");
+        },
+        onError: (err) => {
+            console.log("Error: ", err);
+            setErrorMsg(err.message);
+        },
+    });
+
     const handleSubmit = () => {
-        // Logic to verify the enrollment key and join the course
-        navigate("/course"); // Navigate to course view or other page after successful enrollment
+        setErrorMsg("");
+        joinCourseMutation.mutate({ enrollmentKey });
     };
 
     return (
@@ -24,6 +58,8 @@ const JoinCoursePage: React.FC = () => {
                 <button onClick={handleSubmit} className="join-course-button">
                     Enroll
                 </button>
+
+                <p className="text-red-600 text-sm mt-6">{errorMsg}</p>
             </div>
         </div>
     );
