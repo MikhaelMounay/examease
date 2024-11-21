@@ -1,123 +1,529 @@
 {
-    "id": "5e94a925-0805-4ac1-a1d4-0348393350a0",
-    "prevId": "00000000-0000-0000-0000-000000000000",
-    "version": "7",
-    "dialect": "postgresql",
-    "tables": {
-        "public.users": {
-            "name": "users",
-            "schema": "",
-            "columns": {
-                "id": {
-                    "name": "id",
-                    "type": "serial",
-                    "primaryKey": true,
-                    "notNull": true
-                },
-                "aucId": {
-                    "name": "aucId",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": true
-                },
-                "name": {
-                    "name": "name",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": true
-                },
-                "email": {
-                    "name": "email",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": true
-                },
-                "hashedPassword": {
-                    "name": "hashedPassword",
-                    "type": "char(64)",
-                    "primaryKey": false,
-                    "notNull": true
-                },
-                "role": {
-                    "name": "role",
-                    "type": "role",
-                    "typeSchema": "public",
-                    "primaryKey": false,
-                    "notNull": true
-                },
-                "department": {
-                    "name": "department",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": false
-                },
-                "classStanding": {
-                    "name": "classStanding",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": false
-                },
-                "major": {
-                    "name": "major",
-                    "type": "text",
-                    "primaryKey": false,
-                    "notNull": false
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "type": "timestamp",
-                    "primaryKey": false,
-                    "notNull": false
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "type": "timestamp",
-                    "primaryKey": false,
-                    "notNull": true,
-                    "default": "now()"
-                },
-                "deletedAt": {
-                    "name": "deletedAt",
-                    "type": "timestamp",
-                    "primaryKey": false,
-                    "notNull": false
-                }
-            },
-            "indexes": {},
-            "foreignKeys": {},
-            "compositePrimaryKeys": {},
-            "uniqueConstraints": {
-                "users_aucId_unique": {
-                    "name": "users_aucId_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["aucId"]
-                },
-                "users_email_unique": {
-                    "name": "users_email_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["email"]
-                }
-            },
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+  "id": "cf9c06a5-ff69-40da-b906-88898187b1bc",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.choices": {
+      "name": "choices",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "question_id": {
+          "name": "question_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "choice_body": {
+          "name": "choice_body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_true_answer": {
+          "name": "is_true_answer",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
         }
-    },
-    "enums": {
-        "public.role": {
-            "name": "role",
-            "schema": "public",
-            "values": ["admin", "instructor", "student"]
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "choices_question_id_questions_id_fk": {
+          "name": "choices_question_id_questions_id_fk",
+          "tableFrom": "choices",
+          "tableTo": "questions",
+          "columnsFrom": [
+            "question_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
         }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     },
-    "schemas": {},
-    "sequences": {},
-    "roles": {},
-    "policies": {},
-    "views": {},
-    "_meta": {
-        "columns": {},
-        "schemas": {},
-        "tables": {}
+    "public.courses": {
+      "name": "courses",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "open_for_enrollment": {
+          "name": "open_for_enrollment",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enrollment_key": {
+          "name": "enrollment_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "num_students": {
+          "name": "num_students",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "instructor_id": {
+          "name": "instructor_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "courses_instructor_id_users_id_fk": {
+          "name": "courses_instructor_id_users_id_fk",
+          "tableFrom": "courses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "instructor_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "courses_enrollmentKey_unique": {
+          "name": "courses_enrollmentKey_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "enrollment_key"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.exams": {
+      "name": "exams",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_grade": {
+          "name": "max_grade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "start_time": {
+          "name": "start_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "end_time": {
+          "name": "end_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "exams_course_id_courses_id_fk": {
+          "name": "exams_course_id_courses_id_fk",
+          "tableFrom": "exams",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.questions": {
+      "name": "questions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "exam_id": {
+          "name": "exam_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prompt": {
+          "name": "prompt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_grade": {
+          "name": "max_grade",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "num_choices": {
+          "name": "num_choices",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "prog_lang": {
+          "name": "prog_lang",
+          "type": "progLang",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "questions_exam_id_exams_id_fk": {
+          "name": "questions_exam_id_exams_id_fk",
+          "tableFrom": "questions",
+          "tableTo": "exams",
+          "columnsFrom": [
+            "exam_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users_courses": {
+      "name": "users_courses",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "course_id": {
+          "name": "course_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_courses_user_id_users_id_fk": {
+          "name": "users_courses_user_id_users_id_fk",
+          "tableFrom": "users_courses",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_courses_course_id_courses_id_fk": {
+          "name": "users_courses_course_id_courses_id_fk",
+          "tableFrom": "users_courses",
+          "tableTo": "courses",
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "users_courses_user_id_course_id_pk": {
+          "name": "users_courses_user_id_course_id_pk",
+          "columns": [
+            "user_id",
+            "course_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "auc_id": {
+          "name": "auc_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "department": {
+          "name": "department",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "class_standing": {
+          "name": "class_standing",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "major": {
+          "name": "major",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_aucId_unique": {
+          "name": "users_aucId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "auc_id"
+          ]
+        },
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
     }
+  },
+  "enums": {
+    "public.progLang": {
+      "name": "progLang",
+      "schema": "public",
+      "values": [
+        "CPP",
+        "PYTHON",
+        "JAVA"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "ADMIN",
+        "INSTRUCTOR",
+        "STUDENT"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
 }

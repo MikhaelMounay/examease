@@ -1,1 +1,0 @@
-ALTER TABLE "courses" RENAME COLUMN "course_id" TO "id";
