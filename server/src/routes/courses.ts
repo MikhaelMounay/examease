@@ -9,7 +9,7 @@ import {
     updateCourse,
     addStudenttoCourse,
     removeStudentfromCourse,
-    getCoursesByInstructorId,
+    getCoursesByUserId,
     getCourseStudents,
 } from "../handlers/courses.js";
 import { authenticate } from "../middleware/auth.js";
@@ -24,7 +24,7 @@ coursesRouter.get("/:id", authenticate, getCourseById);
 coursesRouter.post("/", authenticate, createCourse);
 coursesRouter.put("/:id", authenticate, updateCourse);
 coursesRouter.delete("/:id", authenticate, deleteCourse);
-coursesRouter.get("/instructor/:Instructor_Id", getCoursesByInstructorId);
+coursesRouter.get("/user/:userId", authenticate, getCoursesByUserId);
 
 coursesRouter.post("/join", authenticate, joinCourse); //self-enroll
 

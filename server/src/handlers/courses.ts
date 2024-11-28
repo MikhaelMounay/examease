@@ -34,18 +34,11 @@ export const getCourseById = async (req: Request, res: Response) => {
 };
 
 // All courses for a specific person
-export const getCoursesByInstructorId = async (req: Request, res: Response) => {
-    const { Instructor_Id } = req.params;
-    try {
-        const courses = await db
-            .select()
-            .from(coursesTable)
-            .where(eq(coursesTable.instructorId, Number(Instructor_Id)));
+export const getCoursesByUserId = async (req: Request, res: Response) => {
+    const { userId } = req.params;
 
-        if (courses.length === 0) {
-            res.status(404).json({ message: "No courses found for this instructor" });
-            return;
-        }
+    try {
+        const courses = await db.select().from(usersCoursesTable).innerJoin(coursesTable, eq(coursesTable.id, usersCoursesTable.courseId)).where(eq(usersCoursesTable.userId, Number(userId)));
 
         res.status(200).json(courses);
     } catch (error) {
@@ -303,7 +296,7 @@ export const getCourseStudents = async (req: Request, res: Response) => {
             studentAucId: student.users.aucId,
             studentName: student.users.name,
             classStanding: student.users.classStanding,
-        })))
+        })));
     } catch (err) {
         console.log("Error: ", err);
         res.status(500).json({ message: "Internal server error" });

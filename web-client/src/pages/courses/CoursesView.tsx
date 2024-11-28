@@ -12,7 +12,7 @@ const CoursesView: React.FC = () => {
     const navigate = useNavigate();
 
     const fetchCourses = async (): Promise<Course[]> => {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/instructor/${userData?.id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/user/${userData?.id}`, {
             headers: {
                 Authorization: `Token ${token}`,
             },
