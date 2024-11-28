@@ -109,7 +109,7 @@ export type Exam = typeof examsTable.$inferSelect;
 export type NewExam = typeof examsTable.$inferInsert;
 
 // Define the progLang enum
-export const progLangEnum = pgEnum("progLang", ["CPP", "PYTHON", "JAVA"]);
+export const progLangEnum = pgEnum("progLang", ["CPP", "PYTHON", "JAVA", "JS"]);
 
 // Define the `Questions` table schema and infer Typescript types
 export const questionsTable = pgTable("questions", {

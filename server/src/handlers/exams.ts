@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
-import { examsTable } from "../db/schema/schema.js";
+import { examsTable, questionsTable } from "../db/schema/schema.js";
 
 // Fetch all exams
 export const getExams = async (_req: Request, res: Response) => {
@@ -64,8 +64,7 @@ export const createExam = async (req: Request, res: Response) => {
         maxGrade += questions[i].maxGrade;
     }
 
-    console.log(startTime);
-    console.log(endTime);
+    console.log(questions)
 
     try {
         const [newExam] = await db
@@ -78,6 +77,18 @@ export const createExam = async (req: Request, res: Response) => {
                 maxGrade,
             })
             .returning();
+
+        const progLangs = {
+            "C++": "CPP",
+            "Java": "JAVA",
+            "Python": "PYTHON",
+            "JavaScript": "JS",
+        }
+
+        for (const question of questions) {
+            // @ts-ignore
+            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: 0})
+        }
 
         res.status(200).json(newExam);
     } catch (error) {

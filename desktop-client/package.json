@@ -37,8 +37,6 @@
         "electron": "^31.0.2",
         "electron-builder": "^24.13.3",
         "electron-vite": "^2.3.0",
-        "eslint": "^8.57.0",
-        "eslint-plugin-react": "^7.34.3",
         "postcss": "^8.4.47",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",

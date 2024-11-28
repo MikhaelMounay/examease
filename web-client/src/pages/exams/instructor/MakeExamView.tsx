@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { Exam } from "../../../types/Exam";
 import { useAuth } from "../../../contexts/AuthWrapper";
 import { Question } from "../../../types/Exam";
+import { useCourseContext } from "../../../contexts/CourseContext.tsx";
 
 const CreateExam: React.FC = () => {
     const { token } = useAuth();
+    const {courseData} = useCourseContext(); // TODO: ERROR: NOT GETTING THE CORRECT courseId FAILING TO CREATE EXAM
     const [examName, setExamName] = useState("");
     const [examDate, setExamDate] = useState("");
     const [startTime, setStartTime] = useState("");
@@ -63,15 +65,15 @@ const CreateExam: React.FC = () => {
             prevQuestions.map((q) =>
                 q.id === editingQuestionId
                     ? {
-                          ...q,
-                          type: questionType,
-                          prompt: questionPrompt,
-                          options: questionType === "mcq" ? options.filter(Boolean) : undefined,
-                          language: questionType === "Coding" ? codingLanguage : q.language,
-                          isCodeSnippet,
-                          codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
-                          maxGrade: q.maxGrade,
-                      }
+                        ...q,
+                        type: questionType,
+                        prompt: questionPrompt,
+                        options: questionType === "mcq" ? options.filter(Boolean) : undefined,
+                        language: questionType === "Coding" ? codingLanguage : q.language,
+                        isCodeSnippet,
+                        codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
+                        maxGrade: q.maxGrade,
+                    }
                     : q
             )
         );
@@ -168,7 +170,7 @@ const CreateExam: React.FC = () => {
             startTime: new Date(examDate + " " + startTime).toISOString(),
             endTime: new Date(examDate + " " + endTime).toISOString(),
             questions: questions,
-            courseId: 1, // Replace with the actual selected course ID
+            courseId: courseData?.id || 1,
         });
     }
     return (
