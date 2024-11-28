@@ -72,6 +72,14 @@ export const createCourse = async (req: Request, res: Response) => {
             })
             .returning();
 
+        await db
+            .insert(usersCoursesTable)
+            .values({
+                courseId: newCourse.id,
+                userId: instructorId,
+            })
+            .returning();
+
         res.status(200).json(newCourse);
     } catch (error) {
         console.log("Error: ", error);
