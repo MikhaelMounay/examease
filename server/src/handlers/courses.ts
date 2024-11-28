@@ -40,7 +40,7 @@ export const getCoursesByUserId = async (req: Request, res: Response) => {
     try {
         const courses = await db.select().from(usersCoursesTable).innerJoin(coursesTable, eq(coursesTable.id, usersCoursesTable.courseId)).where(eq(usersCoursesTable.userId, Number(userId)));
 
-        res.status(200).json(courses);
+        res.status(200).json(courses.map(courseData => courseData.courses));
     } catch (error) {
         res.status(500).json({ message: "Failed to retrieve courses", error });
     }
