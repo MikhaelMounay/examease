@@ -16,8 +16,8 @@ const CourseInfoPage: React.FC = () => {
     // Placeholder for instructor actions
     const teacherFunctions = () => (
         <div className="actions-grid1">
-            <button className="action-button1" onClick={() => navigate("/make-exam")}>
-                Create an Exam
+            <button className="action-button1" onClick={() => navigate("/view-exams")}>
+                Exams
             </button>
             <button className="action-button1" onClick={() => navigate(`/manage-students/${courseInfo?.id}`)}>
                 Manage Enrolled Students
@@ -25,12 +25,10 @@ const CourseInfoPage: React.FC = () => {
             <button className="action-button1" onClick={() => navigate("/monitor-exams")}>
                 Monitor Live Exams
             </button>
-            <button className="action-button1" onClick={() => navigate("/view-exams")}>
-                View All Exams
-            </button>
-            <button className="action-button1" onClick={() => navigate("/create-course")}>
+            <button className="action-button1" onClick={() => navigate(`/edit-course/${courseInfo?.id}`)}>
                 Edit Course Properties
             </button>
+
         </div>
     );
 
@@ -96,7 +94,7 @@ const CourseInfoPage: React.FC = () => {
                     <strong>Instructor:</strong> {courseInfo.instructorId}
                 </p>
                 <p>
-                    <strong>Number of Students:</strong> {courseInfo.numStudents}
+                    <strong>Course Capacity:</strong> {courseInfo.numStudents}
                 </p>
                 <p>
                     <strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}

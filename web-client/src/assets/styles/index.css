@@ -454,9 +454,6 @@ body,
 }
 
 .action-button1:hover {
-}
-
-.action-button1:hover {
     background-color: var(--secondary-color);
     transform: translateY(-3px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
@@ -740,6 +737,31 @@ body,
 .exam-card p {
     font-size: 1rem;
     color: #666;
+}
+
+.create-exam-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex; /* Ensures alignment on the same line */
+    align-items: center; /* Vertically aligns items in the center */
+    gap: 8px; /* Space between the icon and the text */
+    transition: background-color 0.3s;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.create-exam-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.create-exam-icon {
+    font-size: 18px; /* Adjust icon size */
+    display: inline-block; /* Ensures the icon is treated as an inline element */
 }
 
 /* ============================================================================================= */
@@ -1633,3 +1655,95 @@ label span {
         width: 100%;
     }
 }
+
+/* ============================================================================================= Edit Course */
+/* Edit Course Page Styles */
+.edit-course-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.edit-course-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.edit-course-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.edit-course-container label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.edit-course-container input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.edit-course-container button {
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-course-container .update-button {
+    background-color: var(--main-color);
+    color: #fff;
+}
+
+.edit-course-container .update-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.edit-course-container .cancel-button {
+    background-color: #941e15;
+    color: #fff;
+}
+
+.edit-course-container .cancel-button:hover {
+    background-color: #d32f2f;
+}
+
+.edit-course-container .success-message {
+    color: #4caf50;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.edit-course-container .error-message {
+    color: #f44336;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.edit-course-container .form-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.edit-course-container .form-footer .cancel-button {
+    margin-left: auto;
+}
+
+
