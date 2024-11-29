@@ -25,6 +25,8 @@ const CreateExam: React.FC = () => {
     const [isCodeSnippet, setIsCodeSnippet] = useState(false); // For code snippet checkbox
     const [codeSnippet, setCodeSnippet] = useState(""); // For the code snippet textarea
     const [maxGrade, setMaxGrade] = useState(0);
+    const [dateError, setDateError] = useState("");
+
 
     // Load data from localStorage on page load
     useEffect(() => {
@@ -159,11 +161,22 @@ const CreateExam: React.FC = () => {
     });
 
     function handleCreateExam() {
+        const currentDate = new Date();
+        const selectedExamDate = new Date(examDate);
+    
+        if (selectedExamDate < currentDate) {
+            setDateError("The exam date must be in the future.");
+            return;
+        } else {
+            setDateError(""); // Clear error if validation passes
+        }
+    
+        // Proceed with the rest of the validation and mutation
         if (!(examName && examDate && startTime && endTime && questions.length > 0)) {
             console.error("Please fill in all fields and add at least one question");
             return;
         }
-
+    
         createExamMutation.mutate({
             title: examName,
             examDate: examDate,
@@ -173,6 +186,7 @@ const CreateExam: React.FC = () => {
             courseId: courseData?.id || 1,
         });
     }
+    
     return (
         <div className="create-exam-container">
             <h1>Create New Exam</h1>
@@ -193,6 +207,7 @@ const CreateExam: React.FC = () => {
                     Exam Date:
                     <input type="date" value={examDate} onChange={(e) => setExamDate(e.target.value)} />
                 </label>
+                {dateError && <div className="error-message">{dateError}</div>}
                 <label>
                     Start Time:
                     <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
@@ -329,6 +344,7 @@ const CreateExam: React.FC = () => {
             <button onClick={handleCreateExam} className="submit-exam">
                 Save Exam
             </button>
+            
         </div>
     );
 };

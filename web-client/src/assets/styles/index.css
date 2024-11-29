@@ -1589,9 +1589,6 @@ select:focus {
     transform: scale(1.05);
 }
 
-.code-snippet-label{
-
-}
 
 /* Style for the Checkbox Container */
 label input[type="checkbox"] {
@@ -1644,7 +1641,11 @@ label span {
     margin-left: 8px;
 }
 
-
+.error-message {
+    color: #f44336;
+    font-weight: 600;
+    margin-top: -20px;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .create-exam-container {
