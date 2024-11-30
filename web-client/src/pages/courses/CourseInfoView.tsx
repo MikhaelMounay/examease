@@ -28,6 +28,9 @@ const CourseInfoPage: React.FC = () => {
             <button className="action-button1" onClick={() => navigate(`/edit-course/${courseInfo?.id}`)}>
                 Edit Course Properties
             </button>
+            <button className="action-button1" onClick={() => navigate(`/make-exam`)}>
+                Create Exam
+            </button>
 
         </div>
     );

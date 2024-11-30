@@ -19,6 +19,7 @@ import RemoveStudent from "../pages/courses/instructor/RemoveStudent.tsx";
 import ViewStudentsInfo from "../pages/ViewStudentsInfo";
 import CourseViewWithInfo from "../pages/courses/CourseInfoView.tsx";
 import EditCoursePage from "../pages/courses/instructor/EditCourse.tsx";
+import EditExamPage from "../pages/exams/instructor/EditExamPage.tsx";
 
 
 const router = createBrowserRouter(
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
                 <Route path="/view-students-info" element={<ViewStudentsInfo />} />
                 <Route path="/course-info/:courseid" element={<CourseViewWithInfo />} />
                 <Route path="/edit-course/:courseid" element={<EditCoursePage />} />
+                <Route path="/exam-info/:examid" element={<EditExamPage />} />
             </Route>
         </Route>
     )

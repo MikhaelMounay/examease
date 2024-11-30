@@ -6,9 +6,9 @@ interface Question {
     language?: string; // For coding questions
     isCodeSnippet?: boolean; // Whether it's a code snippet
     codeSnippet?: string; // The actual code snippet
-    maxGrade:number;
+    maxGrade: number;
 }
-
+export type { Question };
 interface Exam {
     id: number;
     title: string;
@@ -20,5 +20,4 @@ interface Exam {
     updatedAt: Date;
     deletedAt: Date | null;
 }
-export type { Question };
 export type { Exam };

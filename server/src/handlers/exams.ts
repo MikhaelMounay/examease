@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 
 import { db } from "../db/index.js";
 import { examsTable, questionsTable } from "../db/schema/schema.js";
+//import { date } from "drizzle-orm/mysql-core";
 
 // Fetch all exams
 export const getExams = async (_req: Request, res: Response) => {
@@ -100,7 +101,7 @@ export const createExam = async (req: Request, res: Response) => {
 // Update an exam by ID
 export const updateExam = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { courseId, title, maxGrade, startTime, endTime } = req.body;
+    const { courseId, title, maxGrade, startTime, endTime} = req.body;
 
     try {
         const [updatedExam] = await db

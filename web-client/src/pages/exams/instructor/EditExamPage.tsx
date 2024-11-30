@@ -20,9 +20,37 @@ const EditExamPage: React.FC = () => {
         questions: "",
     });
 
-    // Fetch exam data from API
+    // Utility function to convert ISO time to HH:mm format
+    const convertToTimeString = (isoString: string) => {
+        const date = new Date(isoString);
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        return `${hours}:${minutes}`;
+    };
+
+    // Utility function to convert ISO date to YYYY-MM-DD format
+    const convertToDateString = (isoString: string | null | undefined): string => {
+        if (!isoString) {
+            console.error("Invalid date value:", isoString);
+            return ""; // Return an empty string for invalid dates
+        }
+    
+        const date = new Date(isoString);
+        if (isNaN(date.getTime())) {
+            console.error("Failed to parse date:", isoString);
+            return ""; // Return an empty string for unparsable dates
+        }
+    
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+        const day = String(date.getDate()).padStart(2, "0");
+    
+        return `${year}-${month}-${day}`;
+    };
+    
+
+    // Fetch exam data on page load
     useEffect(() => {
-        console.log("Exam ID from URL:", examid);
         const fetchExamData = async () => {
             setLoading(true);
             setError(null);
@@ -42,10 +70,10 @@ const EditExamPage: React.FC = () => {
                 setExamData(data);
                 setFormValues({
                     title: data.title || "",
-                    date: data.date || "",
-                    startTime: data.startTime || "",
-                    endTime: data.endTime || "",
-                    questions: (data.questions || []).join("\n"), // Join array to string for editing
+                    date: convertToDateString(data.date) || "", // Safeguard for invalid dates
+                    startTime: convertToTimeString(data.startTime || ""),
+                    endTime: convertToTimeString(data.endTime || ""),
+                    questions: '',
                 });
             } catch (err) {
                 console.error("Error fetching exam data:", err);
@@ -63,11 +91,11 @@ const EditExamPage: React.FC = () => {
         }
     }, [examid, token]);
 
-    // Handle form input changes
+    // Handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormValues((prevValues) => ({
-            ...prevValues,
+        setFormValues((prev) => ({
+            ...prev,
             [name]: value,
         }));
     };
@@ -89,7 +117,9 @@ const EditExamPage: React.FC = () => {
                 },
                 body: JSON.stringify({
                     ...formValues,
-                    questions: formValues.questions.split("\n"), // Convert questions back to an array
+                    startTime: `${formValues.date}T${formValues.startTime}:00.000Z`, // Combine date and time
+                    endTime: `${formValues.date}T${formValues.endTime}:00.000Z`,
+                    questions: formValues.questions.split("\n"), // Convert questions back to array
                 }),
             });
 
@@ -167,7 +197,7 @@ const EditExamPage: React.FC = () => {
                 <button type="submit" className="update-button">
                     Update Exam
                 </button>
-                <button type="button" className="cancel-button" onClick={() => navigate(`/`)}>
+                <button type="button" className="cancel-button" onClick={() => navigate(`/view-exams`)}>
                     Cancel
                 </button>
             </form>
