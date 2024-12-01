@@ -59,7 +59,6 @@ const ExamsView: React.FC = () => {
                                 onClick={() => navigate(`/exam-info/${exam.id}`)} // Navigate to exam details
                             >
                                 <h2>{exam.title}</h2>
-                                <p>Duration: {exam.duration} minutes</p>
                                 <p>Max Grade: {exam.maxGrade}</p>
                                 {/* <p>Created At: {new Date(exam.createdAt).toLocaleDateString()}</p> */}
                             </button>

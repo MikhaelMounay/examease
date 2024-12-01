@@ -75,7 +75,7 @@ export const createExam = async (req: Request, res: Response) => {
                 title,
                 startTime: new Date(startTime),
                 endTime: new Date(endTime),
-                maxGrade,
+                maxGrade: maxGrade || 0,
             })
             .returning();
 
@@ -88,7 +88,7 @@ export const createExam = async (req: Request, res: Response) => {
 
         for (const question of questions) {
             // @ts-ignore
-            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: question.m})
+            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: question.maxGrade})
         }
 
         res.status(200).json(newExam);

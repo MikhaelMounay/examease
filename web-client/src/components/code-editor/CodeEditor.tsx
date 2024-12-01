@@ -25,7 +25,7 @@ const CodeEditor: React.FC<CodeEditorProps> = function(props) {
     return (
         <div>
             <p className="mb-4 italic border-primary border rounded px-4 py-1 opacity-80">Language: C++ - version 10.2.0</p>
-            <Editor theme="vs-dark" height="90vh" language={language} defaultValue={defaultValue} value={props.value}
+            <Editor theme="vs-dark" height="70vh" language={language} defaultValue={defaultValue} value={props.value}
                     onChange={(value) => props.setValue(value || "")} onMount={handleEditorDidMount} />
         </div>
     );
