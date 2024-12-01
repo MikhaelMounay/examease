@@ -81,23 +81,20 @@ export async function getUser(req: ExpressRequest, res: Response, next: NextFunc
 }
 export const getUserById = async (req: Request, res: Response) => {
     const { student_id } = req.params;
-  
+
     try {
-      // Query the database to get the user by ID
-      const student = await db
-            .select()
-            .from(usersTable)
-            .where(eq(usersTable.aucId, student_id));
-  
-      if (student.length === 0) {
-        res.status(404).json({ message: 'User not found' });
-        return;
-      }
-  
-      // Return the user data
-      res.status(200).json({ user: student});
+        // Query the database to get the user by ID
+        const student = await db.select().from(usersTable).where(eq(usersTable.aucId, student_id));
+
+        if (student.length === 0) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
+        // Return the user data
+        res.status(200).json({ user: student });
     } catch (error) {
-      console.error('Error fetching user:', error);
-      res.status(500).json({ message: 'Internal server error' });
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-  };
+};

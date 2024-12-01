@@ -34,20 +34,19 @@ const EditExamPage: React.FC = () => {
             console.error("Invalid date value:", isoString);
             return ""; // Return an empty string for invalid dates
         }
-    
+
         const date = new Date(isoString);
         if (isNaN(date.getTime())) {
             console.error("Failed to parse date:", isoString);
             return ""; // Return an empty string for unparsable dates
         }
-    
+
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
         const day = String(date.getDate()).padStart(2, "0");
-    
+
         return `${year}-${month}-${day}`;
     };
-    
 
     // Fetch exam data on page load
     useEffect(() => {
@@ -146,53 +145,23 @@ const EditExamPage: React.FC = () => {
             <form onSubmit={handleFormSubmit} className="edit-exam-form">
                 <label>
                     Exam Name:
-                    <input
-                        type="text"
-                        name="title"
-                        value={formValues.title}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <input type="text" name="title" value={formValues.title} onChange={handleInputChange} required />
                 </label>
                 <label>
                     Exam Date:
-                    <input
-                        type="date"
-                        name="date"
-                        value={formValues.date}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <input type="date" name="date" value={formValues.date} onChange={handleInputChange} required />
                 </label>
                 <label>
                     Start Time:
-                    <input
-                        type="time"
-                        name="startTime"
-                        value={formValues.startTime}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <input type="time" name="startTime" value={formValues.startTime} onChange={handleInputChange} required />
                 </label>
                 <label>
                     End Time:
-                    <input
-                        type="time"
-                        name="endTime"
-                        value={formValues.endTime}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <input type="time" name="endTime" value={formValues.endTime} onChange={handleInputChange} required />
                 </label>
                 <label>
                     Questions (one per line):
-                    <textarea
-                        name="questions"
-                        value={formValues.questions}
-                        onChange={handleInputChange}
-                        rows={5}
-                        required
-                    />
+                    <textarea name="questions" value={formValues.questions} onChange={handleInputChange} rows={5} required />
                 </label>
                 <button type="submit" className="update-button">
                     Update Exam

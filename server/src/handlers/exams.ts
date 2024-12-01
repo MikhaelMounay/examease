@@ -65,7 +65,7 @@ export const createExam = async (req: Request, res: Response) => {
         maxGrade += questions[i].maxGrade;
     }
 
-    console.log(questions)
+    console.log(questions);
 
     try {
         const [newExam] = await db
@@ -81,14 +81,21 @@ export const createExam = async (req: Request, res: Response) => {
 
         const progLangs = {
             "C++": "CPP",
-            "Java": "JAVA",
-            "Python": "PYTHON",
-            "JavaScript": "JS",
-        }
+            Java: "JAVA",
+            Python: "PYTHON",
+            JavaScript: "JS",
+        };
 
         for (const question of questions) {
             // @ts-ignore
-            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: question.maxGrade})
+            await db
+                .insert(questionsTable)
+                .values({
+                    examId: newExam.id,
+                    prompt: question.prompt,
+                    progLang: progLangs[question.language || ""],
+                    maxGrade: question.maxGrade,
+                });
         }
 
         res.status(200).json(newExam);
@@ -101,7 +108,7 @@ export const createExam = async (req: Request, res: Response) => {
 // Update an exam by ID
 export const updateExam = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { courseId, title, maxGrade, startTime, endTime} = req.body;
+    const { courseId, title, maxGrade, startTime, endTime } = req.body;
 
     try {
         const [updatedExam] = await db

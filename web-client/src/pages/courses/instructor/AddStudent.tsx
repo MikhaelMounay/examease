@@ -34,7 +34,7 @@ const AddStudent: React.FC = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                    Authorization: `Token ${localStorage.getItem("user_token")}`,
                 },
                 body: JSON.stringify({ courseId: courseId, studentAucId: aucId }),
             });

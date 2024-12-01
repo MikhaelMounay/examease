@@ -162,16 +162,10 @@ int main() {
                     <div className="question-container">
                         <h3>{questions[currentQuestionIndex].title}</h3>
                         <p>{questions[currentQuestionIndex].description}</p>
-                        <CodingQuestion
-                            starterCode={questions[currentQuestionIndex].starterCode}
-                        />
+                        <CodingQuestion starterCode={questions[currentQuestionIndex].starterCode} />
                     </div>
-                    <div className="w-full flex justify-between mt-4">
-                        <button
-                            onClick={handlePrevious}
-                            disabled={currentQuestionIndex === 0}
-                            className="action-button1"
-                        >
+                    <div className="mt-4 flex w-full justify-between">
+                        <button onClick={handlePrevious} disabled={currentQuestionIndex === 0} className="action-button1">
                             Previous
                         </button>
                         <button

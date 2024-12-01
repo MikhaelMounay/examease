@@ -22,7 +22,7 @@ type SidebarProps = {
     setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Sidebar: React.FC<SidebarProps> = function(props) {
+const Sidebar: React.FC<SidebarProps> = function (props) {
     // Constants
     const sidebarWidthConstraints = {
         minWidth: 192, // 12rem
@@ -45,12 +45,14 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(sidebarWidthConstraints.defaultWidth);
     const [isResizing, setIsResizing] = useState(false);
-    const [sidebarItems, _setSidebarItems] = useState<{
-        linkTo: string;
-        icon: IconDefinition;
-        label: string;
-        rolesEnabled: Role[]
-    }[]>([
+    const [sidebarItems, _setSidebarItems] = useState<
+        {
+            linkTo: string;
+            icon: IconDefinition;
+            label: string;
+            rolesEnabled: Role[];
+        }[]
+    >([
         {
             linkTo: "/",
             icon: faHome,
@@ -115,10 +117,8 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
         window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener("mousemove", (_e) => {
-            });
-            window.removeEventListener("mouseup", () => {
-            });
+            window.removeEventListener("mousemove", (_e) => {});
+            window.removeEventListener("mouseup", () => {});
             window.removeEventListener("resize", handleResize);
         };
     }, []);
@@ -134,15 +134,14 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
     return (
         <>
             {props.isSidebarOpen && (
-                <div
-                    className="text-textColorLight absolute left-0 top-0 z-30 bg-black shadow-lg shadow-gray-600 lg:relative lg:flex lg:bg-opacity-85">
+                <div className="text-textColorLight absolute left-0 top-0 z-30 bg-black shadow-lg shadow-gray-600 lg:relative lg:flex lg:bg-opacity-85">
                     {props.isSidebarOpen &&
                         createPortal(
                             <div
                                 className="absolute left-0 top-0 z-20 h-full w-full bg-gray-900 bg-opacity-50 lg:hidden"
                                 onClick={() => props.setIsSidebarOpen(false)}
                             ></div>,
-                            document.getElementById("backdrop")!,
+                            document.getElementById("backdrop")!
                         )}
 
                     <aside
@@ -152,8 +151,8 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
                                 window.innerWidth < breakpointsTailwind.lg
                                     ? "fit-content"
                                     : isSidebarCollapsed
-                                        ? "5rem"
-                                        : `${sidebarWidth / 16}rem`,
+                                      ? "5rem"
+                                      : `${sidebarWidth / 16}rem`,
                         }}
                     >
                         <div className="flex h-full flex-col justify-between">
@@ -172,24 +171,25 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
                                         {isSidebarCollapsed && <FontAwesomeIcon icon={faAngleRight} />}
                                         {!isSidebarCollapsed && <FontAwesomeIcon icon={faAngleLeft} />}
                                     </button>
-                                    <button className="ms-2 p-2 lg:hidden"
-                                            onClick={() => props.setIsSidebarOpen(false)}>
+                                    <button className="ms-2 p-2 lg:hidden" onClick={() => props.setIsSidebarOpen(false)}>
                                         <FontAwesomeIcon icon={faXmark} />
                                     </button>
                                 </div>
 
                                 <nav className="max-h-[calc(100%-120px)] overflow-y-auto overflow-x-hidden">
                                     <ul>
-                                        {sidebarItems.filter(item => item.rolesEnabled.includes(userData?.role || "STUDENT")).map((item, i) => (
-                                            <SidebarItem
-                                                key={i}
-                                                linkTo={item.linkTo}
-                                                isSidebarCollapsed={isSidebarCollapsed}
-                                                setIsSidebarOpen={props.setIsSidebarOpen}
-                                                icon={item.icon}
-                                                label={item.label}
-                                            />
-                                        ))}
+                                        {sidebarItems
+                                            .filter((item) => item.rolesEnabled.includes(userData?.role || "STUDENT"))
+                                            .map((item, i) => (
+                                                <SidebarItem
+                                                    key={i}
+                                                    linkTo={item.linkTo}
+                                                    isSidebarCollapsed={isSidebarCollapsed}
+                                                    setIsSidebarOpen={props.setIsSidebarOpen}
+                                                    icon={item.icon}
+                                                    label={item.label}
+                                                />
+                                            ))}
                                     </ul>
                                 </nav>
                             </div>
@@ -232,8 +232,7 @@ const Sidebar: React.FC<SidebarProps> = function(props) {
                                             </div>
                                         </button>
                                         {isSidebarCollapsed && (
-                                            <div
-                                                className="bg-primary text-textColorLight invisible absolute left-full top-2 ml-8 -translate-x-3 truncate rounded-md px-2 py-1 text-sm opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100">
+                                            <div className="bg-primary text-textColorLight invisible absolute left-full top-2 ml-8 -translate-x-3 truncate rounded-md px-2 py-1 text-sm opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100">
                                                 Logout
                                             </div>
                                         )}

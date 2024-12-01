@@ -24,19 +24,19 @@ const EditCoursePage: React.FC = () => {
         const fetchCourseData = async () => {
             setLoading(true);
             setError(null);
-        
+
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`, {
                     headers: {
                         Authorization: `Token ${token}`,
                     },
                 });
-        
+
                 if (!response.ok) throw new Error("Failed to fetch course data");
-        
+
                 const data = await response.json();
                 console.log("Fetched course data:", data); // Log the fetched course data
-        
+
                 setCourseData(data);
                 setFormValues({
                     title: data.title,
@@ -49,7 +49,7 @@ const EditCoursePage: React.FC = () => {
             } finally {
                 setLoading(false);
             }
-        };        
+        };
 
         if (courseid) {
             fetchCourseData();
@@ -73,9 +73,9 @@ const EditCoursePage: React.FC = () => {
         e.preventDefault();
         setError(null);
         setSuccess(null);
-    
+
         console.log("Form values before submit:", formValues); // Log the form values
-    
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`, {
                 method: "PUT",
@@ -85,9 +85,9 @@ const EditCoursePage: React.FC = () => {
                 },
                 body: JSON.stringify(formValues),
             });
-    
+
             if (!response.ok) throw new Error("Failed to update course");
-    
+
             setSuccess("Course updated successfully.");
             navigate(`/course-info/${courseid}`);
         } catch (err) {
@@ -95,7 +95,6 @@ const EditCoursePage: React.FC = () => {
             setError("Failed to update course.");
         }
     };
-    
 
     if (loading) return <p>Loading course details...</p>;
     if (error) return <p>{error}</p>;
@@ -110,13 +109,7 @@ const EditCoursePage: React.FC = () => {
             <form onSubmit={handleFormSubmit} className="edit-course-form">
                 <label>
                     Course Name:
-                    <input
-                        type="text"
-                        name="title"
-                        value={formValues.title}
-                        onChange={handleInputChange}
-                        required
-                    />
+                    <input type="text" name="title" value={formValues.title} onChange={handleInputChange} required />
                 </label>
                 <label>
                     Course Capacity:

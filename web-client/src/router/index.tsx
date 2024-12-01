@@ -21,7 +21,6 @@ import CourseViewWithInfo from "../pages/courses/CourseInfoView.tsx";
 import EditCoursePage from "../pages/courses/instructor/EditCourse.tsx";
 import EditExamPage from "../pages/exams/instructor/EditExamPage.tsx";
 
-
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>

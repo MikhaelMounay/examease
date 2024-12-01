@@ -38,9 +38,13 @@ export const getCoursesByUserId = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     try {
-        const courses = await db.select().from(usersCoursesTable).innerJoin(coursesTable, eq(coursesTable.id, usersCoursesTable.courseId)).where(eq(usersCoursesTable.userId, Number(userId)));
+        const courses = await db
+            .select()
+            .from(usersCoursesTable)
+            .innerJoin(coursesTable, eq(coursesTable.id, usersCoursesTable.courseId))
+            .where(eq(usersCoursesTable.userId, Number(userId)));
 
-        res.status(200).json(courses.map(courseData => courseData.courses));
+        res.status(200).json(courses.map((courseData) => courseData.courses));
     } catch (error) {
         res.status(500).json({ message: "Failed to retrieve courses", error });
     }
@@ -294,17 +298,20 @@ export const getCourseStudents = async (req: Request, res: Response) => {
     }
 
     try {
-        const students = await db.select()
+        const students = await db
+            .select()
             .from(usersCoursesTable)
             .where(and(eq(usersCoursesTable.courseId, courseId), eq(usersTable.role, "STUDENT")))
             .innerJoin(usersTable, eq(usersCoursesTable.userId, usersTable.id));
 
-        res.status(200).json(students.map(student => ({
-            studentId: student.users.id,
-            studentAucId: student.users.aucId,
-            studentName: student.users.name,
-            classStanding: student.users.classStanding,
-        })));
+        res.status(200).json(
+            students.map((student) => ({
+                studentId: student.users.id,
+                studentAucId: student.users.aucId,
+                studentName: student.users.name,
+                classStanding: student.users.classStanding,
+            }))
+        );
     } catch (err) {
         console.log("Error: ", err);
         res.status(500).json({ message: "Internal server error" });

@@ -17,7 +17,7 @@ const ManageStudentsView: React.FC = () => {
             const response = await fetch(import.meta.env.VITE_API_URL + `/courses/coursestudents/${courseId}`, {
                 method: "GET",
                 headers: {
-                    "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                    Authorization: `Token ${localStorage.getItem("user_token")}`,
                 },
             });
 
@@ -31,7 +31,7 @@ const ManageStudentsView: React.FC = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                Authorization: `Token ${localStorage.getItem("user_token")}`,
             },
             body: JSON.stringify({ studentId: studentId, courseId: courseId }),
         });
@@ -68,11 +68,14 @@ const ManageStudentsView: React.FC = () => {
                         <Column field="studentAucId" header="Student Id" />
                         <Column field="studentName" header="Student Name" />
                         <Column field="classStanding" header="Class Standing" />
-                        <Column header="Actions" body={(student) => (
-                            <button onClick={() => removeStudentFromCourse(student.studentId)}><FontAwesomeIcon
-                                icon={faTrash} /></button>
-                        )}>
-                        </Column>
+                        <Column
+                            header="Actions"
+                            body={(student) => (
+                                <button onClick={() => removeStudentFromCourse(student.studentId)}>
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            )}
+                        ></Column>
                     </DataTable>
                 </div>
             )}

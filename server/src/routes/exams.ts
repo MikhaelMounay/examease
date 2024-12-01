@@ -1,12 +1,5 @@
 import { Router } from "express";
-import {
-    createExam,
-    deleteExam,
-    getExamById,
-    getExams,
-    getExamsByCourseId,
-    updateExam,
-} from "../handlers/exams.js"; // Ensure the path matches your project structure
+import { createExam, deleteExam, getExamById, getExams, getExamsByCourseId, updateExam } from "../handlers/exams.js"; // Ensure the path matches your project structure
 import { authenticate } from "../middleware/auth.js";
 
 const examsRouter = Router();
