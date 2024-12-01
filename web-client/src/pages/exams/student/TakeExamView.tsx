@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import CodingQuestion from "../../../components/code-editor/CodingQuestion.tsx";
 
 const TakeExamPage: React.FC = () => {
     const [fromApp, setFromApp] = useState(false);
@@ -21,8 +22,9 @@ const TakeExamPage: React.FC = () => {
             <h1>Take an Exam</h1>
             {!fromApp && (<div>Please <a href="#">download</a> the desktop app to take the exam!</div>)}
             {fromApp && (
-                <div>
-                    <p>Setup the code editor here for questions that require code input</p>
+                <div className="w-full">
+                    {/*<p>Setup the code editor here for questions that require code input</p>*/}
+                    <CodingQuestion />
                 </div>
             )}
         </div>
