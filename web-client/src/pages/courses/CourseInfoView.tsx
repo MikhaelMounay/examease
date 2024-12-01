@@ -94,10 +94,10 @@ const CourseInfoPage: React.FC = () => {
                     <strong>Course ID:</strong> {courseInfo.id}
                 </p>
                 <p>
-                    <strong>Instructor:</strong> {courseInfo.instructorId}
+                    <strong>Instructor ID :</strong> {courseInfo.instructorId}
                 </p>
                 <p>
-                    <strong>Course Capacity:</strong> {courseInfo.numStudents}
+                    <strong>Available Places :</strong> {courseInfo.numStudents}
                 </p>
                 <p>
                     <strong>Enrollment Code:</strong> {courseInfo.enrollmentKey}

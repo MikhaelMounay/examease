@@ -143,6 +143,10 @@ export const joinCourse = async (req: Request, res: Response) => {
 
         // Check if the course exists and is open for enrollment
         const [course] = await db.select().from(coursesTable).where(eq(coursesTable.enrollmentKey, enrollmentKey)).limit(1);
+        if ((course.numStudents ?? 0) <= 0) {
+            res.status(400).json({ message: "Course capacity reached." });
+            return;
+        }
         if (!course) {
             res.status(404).json({ message: "Course not found" });
             return;
@@ -171,10 +175,10 @@ export const joinCourse = async (req: Request, res: Response) => {
             })
             .returning();
 
-        // Increment the student count for the course
+        // decrement the student count for the course
         await db
             .update(coursesTable)
-            .set({ numStudents: (course.numStudents ?? 0) + 1 })
+            .set({ numStudents: (course.numStudents ?? 0) - 1 })
             .where(eq(coursesTable.id, course.id));
 
         res.status(200).json({ message: "Successfully enrolled in the course" });
@@ -196,9 +200,15 @@ export const addStudenttoCourse = async (req: Request, res: Response) => {
             res.status(400).json({ message: "Course ID and Student ID are required." });
             return;
         }
+        // Check if the course has reached its capacity
 
         // Check if the course exists and is managed by the instructor
         const [course] = await db.select().from(coursesTable).where(eq(coursesTable.id, courseId)).limit(1);
+
+        if ((course.numStudents ?? 0) <= 0) {
+            res.status(400).json({ message: "Course capacity reached." });
+            return;
+        }
 
         if (!course) {
             res.status(404).json({ message: "Course not found." });
