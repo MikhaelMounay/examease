@@ -73,7 +73,7 @@ const EditExamPage: React.FC = () => {
                     date: convertToDateString(data.date) || "", // Safeguard for invalid dates
                     startTime: convertToTimeString(data.startTime || ""),
                     endTime: convertToTimeString(data.endTime || ""),
-                    questions: '',
+                    questions: '(data.questions || []).join("\n")',
                 });
             } catch (err) {
                 console.error("Error fetching exam data:", err);
@@ -197,7 +197,7 @@ const EditExamPage: React.FC = () => {
                 <button type="submit" className="update-button">
                     Update Exam
                 </button>
-                <button type="button" className="cancel-button" onClick={() => navigate(`/view-exams`)}>
+                <button type="button" className="cancel-button" onClick={() => navigate(`/exam-info/${examid}`)}>
                     Cancel
                 </button>
             </form>

@@ -1,70 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Course } from "../../../types/Course.ts";
 import { useAuth } from "../../../contexts/AuthWrapper.tsx";
-import { Exam } from "../../../types/Exam.ts";
 
-const EditExamPage: React.FC = () => {
-    const { examid } = useParams();
+const EditCoursePage: React.FC = () => {
+    const { courseid } = useParams();
     const { token } = useAuth();
     const navigate = useNavigate();
 
-    const [examData, setExamData] = useState<Exam | null>(null);
+    const [courseData, setCourseData] = useState<Course | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [formValues, setFormValues] = useState({
         title: "",
-        date: "",
-        startTime: "",
-        endTime: "",
-        questions: "",
+        numStudents: "",
+        instructorId: "",
     });
 
-    // Fetch exam data from API
+    // Fetch course data from API when the page loads
     useEffect(() => {
-        console.log("Exam ID from URL:", examid);
-        const fetchExamData = async () => {
+        console.log("Course ID from URL:", courseid);
+        const fetchCourseData = async () => {
             setLoading(true);
             setError(null);
-
+        
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/exams/${examid}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`, {
                     headers: {
                         Authorization: `Token ${token}`,
                     },
                 });
-
-                if (!response.ok) throw new Error("Failed to fetch exam data");
-
+        
+                if (!response.ok) throw new Error("Failed to fetch course data");
+        
                 const data = await response.json();
-                console.log("Fetched exam data:", data);
-
-                setExamData(data);
+                console.log("Fetched course data:", data); // Log the fetched course data
+        
+                setCourseData(data);
                 setFormValues({
-                    title: data.title || "",
-                    date: data.date || "",
-                    startTime: data.startTime || "",
-                    endTime: data.endTime || "",
-                    questions: (data.questions || []).join("\n"), // Join array to string for editing
+                    title: data.title,
+                    numStudents: data.numStudents,
+                    instructorId: data.instructorId,
                 });
             } catch (err) {
-                console.error("Error fetching exam data:", err);
-                setError("Failed to load exam details.");
+                console.error("Error fetching course data:", err);
+                setError("Failed to load course details.");
             } finally {
                 setLoading(false);
             }
-        };
+        };        
 
-        if (examid) {
-            fetchExamData();
+        if (courseid) {
+            fetchCourseData();
         } else {
-            setError("Invalid exam ID");
+            setError("Invalid course ID");
             setLoading(false);
         }
-    }, [examid, token]);
+    }, [courseid, token]);
 
     // Handle form input changes
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormValues((prevValues) => ({
             ...prevValues,
@@ -72,50 +68,48 @@ const EditExamPage: React.FC = () => {
         }));
     };
 
-    // Handle form submission to update exam
+    // Handle form submission to update course
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(null);
         setSuccess(null);
-
-        console.log("Form values before submit:", formValues);
-
+    
+        console.log("Form values before submit:", formValues); // Log the form values
+    
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/exams/${examid}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/courses/${courseid}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Token ${token}`,
                 },
-                body: JSON.stringify({
-                    ...formValues,
-                    questions: formValues.questions.split("\n"), // Convert questions back to an array
-                }),
+                body: JSON.stringify(formValues),
             });
-
-            if (!response.ok) throw new Error("Failed to update exam");
-
-            setSuccess("Exam updated successfully.");
-            navigate(`/exam-info/${examid}`);
+    
+            if (!response.ok) throw new Error("Failed to update course");
+    
+            setSuccess("Course updated successfully.");
+            navigate(`/course-info/${courseid}`);
         } catch (err) {
-            console.error("Error updating exam:", err);
-            setError("Failed to update exam.");
+            console.error("Error updating course:", err);
+            setError("Failed to update course.");
         }
     };
+    
 
-    if (loading) return <p>Loading exam details...</p>;
+    if (loading) return <p>Loading course details...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-        <div className="edit-exam-container">
-            <h1>Edit Exam: {examData?.title}</h1>
+        <div className="edit-course-container">
+            <h1>Edit Course: {courseData?.title}</h1>
 
             {success && <p className="success-message">{success}</p>}
             {error && <p className="error-message">{error}</p>}
 
-            <form onSubmit={handleFormSubmit} className="edit-exam-form">
+            <form onSubmit={handleFormSubmit} className="edit-course-form">
                 <label>
-                    Exam Name:
+                    Course Name:
                     <input
                         type="text"
                         name="title"
@@ -125,49 +119,19 @@ const EditExamPage: React.FC = () => {
                     />
                 </label>
                 <label>
-                    Exam Date:
+                    Course Capacity:
                     <input
-                        type="date"
-                        name="date"
-                        value={formValues.date}
+                        type="number"
+                        name="numStudents"
+                        value={formValues.numStudents}
                         onChange={handleInputChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Start Time:
-                    <input
-                        type="time"
-                        name="startTime"
-                        value={formValues.startTime}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </label>
-                <label>
-                    End Time:
-                    <input
-                        type="time"
-                        name="endTime"
-                        value={formValues.endTime}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </label>
-                <label>
-                    Questions (one per line):
-                    <textarea
-                        name="questions"
-                        value={formValues.questions}
-                        onChange={handleInputChange}
-                        rows={5}
                         required
                     />
                 </label>
                 <button type="submit" className="update-button">
-                    Update Exam
+                    Update Course
                 </button>
-                <button type="button" className="cancel-button" onClick={() => navigate(`/`)}>
+                <button type="button" className="cancel-button" onClick={() => navigate(`/course-info/${courseid}`)}>
                     Cancel
                 </button>
             </form>
@@ -175,4 +139,4 @@ const EditExamPage: React.FC = () => {
     );
 };
 
-export default EditExamPage;
+export default EditCoursePage;

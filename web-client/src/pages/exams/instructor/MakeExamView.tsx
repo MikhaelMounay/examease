@@ -10,7 +10,7 @@ import { useCourseContext } from "../../../contexts/CourseContext.tsx";
 
 const CreateExam: React.FC = () => {
     const { token } = useAuth();
-    const {courseData} = useCourseContext(); // TODO: ERROR: NOT GETTING THE CORRECT courseId FAILING TO CREATE EXAM
+    const { courseData } = useCourseContext(); // TODO: ERROR: NOT GETTING THE CORRECT courseId FAILING TO CREATE EXAM
     const [examName, setExamName] = useState("");
     const [examDate, setExamDate] = useState("");
     const [startTime, setStartTime] = useState("");
@@ -26,7 +26,7 @@ const CreateExam: React.FC = () => {
     const [codeSnippet, setCodeSnippet] = useState(""); // For the code snippet textarea
     const [maxGrade, setMaxGrade] = useState(0);
     const [dateError, setDateError] = useState("");
-
+    const [duration, setDuration] = useState<number | null>(null);
 
     // Load data from localStorage on page load
     useEffect(() => {
@@ -41,9 +41,23 @@ const CreateExam: React.FC = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (startTime && endTime) {
+            const start = new Date(`${examDate} ${startTime}`).getTime();
+            const end = new Date(`${examDate} ${endTime}`).getTime();
+            if (end > start) {
+                setDuration((end - start) / (1000 * 60)); // Calculate duration in minutes
+            } else {
+                setDuration(null); // Invalid duration
+            }
+        } else {
+            setDuration(null); // Incomplete data
+        }
+    }, [startTime, endTime, examDate]);
+
     // Add a new question
     const addQuestion = () => {
-        if (questionType && questionPrompt) {
+        if (questionType && questionPrompt && maxGrade > 0) {
             setQuestions((prevQuestions) => [
                 ...prevQuestions,
                 {
@@ -58,28 +72,34 @@ const CreateExam: React.FC = () => {
                 },
             ]);
             resetForm();
+        } else {
+            alert("Please complete all fields before adding the question.");
         }
     };
 
     // Update an existing question
     const saveEditedQuestion = () => {
-        setQuestions((prevQuestions) =>
-            prevQuestions.map((q) =>
-                q.id === editingQuestionId
-                    ? {
-                        ...q,
-                        type: questionType,
-                        prompt: questionPrompt,
-                        options: questionType === "mcq" ? options.filter(Boolean) : undefined,
-                        language: questionType === "Coding" ? codingLanguage : q.language,
-                        isCodeSnippet,
-                        codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet, // Update code snippet
-                        maxGrade: q.maxGrade,
-                    }
-                    : q
-            )
-        );
-        resetForm();
+        if (questionType && questionPrompt && maxGrade > 0) {
+            setQuestions((prevQuestions) =>
+                prevQuestions.map((q) =>
+                    q.id === editingQuestionId
+                        ? {
+                              ...q,
+                              type: questionType,
+                              prompt: questionPrompt,
+                              options: questionType === "mcq" ? options.filter(Boolean) : undefined,
+                              language: questionType === "Coding" ? codingLanguage : q.language,
+                              isCodeSnippet,
+                              codeSnippet: isCodeSnippet ? codeSnippet : q.codeSnippet,
+                              maxGrade: maxGrade, // Ensure updated max grade
+                          }
+                        : q
+                )
+            );
+            resetForm();
+        } else {
+            alert("Please complete all fields before saving the question.");
+        }
     };
 
     // Start editing a question
@@ -108,6 +128,7 @@ const CreateExam: React.FC = () => {
         setCodingLanguage("");
         setIsCodeSnippet(false);
         setCodeSnippet("");
+        setMaxGrade(0);
     };
 
     // Add an option for MCQs
@@ -171,12 +192,20 @@ const CreateExam: React.FC = () => {
             setDateError(""); // Clear error if validation passes
         }
     
-        // Proceed with the rest of the validation and mutation
+        // Ensure all required fields are filled
         if (!(examName && examDate && startTime && endTime && questions.length > 0)) {
-            console.error("Please fill in all fields and add at least one question");
+            console.error("Please fill in all fields and add at least one question.");
+            alert("Please fill in all fields and add at least one question.");
             return;
         }
     
+        // Validate duration
+        if (!duration || duration <= 0) {
+            alert("Invalid duration. Please check the start and end times.");
+            return;
+        }
+    
+        // Proceed with mutation
         createExamMutation.mutate({
             title: examName,
             examDate: examDate,
@@ -187,6 +216,7 @@ const CreateExam: React.FC = () => {
         });
     }
     
+
     return (
         <div className="create-exam-container">
             <h1>Create New Exam</h1>
@@ -216,7 +246,12 @@ const CreateExam: React.FC = () => {
                     End Time:
                     <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                 </label>
-            </div>
+                {duration !== null ? (
+                    <p>Duration: {duration} minutes</p>
+                ) : (
+                    <p style={{ color: "red" }}>Invalid start or end time.</p>
+                )}
+                        </div>
 
             {/* Question Form */}
             <div className="add-questions">
@@ -239,9 +274,15 @@ const CreateExam: React.FC = () => {
                         placeholder="Enter the question prompt"
                     />
                 </label>
-                <label className="code-snippet-label">
+
+                {/* Coding Snippet Checkbox */}
+                <label>
                     Will be a code snippet?
-                    <input type="checkbox" checked={isCodeSnippet} onChange={(e) => setIsCodeSnippet(e.target.checked)} />
+                    <input
+                        type="checkbox"
+                        checked={isCodeSnippet}
+                        onChange={(e) => setIsCodeSnippet(e.target.checked)}
+                    />
                 </label>
                 {isCodeSnippet && (
                     <label>
@@ -250,6 +291,37 @@ const CreateExam: React.FC = () => {
                             value={codeSnippet}
                             onChange={(e) => setCodeSnippet(e.target.value)}
                             placeholder="Enter the code snippet"
+                        />
+                    </label>
+                )}
+
+                {/* Programming Language Dropdown */}
+                {questionType === "Coding" && (
+                    <label>
+                        Programming Language:
+                        <select
+                            value={codingLanguage}
+                            onChange={(e) => setCodingLanguage(e.target.value)}
+                        >
+                            <option value="">Select Language</option>
+                            <option value="Java">Java</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="C++">C++</option>
+                        </select>
+                    </label>
+                )}
+
+                {/* Max Grade */}
+                {questionPrompt && questionType && (
+                    <label>
+                        Max Grade:
+                        <input
+                            type="number"
+                            value={maxGrade}
+                            onChange={(e) => setMaxGrade(Number(e.target.value))}
+                            placeholder="Enter max grade for this question"
+                            min="1"
                         />
                     </label>
                 )}
@@ -279,23 +351,10 @@ const CreateExam: React.FC = () => {
                     </div>
                 )}
 
-                {/* Coding Question Language */}
-                {questionType === "Coding" && (
-                    <>
-                        <label>
-                            Programming Language:
-                            <select value={codingLanguage} onChange={(e) => setCodingLanguage(e.target.value)}>
-                                <option value="">Select language</option>
-                                <option value="Python">Python</option>
-                                <option value="Java">Java</option>
-                                <option value="C++">C++</option>
-                                <option value="JavaScript">JavaScript</option>
-                            </select>
-                        </label>
-                    </>
-                )}
-
-                <button onClick={editingQuestionId ? saveEditedQuestion : addQuestion} className="add-question">
+                <button
+                    onClick={editingQuestionId ? saveEditedQuestion : addQuestion}
+                    className="add-question"
+                >
                     {editingQuestionId ? "Save Changes" : "Add Question"}
                 </button>
             </div>
@@ -309,6 +368,7 @@ const CreateExam: React.FC = () => {
                             <li key={question.id}>
                                 <strong>Type:</strong> {question.type} <br />
                                 <strong>Prompt:</strong> {question.prompt} <br />
+                                <strong>Max Grade:</strong> {question.maxGrade} pts<br />
                                 {question.isCodeSnippet && (
                                     <>
                                         <strong>Code Snippet:</strong>
@@ -318,7 +378,11 @@ const CreateExam: React.FC = () => {
                                 {question.type === "mcq" && (
                                     <>
                                         <strong>Options:</strong>
-                                        <ul>{question.options?.map((opt, idx) => <li key={idx}>{opt}</li>)}</ul>
+                                        <ul>
+                                            {question.options?.map((opt, idx) => (
+                                                <li key={idx}>{opt}</li>
+                                            ))}
+                                        </ul>
                                     </>
                                 )}
                                 {question.type === "Coding" && (
@@ -330,7 +394,10 @@ const CreateExam: React.FC = () => {
                                     <button onClick={() => editQuestion(question)}>
                                         <FontAwesomeIcon icon={faPen} />
                                     </button>
-                                    <button onClick={() => deleteQuestion(question.id)} className="delete-button">
+                                    <button
+                                        onClick={() => deleteQuestion(question.id)}
+                                        className="delete-button"
+                                    >
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </div>
@@ -344,7 +411,6 @@ const CreateExam: React.FC = () => {
             <button onClick={handleCreateExam} className="submit-exam">
                 Save Exam
             </button>
-            
         </div>
     );
 };

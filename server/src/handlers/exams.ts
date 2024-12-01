@@ -88,7 +88,7 @@ export const createExam = async (req: Request, res: Response) => {
 
         for (const question of questions) {
             // @ts-ignore
-            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: 0})
+            await db.insert(questionsTable).values({examId: newExam.id, prompt: question.prompt, progLang: progLangs[question.language || ""], maxGrade: question.m})
         }
 
         res.status(200).json(newExam);
