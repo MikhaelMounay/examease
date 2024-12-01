@@ -301,6 +301,7 @@ body,
     border: 1px solid #ddd;
     border-radius: 0 5px 5px 0;
     font-size: 1rem;
+    width: auto;
 }
 
 .input-box::placeholder {
@@ -511,10 +512,6 @@ body,
     width: 100%;
     max-width: 800px;
 }
-
-.action-button {
-}
-
 .action-button {
     background-color: var(--main-color);
     color: #fff;
@@ -535,26 +532,22 @@ body,
     font-size: 1.2rem;
 }
 
-.edit-exam {
-}
 
 .edit-exam {
     background-color: var(--main-color);
 }
 
-.delete-exam {
-}
 
 .delete-exam {
     background-color: var(--main-color);
-}
-
-.action-button:hover {
 }
 
 .action-button:hover {
     opacity: 0.8;
 }
+
+
+
 
 /*============================================================================================= Manage student view */
 .manage-students-container {
@@ -1461,19 +1454,20 @@ h2 {
     padding: 15px;
     border-radius: 8px;
     background-color: white;
+    width: 100%;
 }
 
 .exam-details label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #333333;
+    color: #333;
 }
 
 input,
 textarea,
 select {
-    width: 100%;
+    width:90%;
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 15px;
@@ -1570,7 +1564,7 @@ select:focus {
     margin-left: 5px;
 }
 
-.submit-button {
+.submit-exam {
     width: 100%;
     padding: 12px;
     font-size: 1.2em;
@@ -1584,11 +1578,14 @@ select:focus {
     transform 0.2s ease;
 }
 
-.submit-button:hover {
+.submit-exam:hover {
     background-color: var(--secondary-color);
     transform: scale(1.05);
 }
 
+.add-questions text {
+    font-weight:600;
+}
 
 /* Style for the Checkbox Container */
 label input[type="checkbox"] {
@@ -1630,7 +1627,7 @@ label input[type="checkbox"]:focus {
 /* Checkbox label */
 label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     font-size: 1rem;
     color: var(--text-color);
     cursor: pointer;
@@ -1646,6 +1643,62 @@ label span {
     font-weight: 600;
     margin-top: -20px;
 }
+
+/* General Styling for Input Container */
+.max-grade-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Label Styling */
+.questions-list label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Input Styling */
+.max-grade-container input[type="number"] {
+    width: 100%;
+    max-width: 150px; /* Optional: Adjust based on layout */
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.maxgrade-label {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1rem;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 600;
+}
+/* Hover and Focus Effects */
+.max-grade-container input[type="number"]:hover {
+    border-color: #888;
+}
+
+.max-grade-container input[type="number"]:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Error Message Styling */
+.max-grade-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .create-exam-container {
