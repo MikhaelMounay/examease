@@ -9,7 +9,7 @@ ExamEase is a software that provides a secure and safe examination environment f
 ## Contributors
 
 - [Mikhael Mounay Khalil](https://github.com/MikhaelMounay)
-- [Abdelrahman Nashed]()
+- [Abdelrahman Nashed](https://github.com/BoddaRx)
 - [Amonios Beshara](https://github.com/Amonios-Beshara)
 - [Kirollos Mounir](https://github.com/KirollosFady)
 - [Mostafa Hashish](https://github.com/mostafahashish42)
