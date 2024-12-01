@@ -1,21 +1,48 @@
-import { app, shell, BrowserWindow, ipcMain } from "electron";
+import { app, shell, BrowserWindow, ipcMain, clipboard } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
+import isVirtualMachine from "./utils/isVirtualMachine";
 
 function createWindow(): void {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 900,
-        height: 670,
+        width: 1366,
+        height: 768,
+        minWidth: 800,
+        minHeight: 600,
         show: false,
         autoHideMenuBar: true,
+        center: true,
+        alwaysOnTop: true,
         ...(process.platform === "linux" ? { icon } : {}),
         webPreferences: {
             preload: join(__dirname, "../preload/index.js"),
             sandbox: false,
         },
     });
+
+    /* == START: My Own Protection Snippets == */
+    // Enable content protection for the main window
+    mainWindow.setContentProtection(true);
+    mainWindow.setKiosk(true);
+
+    // Check if the system is a virtual machine
+    mainWindow.webContents.on("did-finish-load", async () => {
+        if (await isVirtualMachine()) {
+            mainWindow.webContents.send("isVirtualMachine");
+        }
+
+        const cannotCopyLink_interval = setInterval(() => {
+            clipboard.writeText("// Can't use clipboard while ExamEase is open!");
+        }, 100);
+
+        mainWindow.on("closed", () => {
+            clearInterval(cannotCopyLink_interval);
+        });
+    });
+
+    /* == END: My Own Protection Snippets == */
 
     mainWindow.on("ready-to-show", () => {
         mainWindow.show();

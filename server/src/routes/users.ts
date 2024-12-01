@@ -10,5 +10,4 @@ usersRouter.post("/login", loginUser);
 usersRouter.get("/user", authenticate, getUser);
 usersRouter.get("/:auc_Id", getUserById);
 
-
 export default usersRouter;

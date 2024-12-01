@@ -14,7 +14,7 @@ const JoinCoursePage: React.FC = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Token ${localStorage.getItem("user_token")}`,
+                    Authorization: `Token ${localStorage.getItem("user_token")}`,
                 },
                 body: JSON.stringify({
                     enrollmentKey: data.enrollmentKey,
@@ -59,7 +59,7 @@ const JoinCoursePage: React.FC = () => {
                     Enroll
                 </button>
 
-                <p className="text-red-600 text-sm mt-6">{errorMsg}</p>
+                <p className="mt-6 text-sm text-red-600">{errorMsg}</p>
             </div>
         </div>
     );

@@ -24,7 +24,11 @@ const ExamsView: React.FC = () => {
     };
 
     // Use `useQuery` to fetch exams for the current course
-    const { data: exams, error, isLoading } = useQuery({
+    const {
+        data: exams,
+        error,
+        isLoading,
+    } = useQuery({
         queryKey: ["exams", courseData?.id], // Using the course ID as part of the query key
         queryFn: () => {
             // Check if courseData?.id is defined before making the API request
@@ -40,12 +44,10 @@ const ExamsView: React.FC = () => {
     // Handle loading and error states
     if (isLoading) return <p>Loading exams...</p>;
     if (error instanceof Error) return <p>Error: {error.message}</p>;
-   
-   
+
     const handleCreateExam = () => {
         navigate("/make-exam");
     };
-
 
     return (
         <div className="exam-view-container">
@@ -67,12 +69,11 @@ const ExamsView: React.FC = () => {
                 ) : (
                     <p>No exams created for this course yet.</p>
                 )}
-
             </div>
             <button className="create-exam-button" onClick={handleCreateExam}>
-                                <FontAwesomeIcon icon={faPlus} className="create-exam-icon" />
-                                Create Exam
-                            </button>
+                <FontAwesomeIcon icon={faPlus} className="create-exam-icon" />
+                Create Exam
+            </button>
         </div>
     );
 };

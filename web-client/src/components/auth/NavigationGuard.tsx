@@ -12,7 +12,7 @@ const NavigationGuard = function () {
         if (isAuthenticated && (pathname.includes("login") || pathname.includes("register"))) {
             navigate("/", { replace: true });
         } else if (isAuthenticated === false) {
-            console.log(pathname)
+            console.log(pathname);
             if (!pathname.includes("login") && !pathname.includes("register")) {
                 navigate("/login");
             }

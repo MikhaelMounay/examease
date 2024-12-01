@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 type CodeEditorProps = {
     value: string;
     setValue: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
-const CodeEditor: React.FC<CodeEditorProps> = function(props) {
+const CodeEditor: React.FC<CodeEditorProps> = function (props) {
     const editorRef = useRef<editor.IStandaloneCodeEditor>();
     const [language, _setLanguage] = useState("cpp");
 
@@ -24,9 +24,16 @@ const CodeEditor: React.FC<CodeEditorProps> = function(props) {
 
     return (
         <div>
-            <p className="mb-4 italic border-primary border rounded px-4 py-1 opacity-80">Language: C++ - version 10.2.0</p>
-            <Editor theme="vs-dark" height="70vh" language={language} defaultValue={defaultValue} value={props.value}
-                    onChange={(value) => props.setValue(value || "")} onMount={handleEditorDidMount} />
+            <p className="border-primary mb-4 rounded border px-4 py-1 italic opacity-80">Language: C++ - version 10.2.0</p>
+            <Editor
+                theme="vs-dark"
+                height="70vh"
+                language={language}
+                defaultValue={defaultValue}
+                value={props.value}
+                onChange={(value) => props.setValue(value || "")}
+                onMount={handleEditorDidMount}
+            />
         </div>
     );
 };

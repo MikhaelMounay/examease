@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import CodeEditor from "./CodeEditor.tsx";
 import CodeOutput from "./CodeOutput.tsx";
-type CodingQuestionprops = {starterCode: string}
+type CodingQuestionprops = { starterCode: string };
 
-const CodingQuestion: React.FC <CodingQuestionprops> = function (props) {
+const CodingQuestion: React.FC<CodingQuestionprops> = function (props) {
     const [value, setValue] = useState("");
-    useEffect(()=>{
-        setValue(props.starterCode)
-    }, [props.starterCode])
+    useEffect(() => {
+        setValue(props.starterCode);
+    }, [props.starterCode]);
 
     return (
         <div className="w-full">
@@ -21,7 +21,7 @@ const CodingQuestion: React.FC <CodingQuestionprops> = function (props) {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CodingQuestion;

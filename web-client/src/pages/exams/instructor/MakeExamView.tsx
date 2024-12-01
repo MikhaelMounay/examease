@@ -184,27 +184,27 @@ const CreateExam: React.FC = () => {
     function handleCreateExam() {
         const currentDate = new Date();
         const selectedExamDate = new Date(examDate);
-    
+
         if (selectedExamDate < currentDate) {
             setDateError("The exam date must be in the future.");
             return;
         } else {
             setDateError(""); // Clear error if validation passes
         }
-    
+
         // Ensure all required fields are filled
         if (!(examName && examDate && startTime && endTime && questions.length > 0)) {
             console.error("Please fill in all fields and add at least one question.");
             alert("Please fill in all fields and add at least one question.");
             return;
         }
-    
+
         // Validate duration
         if (!duration || duration <= 0) {
             alert("Invalid duration. Please check the start and end times.");
             return;
         }
-    
+
         // Proceed with mutation
         createExamMutation.mutate({
             title: examName,
@@ -215,7 +215,6 @@ const CreateExam: React.FC = () => {
             courseId: courseData?.id || 1,
         });
     }
-    
 
     return (
         <div className="create-exam-container">
@@ -251,7 +250,7 @@ const CreateExam: React.FC = () => {
                 ) : (
                     <p style={{ color: "red" }}>Invalid start or end time.</p>
                 )}
-                        </div>
+            </div>
 
             {/* Question Form */}
             <div className="add-questions">
@@ -278,11 +277,7 @@ const CreateExam: React.FC = () => {
                 {/* Coding Snippet Checkbox */}
                 <label>
                     Will be a code snippet?
-                    <input
-                        type="checkbox"
-                        checked={isCodeSnippet}
-                        onChange={(e) => setIsCodeSnippet(e.target.checked)}
-                    />
+                    <input type="checkbox" checked={isCodeSnippet} onChange={(e) => setIsCodeSnippet(e.target.checked)} />
                 </label>
                 {isCodeSnippet && (
                     <label>
@@ -299,10 +294,7 @@ const CreateExam: React.FC = () => {
                 {questionType === "Coding" && (
                     <label>
                         Programming Language:
-                        <select
-                            value={codingLanguage}
-                            onChange={(e) => setCodingLanguage(e.target.value)}
-                        >
+                        <select value={codingLanguage} onChange={(e) => setCodingLanguage(e.target.value)}>
                             <option value="">Select Language</option>
                             <option value="Java">Java</option>
                             <option value="JavaScript">JavaScript</option>
@@ -351,10 +343,7 @@ const CreateExam: React.FC = () => {
                     </div>
                 )}
 
-                <button
-                    onClick={editingQuestionId ? saveEditedQuestion : addQuestion}
-                    className="add-question"
-                >
+                <button onClick={editingQuestionId ? saveEditedQuestion : addQuestion} className="add-question">
                     {editingQuestionId ? "Save Changes" : "Add Question"}
                 </button>
             </div>
@@ -368,7 +357,8 @@ const CreateExam: React.FC = () => {
                             <li key={question.id}>
                                 <strong>Type:</strong> {question.type} <br />
                                 <strong>Prompt:</strong> {question.prompt} <br />
-                                <strong>Max Grade:</strong> {question.maxGrade} pts<br />
+                                <strong>Max Grade:</strong> {question.maxGrade} pts
+                                <br />
                                 {question.isCodeSnippet && (
                                     <>
                                         <strong>Code Snippet:</strong>
@@ -378,11 +368,7 @@ const CreateExam: React.FC = () => {
                                 {question.type === "mcq" && (
                                     <>
                                         <strong>Options:</strong>
-                                        <ul>
-                                            {question.options?.map((opt, idx) => (
-                                                <li key={idx}>{opt}</li>
-                                            ))}
-                                        </ul>
+                                        <ul>{question.options?.map((opt, idx) => <li key={idx}>{opt}</li>)}</ul>
                                     </>
                                 )}
                                 {question.type === "Coding" && (
@@ -394,10 +380,7 @@ const CreateExam: React.FC = () => {
                                     <button onClick={() => editQuestion(question)}>
                                         <FontAwesomeIcon icon={faPen} />
                                     </button>
-                                    <button
-                                        onClick={() => deleteQuestion(question.id)}
-                                        className="delete-button"
-                                    >
+                                    <button onClick={() => deleteQuestion(question.id)} className="delete-button">
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </div>
